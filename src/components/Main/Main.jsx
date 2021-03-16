@@ -1,12 +1,14 @@
 import React from "react";
-import home1 from "../img/home1.jpeg";
-import { About, Description, Image, Hide } from "../styles";
+import home1 from "../../img/home1.jpeg";
+import { About, Description, Image, Hide } from "../../styles";
 //Framer Motion
 import { motion } from "framer-motion";
-import { titleAnim, fade, photoAnim } from "../animation";
-import Wave from "./Wave";
+import { titleAnim, fade, photoAnim } from "../../animation";
+import Wave from "../Wave";
+import { Link } from "react-router-dom";
+import "./Main.scss";
 
-const AboutSection = () => {
+const Main = () => {
   return (
     <About>
       <Description>
@@ -28,10 +30,22 @@ const AboutSection = () => {
           <br />
           삼성전자, 한국항공대학교 등 수많은 조직에서 코맷을 만나보세요.
         </motion.p>
-        <motion.button variants={fade}>그룹 검색하기</motion.button>
+        <Link to="/register">
+          <motion.button variants={fade} className="Main__btn-register">
+            회원 가입하기
+          </motion.button>
+        </Link>
+        <Link to="/group">
+          <motion.button variants={fade}>그룹 검색하기</motion.button>
+        </Link>
       </Description>
       <Image>
-        <motion.img variants={photoAnim} src={home1} alt="guy with a camera" />
+        <motion.img
+          style={{ borderRadius: "8px" }}
+          variants={photoAnim}
+          src={home1}
+          alt="study"
+        />
       </Image>
       <Wave />
     </About>
@@ -40,4 +54,4 @@ const AboutSection = () => {
 
 //Styled Components
 
-export default AboutSection;
+export default Main;

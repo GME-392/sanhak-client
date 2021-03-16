@@ -7,7 +7,7 @@ export const About = styled(motion.div)`
   align-items: center;
   justify-content: space-between;
   padding: 5rem 10rem;
-  color: white;
+  color: #333333;
   @media (max-width: 1300px) {
     display: block;
     padding: 2rem 2rem;
