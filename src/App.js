@@ -3,7 +3,7 @@ import React from "react";
 import GlobalStyle from "./components/GlobalStyle";
 //Import Pages
 import About from "./pages/About";
-import GroupList from "./pages/GroupList";
+import Group from "./pages/Group";
 import Nav from "./components/Nav";
 import Rank from "./pages/Rank";
 import Login from "./pages/Login";
@@ -27,7 +27,7 @@ function App() {
             <About />
           </Route>
           <Route path="/group" exact>
-            <GroupList />
+            <Group />
           </Route>
           <Route path="/rank" exact>
             <Rank />

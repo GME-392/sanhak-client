@@ -13,7 +13,7 @@ import {
 } from "../animation";
 import { useScroll } from "../components/useScroll";
 import ScrollTop from "../components/ScrollTop";
-import GroupSearch from "../components/GroupSearch";
+import GroupSearch from "../components/GroupSearch/GroupSearch";
 
 const Rank = () => {
   return (
@@ -27,12 +27,6 @@ const Rank = () => {
       <Menu>
         <motion.h2 variants={fade}>랭킹</motion.h2>
         <motion.div variants={lineAnim} className="line"></motion.div>
-        <GroupSearch></GroupSearch>
-        <Link to="/work/the-athlete">
-          <Hide>
-            <motion.div>그룹 리스트 컴포넌트</motion.div>
-          </Hide>
-        </Link>
       </Menu>
     </Work>
   );

@@ -13,9 +13,10 @@ import {
 } from "../animation";
 import { useScroll } from "../components/useScroll";
 import ScrollTop from "../components/ScrollTop";
-import GroupSearch from "../components/GroupSearch";
+import GroupList from "../components/GroupList/GroupList";
+import GroupSearch from "../components/GroupSearch/GroupSearch";
 
-const GroupList = () => {
+const Group = () => {
   return (
     <Work
       style={{ background: "#fff" }}
@@ -27,12 +28,12 @@ const GroupList = () => {
       <Menu>
         <motion.h2 variants={fade}>그룹 찾기</motion.h2>
         <motion.div variants={lineAnim} className="line"></motion.div>
-        <GroupSearch></GroupSearch>
-        <Link to="/work/the-athlete">
-          <Hide>
-            <motion.div>그룹 리스트 컴포넌트</motion.div>
-          </Hide>
-        </Link>
+        <GroupSearch />
+        <Hide>
+          <motion.div>
+            <GroupList></GroupList>
+          </motion.div>
+        </Hide>
       </Menu>
     </Work>
   );
@@ -88,4 +89,4 @@ const Frame4 = styled(Frame1)`
   background: #8effa0;
 `;
 
-export default GroupList;
+export default Group;
