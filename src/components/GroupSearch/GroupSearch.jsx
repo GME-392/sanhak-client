@@ -1,4 +1,5 @@
 import React from "react";
+import "./GroupSearch.scss";
 
 const GroupSearch = () => {
   return (
