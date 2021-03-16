@@ -3,10 +3,11 @@ import React from "react";
 import GlobalStyle from "./components/GlobalStyle";
 //Import Pages
 import About from "./pages/About";
-import Contact from "./pages/Contact";
-import Attendance from "./pages/Attendance";
+import GroupList from "./pages/GroupList";
 import Nav from "./components/Nav";
-import MovieDetail from "./pages/MovieDetail";
+import Rank from "./pages/Rank";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 //Router
 import { Switch, Route, useLocation } from "react-router-dom";
 //Animation
@@ -25,14 +26,17 @@ function App() {
           <Route path="/" exact>
             <About />
           </Route>
-          <Route path="/work" exact>
-            <Attendance />
+          <Route path="/group" exact>
+            <GroupList />
           </Route>
-          <Route path="/work/:id">
-            <MovieDetail />
+          <Route path="/rank" exact>
+            <Rank />
           </Route>
-          <Route path="/contact">
-            <Contact />
+          <Route path="/login" exact>
+            <Login />
+          </Route>
+          <Route path="/register" exact>
+            <Register />
           </Route>
         </Switch>
       </AnimatePresence>

@@ -1,6 +1,6 @@
 import React from "react";
 //Page Components
-import AboutSection from "../components/AboutSection";
+import Main from "../components/Main/Main";
 import ServicesSection from "../components/ServicesSection";
 import FaqSection from "../components/FaqSection";
 //Animations
@@ -16,7 +16,7 @@ const About = () => {
       initial="hidden"
       animate="show"
     >
-      <AboutSection />
+      <Main />
       <ServicesSection />
       <FaqSection />
       <ScrollTop />

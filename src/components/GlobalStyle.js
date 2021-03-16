@@ -16,7 +16,6 @@ html{
 }
 
 body{
-    background: #1b1b1b;
     font-family: 'Inter', sans-serif;
     overflow-x: hidden;
 }
@@ -25,13 +24,15 @@ button{
     font-size: 1.1.rem;
     cursor: pointer;
     padding: 1rem 2rem;
-    border: 3px solid #23d997;
-    background: transparent;
+    border: 3px solid #40368a;
+    border-radius: 8px;
     color: white;
+    background-color: #40368a;
     transition: all 0.5s ease;
     font-family: 'Inter', sans-serif;
     &:hover{
-        background-color: #23d997;
+        background-color: #638ce6;
+        border: 3px solid #638ce6;
         color: white;
     }
 }
@@ -52,11 +53,11 @@ button{
     }
     span{
         font-weight: bold;
-        color:#23d997;
+        color:#40368a;
     }
     p{
         padding: 3rem 0rem;
-        color: #ccc;
+        color: #333;
         font-size: 1.4rem;
         line-height: 150%;
     }
