@@ -4,13 +4,13 @@
 ## 스크린샷
 
 ## 팀원 정보
-??? - 김지인 [@jane-k](그룹 데이터베이스 제작 및 REST API 배포)  
+😈그룹 데이터베이스 제작 및 REST API 배포 - 김지인 [@jane-k]()  
 
 🌃 클라이언트 UI 제작 - 김찬민 [@c17an]()  
 
 ??? - 김태현 [@kimtaehyun98]() 
 
-??? - 천수환 [@suhwan-cheon]()  
+??? - 천수환 [@suhwan-cheon]()
 
 ??? - 이은현 [@SongGol]()
 
