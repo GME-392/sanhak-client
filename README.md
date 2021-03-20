@@ -10,7 +10,7 @@
 
 😈 출석 및 문제 추천 기능 제작 - 김태현 [@kimtaehyun98]()  
 
-??? - 천수환 [@suhwan-cheon]()  
+🐨 계정 인증 및 권한 관리 - 천수환 [@suhwan-cheon]()  
 
 ??? - 이은현 [@SongGol]()
 
