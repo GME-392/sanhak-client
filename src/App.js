@@ -12,7 +12,7 @@ import Register from "./pages/Register";
 import { Switch, Route, useLocation } from "react-router-dom";
 //Animation
 import { AnimatePresence } from "framer-motion";
-import "./style/App.scss";
+import "./style/app.scss";
 
 function App() {
   const location = useLocation();
