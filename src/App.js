@@ -13,6 +13,7 @@ import { Switch, Route, useLocation } from "react-router-dom";
 //Animation
 import { AnimatePresence } from "framer-motion";
 import "./style/app.scss";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   const location = useLocation();
@@ -41,6 +42,7 @@ function App() {
           </Route>
         </Switch>
       </AnimatePresence>
+      <Footer />
     </div>
   );
 }

@@ -1,0 +1,16 @@
+hr {
+  margin-bottom: 2rem;
+  border: 1px solid #cdcdcd;
+  border-bottom: none;
+}
+
+.Footer__container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 3rem;
+  div {
+    margin: 0.3rem 0;
+  }
+}
