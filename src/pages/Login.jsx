@@ -51,7 +51,6 @@ const Login = () => {
 };
 
 const Work = styled(motion.div)`
-  min-height: 100vh;
   overflow: hidden;
   padding: 5rem 10rem;
   @media (max-width: 1300px) {
