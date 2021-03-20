@@ -24,11 +24,27 @@ const Login = () => {
       <Menu>
         <motion.h2 variants={fade}>로그인</motion.h2>
         <motion.div variants={lineAnim} className="line"></motion.div>
-        <Link to="/work/the-athlete">
-          <Hide>
-            <motion.div>그룹 리스트 컴포넌트</motion.div>
-          </Hide>
-        </Link>
+        <div className="login__container">
+          <div className="login__input-container">
+            <label htmlFor="login__id">아이디</label>
+            <input
+              id="login__id"
+              placeholder="아이디 또는 이메일을 입력하세요"
+            ></input>
+            <label htmlFor="login__pw">비밀번호</label>
+            <input id="login__pw" placeholder="비밀번호를 입력하세요"></input>
+          </div>
+          <div className="login__button">
+            <Link to="/forgot">
+              <div className="login__forgot">아이디/비밀번호를 잊으셨나요?</div>
+            </Link>
+            <div className="login__auto-container">
+              <input id="login__auto" type="checkbox" />
+              <label htmlFor="login__auto">자동 로그인</label>
+            </div>
+            <button>로그인</button>
+          </div>
+        </div>
       </Menu>
     </Work>
   );
