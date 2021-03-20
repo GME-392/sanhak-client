@@ -5,7 +5,8 @@ const GlobalStyle = createGlobalStyle`
 *{
     margin: 0;
     padding: 0;
-    box-sizing: border-box
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', NanumSquare, sans-serif;
 }
 
 html{
@@ -16,9 +17,9 @@ html{
 }
 
 body{
-    font-family: 'Inter', sans-serif;
     overflow-x: hidden;
 }
+
 button{
     font-weight: bold;
     font-size: 1.1.rem;
