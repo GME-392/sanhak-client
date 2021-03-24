@@ -1,0 +1,23 @@
+.GroupList__container {
+  transition: 0.3s ease-in;
+  border: 1px solid #cdcdcd;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 1rem;
+  cursor: pointer;
+}
+
+.GroupList__container:hover {
+  transition: 0.18s ease-in-out;
+  transform: scale(1.01);
+  box-shadow: 2px 2px 5px #999999;
+}
+
+.GroupList__name {
+  font-size: 1.3rem;
+}
+
+.GroupList__leader {
+  margin: 1rem 0;
+  font-size: 1.1rem;
+}

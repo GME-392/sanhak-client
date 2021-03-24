@@ -1,0 +1,59 @@
+{
+  "groups": [
+    {
+      "id": 1,
+      "name": "항공대 알고리즘 소모임, Koala",
+      "leader": "suhwanc",
+      "tag": ["dp", "dfs", "dijkstra"],
+      "rank": 1,
+      "tier": "Gold III",
+      "member": ["suhwanc", "c17an", "taehyun98", "CaptainJunhwee"],
+      "max_member": 40,
+      "status": "open"
+    },
+    {
+      "id": 2,
+      "name": "홍익대 알고리즘 스터디",
+      "leader": "leeleetheGirl",
+      "tag": ["취준생", "dfs", "대기업"],
+      "rank": 2,
+      "tier": "Silver IV",
+      "member": ["leeleetheGirl", "hongik"],
+      "max_member": 40,
+      "status": "open"
+    },
+    {
+      "id": 3,
+      "name": "삼성전자 무선사업부 스터디",
+      "leader": "Jaedragon_the_god",
+      "tag": ["삼성전자", "B형", "열공러들"],
+      "rank": 3,
+      "tier": "Platinum I",
+      "member": ["Jaedragon_the_god", "samsung"],
+      "max_member": 100,
+      "status": "open"
+    },
+    {
+      "id": 4,
+      "name": "건국대학교 중앙 프로그래밍 동아리, 비빔밥",
+      "leader": "singsangsung",
+      "tag": ["건국대", "알고리즘", "취준생"],
+      "rank": 4,
+      "tier": "Bronze I",
+      "member": ["singsangsung", "konkuk"],
+      "max_member": 40,
+      "status": "open"
+    },
+    {
+      "id": 5,
+      "name": "항공대학교 2021-1학기 문제해결기법 강의실",
+      "leader": "Inbok_the_King",
+      "tag": ["항공대", "알고리즘"],
+      "rank": 0,
+      "tier": "UnRatable",
+      "member": ["Inbok_the_King", "suhwanc"],
+      "max_member": 20,
+      "status": "open"
+    }
+  ]
+}

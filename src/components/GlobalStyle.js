@@ -42,7 +42,7 @@ button{
         font-size: 4rem;
     }
     h3{
-        color: white;
+        font-size: 1.5rem;
     }
     h4{
         font-weight: bold;

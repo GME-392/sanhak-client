@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 //Animations
@@ -15,8 +15,16 @@ import { useScroll } from "../components/useScroll";
 import ScrollTop from "../components/ScrollTop";
 import GroupList from "../components/GroupList/GroupList";
 import GroupSearch from "../components/GroupSearch/GroupSearch";
+import axios from "axios";
 
 const Group = () => {
+  const [groupList, setGroupList] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/groups")
+      .then((res) => setGroupList(res.data));
+  }, []);
+
   return (
     <Work
       style={{ background: "#fff" }}
@@ -28,11 +36,14 @@ const Group = () => {
       <Menu>
         <motion.h2 variants={fade}>그룹 찾기</motion.h2>
         <motion.div variants={lineAnim} className="line"></motion.div>
-        <GroupSearch />
-        <Hide>
-          <motion.div>
-            <GroupList></GroupList>
+        <GroupSearch groupList={groupList} setGroupList={setGroupList} />
+        <Hide className="Group__container">
+          <motion.div className="Group__groupList">
+            {groupList.map((group) => (
+              <GroupList data={group}></GroupList>
+            ))}
           </motion.div>
+          <motion.div className="Group__ad">광고</motion.div>
         </Hide>
       </Menu>
     </Work>
@@ -44,7 +55,7 @@ const Work = styled(motion.div)`
   overflow: hidden;
   padding: 5rem 10rem;
   @media (max-width: 1300px) {
-    padding: 2rem 2rem;
+    padding: 1rem 1rem;
   }
 
   h2 {
@@ -52,7 +63,7 @@ const Work = styled(motion.div)`
   }
 `;
 const Menu = styled(motion.div)`
-  padding-bottom: 10rem;
+  padding-bottom: 1rem;
 
   .line {
     height: 0.5rem;
