@@ -1,0 +1,50 @@
+.Group__ad {
+  display: inline-block;
+  background-color: antiquewhite;
+  margin: 3rem;
+  height: 500px;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+}
+
+.Group__container {
+  display: flex;
+}
+
+.Group__groupList {
+  display: inline-block;
+  flex: 7;
+  width: 80%;
+  max-height: 500px;
+  overflow-y: scroll;
+  margin-top: 1rem;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.Group__groupList::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 800px) {
+  .Group__container {
+    flex-direction: column;
+  }
+  .Group__groupList {
+    display: inline-block;
+    width: 100%;
+  }
+  .Group__ad {
+    display: inline-block;
+    background-color: antiquewhite;
+    margin: 0;
+    margin-top: 1rem;
+    height: 300px;
+    width: 100%;
+    flex: 1;
+  }
+}

@@ -14,8 +14,21 @@ import {
 import { useScroll } from "../components/useScroll";
 import ScrollTop from "../components/ScrollTop";
 import GroupSearch from "../components/GroupSearch/GroupSearch";
+import moment from "moment";
+import "moment/locale/ko";
 
 const Rank = () => {
+  var currentDate = moment();
+  moment.locale("ko");
+
+  var weekStart = currentDate.clone().startOf("isoweek");
+
+  var days = [];
+
+  for (var i = 0; i <= 6; i++) {
+    console.log(moment(weekStart).add(i, "days").format("MMMM Do,dddd"));
+  }
+
   return (
     <Work
       style={{ background: "#fff" }}
@@ -28,6 +41,11 @@ const Rank = () => {
         <motion.h2 variants={fade}>랭킹</motion.h2>
         <motion.div variants={lineAnim} className="line"></motion.div>
       </Menu>
+      <motion.div className="Rank__variants">
+        <motion.h3>명예의 전당</motion.h3>
+        <motion.h3>그룹 랭킹</motion.h3>
+        <motion.h3>유저 랭킹</motion.h3>
+      </motion.div>
     </Work>
   );
 };
@@ -46,8 +64,6 @@ const Work = styled(motion.div)`
 `;
 
 const Menu = styled(motion.div)`
-  padding-bottom: 10rem;
-
   .line {
     height: 0.5rem;
     background: #40368a;

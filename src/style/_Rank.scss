@@ -1,0 +1,26 @@
+.Rank__variants {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  display: flex;
+  cursor: pointer;
+  h3 {
+    transition: 0.3s ease;
+    margin: 0 3rem;
+    flex: 1;
+    text-align: center;
+    border: 1px solid #cdcdcd;
+    padding: 1rem;
+    border-radius: 12px;
+    background-color: #efefef;
+  }
+  h3:hover {
+    transition: 0.3s ease;
+    background-color: #5073a8;
+    color: #ffffff;
+  }
+  h3:active {
+    transition: 0.3s ease;
+    background-color: #40368a;
+  }
+}

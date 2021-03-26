@@ -2,3 +2,16 @@ input {
   width: 100%;
   padding: 10px;
 }
+
+.GroupSearch__container {
+  display: flex;
+  align-items: center;
+  input {
+    flex: 9;
+    margin: 0;
+  }
+  button {
+    flex: 1;
+    margin: 0 2rem;
+  }
+}
