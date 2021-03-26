@@ -16,9 +16,17 @@ import ScrollTop from "../components/ScrollTop";
 import GroupList from "../components/GroupList/GroupList";
 import GroupSearch from "../components/GroupSearch/GroupSearch";
 import axios from "axios";
+import { Pagination } from "react-bootstrap";
+import CreateGroupModal from "../components/CreateGroupModal/CreateGroupModal";
+import GroupInfoModal from "../components/GroupInfoModal/GroupInfoModal";
 
 const Group = () => {
+  const [showCreateGroupModal, setShowCreateGroupModal] = useState(false);
+  const [showGroupInfoModal, setShowGroupInfoModal] = useState(false);
+  const [selected, setSelected] = useState(null);
+  const [selectedGroupInfo, setSelectedGroupInfo] = useState(null);
   const [groupList, setGroupList] = useState([]);
+
   useEffect(() => {
     axios
       .get("http://localhost:4000/groups")
@@ -36,15 +44,36 @@ const Group = () => {
       <Menu>
         <motion.h2 variants={fade}>그룹 찾기</motion.h2>
         <motion.div variants={lineAnim} className="line"></motion.div>
-        <GroupSearch groupList={groupList} setGroupList={setGroupList} />
+        <GroupSearch
+          groupList={groupList}
+          setGroupList={setGroupList}
+          setShow={setShowCreateGroupModal}
+        />
         <Hide className="Group__container">
           <motion.div className="Group__groupList">
             {groupList.map((group) => (
-              <GroupList data={group}></GroupList>
+              <GroupList
+                key={group.id}
+                data={group}
+                id={group.id}
+                setShowGroupInfoModal={setShowGroupInfoModal}
+                showGroupInfoModal={showGroupInfoModal}
+                setSelected={setSelected}
+                setSelectedGroupInfo={setSelectedGroupInfo}
+              ></GroupList>
             ))}
           </motion.div>
           <motion.div className="Group__ad">광고</motion.div>
         </Hide>
+        <GroupInfoModal
+          setShowGroupInfoModal={setShowGroupInfoModal}
+          showGroupInfoModal={showGroupInfoModal}
+          data={selectedGroupInfo}
+        />
+        <CreateGroupModal
+          showCreateGroupModal={showCreateGroupModal}
+          setShowCreateGroupModal={setShowCreateGroupModal}
+        />
       </Menu>
     </Work>
   );
