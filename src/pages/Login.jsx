@@ -32,7 +32,11 @@ const Login = () => {
               placeholder="아이디 또는 이메일을 입력하세요"
             ></input>
             <label htmlFor="login__pw">비밀번호</label>
-            <input id="login__pw" placeholder="비밀번호를 입력하세요"></input>
+            <input
+              id="login__pw"
+              type="password"
+              placeholder="비밀번호를 입력하세요"
+            ></input>
           </div>
           <div className="login__button">
             <Link to="/forgot">
