@@ -13,6 +13,8 @@ import {
 } from "../animation";
 import { useScroll } from "../components/useScroll";
 import ScrollTop from "../components/ScrollTop";
+import Term from "../components/Terms/Term";
+import { Button } from "react-bootstrap";
 
 const Register = () => {
   return (
@@ -24,17 +26,48 @@ const Register = () => {
       animate="show"
     >
       <Menu>
-        <motion.h2 variants={fade}>회원 가입</motion.h2>
-        <motion.div variants={lineAnim} className="line"></motion.div>
-        <Link to="/work/the-athlete">
-          <Hide>
-            <motion.div>그룹 리스트 컴포넌트</motion.div>
-          </Hide>
-        </Link>
+        <Hide>
+          <Container className="Container">
+            <h3 className="Register-text">회원가입</h3>
+            <TermContainer>
+              <Term termContent={"안녕하세요,"} termId={"termA"}></Term>
+              <Term termContent={"안녕하세요,"} termId={"termB"}></Term>
+            </TermContainer>
+            <Button>다음으로 넘어가기</Button>
+          </Container>
+        </Hide>
       </Menu>
     </Work>
   );
 };
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  border: 1px solid #cdcdcd;
+  height: 80%;
+  border-radius: 12px;
+  background-color: white;
+  font-family: Noto Sans KR;
+  padding-bottom: 15px;
+
+  @media (max-width: 768px) {
+    width: 100% !important;
+    border: none !important;
+  }
+`;
+
+const TermContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  @media (max-width: 768px) {
+    align-items: center;
+    flex-direction: column;
+  }
+`;
 
 const Work = styled(motion.div)`
   min-height: 100vh;
@@ -50,8 +83,6 @@ const Work = styled(motion.div)`
 `;
 
 const Menu = styled(motion.div)`
-  padding-bottom: 10rem;
-
   .line {
     height: 0.5rem;
     background: #40368a;
@@ -66,6 +97,8 @@ const Menu = styled(motion.div)`
 
 const Hide = styled.div`
   overflow: hidden;
+  display: flex;
+  justify-content: center;
 `;
 
 export default Register;

@@ -25,6 +25,7 @@ const GroupSearch = ({ setGroupList, setShow }) => {
         type="text"
         placeholder="태그, 리더명 또는 그룹명을 검색하세요"
         onChange={(e) => handleOnChange(e)}
+        className="GroupSearch__input"
       />
       <button onClick={handleShow}>그룹 생성하기</button>
     </div>
