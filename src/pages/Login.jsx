@@ -27,16 +27,16 @@ const Login = () => {
         <div className="login__container">
           <div className="login__input-container">
             <label htmlFor="login__id">아이디</label>
-            <input
+            <Input
               id="login__id"
               placeholder="아이디 또는 이메일을 입력하세요"
-            ></input>
+            ></Input>
             <label htmlFor="login__pw">비밀번호</label>
-            <input
+            <Input
               id="login__pw"
               type="password"
               placeholder="비밀번호를 입력하세요"
-            ></input>
+            ></Input>
           </div>
           <div className="login__button">
             <Link to="/forgot">
@@ -83,23 +83,11 @@ const Hide = styled.div`
   overflow: hidden;
 `;
 
-//Frame Animation
-const Frame1 = styled(motion.div)`
-  position: fixed;
-  left: 0;
-  top: 10%;
+const Input = styled.input`
+  margin-top: 8px;
+  margin-bottom: 16px;
+  padding: 1rem;
   width: 100%;
-  height: 100vh;
-  background: #fffebf;
-  z-index: 2;
 `;
-const Frame2 = styled(Frame1)`
-  background: #ff8efb;
-`;
-const Frame3 = styled(Frame1)`
-  background: #8ed2ff;
-`;
-const Frame4 = styled(Frame1)`
-  background: #8effa0;
-`;
+
 export default Login;
