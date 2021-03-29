@@ -33,7 +33,6 @@ button{
     font-family: 'Inter', sans-serif;
     &:hover{
         background-color: #638ce6;
-        border: 3px solid #638ce6;
         color: white;
     }
 }
