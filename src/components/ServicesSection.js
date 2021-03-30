@@ -5,7 +5,7 @@ import diaphragm from "../img/diaphragm.svg";
 import growth from "../img/growth.svg";
 import teamwork from "../img/teamwork.svg";
 import share from "../img/share.svg";
-import home2 from "../img/award.jpeg";
+import award from "../img/award.png";
 //Styles
 import { About, Description, Image } from "../styles";
 import styled from "styled-components";
@@ -72,7 +72,7 @@ const ServicesSection = () => {
         </Cards>
       </Description>
       <Image>
-        <img alt="camera" src={home2} />
+        <img alt="award" src={award} />
       </Image>
     </Services>
   );
