@@ -38,7 +38,7 @@ button{
 }
     h2{
         font-weight: lighter;
-        font-size: 4rem;
+        font-size: 3.3rem;
     }
     h3{
         font-size: 1.5rem;
@@ -56,10 +56,9 @@ button{
         color:#40368a;
     }
     p{
-        padding: 3rem 0rem;
+        padding: 1.5rem 0rem;
         color: #333;
         font-size: 1.4rem;
-        line-height: 150%;
     }
 
 `;
