@@ -2,9 +2,10 @@ import React from "react";
 //Import Icons
 import clock from "../img/clock.svg";
 import diaphragm from "../img/diaphragm.svg";
-import money from "../img/money.svg";
+import growth from "../img/growth.svg";
 import teamwork from "../img/teamwork.svg";
-import home2 from "../img/home2.png";
+import share from "../img/share.svg";
+import home2 from "../img/award.jpeg";
 //Styles
 import { About, Description, Image } from "../styles";
 import styled from "styled-components";
@@ -22,36 +23,51 @@ const ServicesSection = () => {
     >
       <Description>
         <h2>
-          High <span>quality</span> services
+          함께, <span>최고</span>를 향해.
         </h2>
         <Cards>
           <Card>
             <div className="icon">
               <img alt="icon" src={clock} />
-              <h3>Efficient</h3>
+              <h3>도전</h3>
             </div>
-            <p>Lorem ipsum dolor sit amet.</p>
+            <p className="section__text">
+              더 어려운 문제를
+              <br />더 빨리 풀어보세요!
+            </p>
+          </Card>
+          <Card>
+            <div className="icon">
+              <img alt="icon" src={growth} />
+              <h3>성장</h3>
+            </div>
+            <p className="section__text">
+              코딩 테스트, 그리고
+              <br />
+              개발자의 성장을 위해
+            </p>
+          </Card>
+          <Card>
+            <div className="icon">
+              <img alt="icon" src={share} />
+              <h3>공유</h3>
+            </div>
+            <p className="section__text">
+              이젠 혼자가 아니에요!
+              <br />
+              모두와 함께하는 성장
+            </p>
           </Card>
           <Card>
             <div className="icon">
               <img alt="icon" src={teamwork} />
-              <h3>Teamwork</h3>
+              <h3>팀워크</h3>
             </div>
-            <p>Lorem ipsum dolor sit amet.</p>
-          </Card>
-          <Card>
-            <div className="icon">
-              <img alt="icon" src={diaphragm} />
-              <h3>Diaphragm</h3>
-            </div>
-            <p>Lorem ipsum dolor sit amet.</p>
-          </Card>
-          <Card>
-            <div className="icon">
-              <img alt="icon" src={money} />
-              <h3>Affordable</h3>
-            </div>
-            <p>Lorem ipsum dolor sit amet.</p>
+            <p className="section__text">
+              하나가 되어, 최고를 향해
+              <br />
+              도전하세요
+            </p>
           </Card>
         </Cards>
       </Description>
@@ -69,6 +85,9 @@ const Services = styled(About)`
   p {
     width: 70%;
     padding: 2rem 0rem 4rem 0rem;
+  }
+  .section__text {
+    font-size: 1.2rem;
   }
 `;
 const Cards = styled.div`
