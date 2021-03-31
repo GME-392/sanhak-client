@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext, useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 //Animations
@@ -15,8 +15,22 @@ import { useScroll } from "../components/useScroll";
 import ScrollTop from "../components/ScrollTop";
 import Term from "../components/Terms/Term";
 import { Button } from "react-bootstrap";
+import RegisterTerm from "../components/RegisterTerm/RegisterTerm";
+import RegisterForm from "../components/RegisterForm/RegisterForm";
+
+export const TermContext = createContext();
 
 const Register = () => {
+  const [termAChecked, setTermAChecked] = useState(false);
+  const [termBChecked, setTermBChecked] = useState(false);
+  const [showRegisterForm, setShowRegisterForm] = useState(false);
+
+  const checkTermsAllChecked = () => {
+    if (termAChecked === true && termBChecked === true) {
+      setShowRegisterForm(true);
+    }
+  };
+
   return (
     <Work
       style={{ background: "#fff" }}
@@ -27,14 +41,20 @@ const Register = () => {
     >
       <Menu>
         <Hide>
-          <Container className="Container">
-            <h3 className="Register-text">회원가입</h3>
-            <TermContainer>
-              <Term termContent={"안녕하세요,"} termId={"termA"}></Term>
-              <Term termContent={"안녕하세요,"} termId={"termB"}></Term>
-            </TermContainer>
-            <Button>다음으로 넘어가기</Button>
-          </Container>
+          <TermContext.Provider
+            value={{
+              termAChecked: termAChecked,
+              termBChecked: termBChecked,
+              setTermAChecked: setTermAChecked,
+              setTermBChecked: setTermBChecked,
+              checkTermsAllChecked: checkTermsAllChecked,
+            }}
+          >
+            <Container className="Container">
+              <h3 className="Register-text">회원가입</h3>
+              {showRegisterForm ? <RegisterForm /> : <RegisterTerm />}
+            </Container>
+          </TermContext.Provider>
         </Hide>
       </Menu>
     </Work>
@@ -56,17 +76,8 @@ const Container = styled.div`
   @media (max-width: 768px) {
     width: 100% !important;
     border: none !important;
-  }
-`;
+  }import RegisterForm from '../components/RegisterForm/RegisterForm';
 
-const TermContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  @media (max-width: 768px) {
-    align-items: center;
-    flex-direction: column;
-  }
 `;
 
 const Work = styled(motion.div)`

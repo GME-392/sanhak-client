@@ -1,13 +1,27 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import "./Term.scss";
 
-const Term = ({ termContent, termId }) => {
+const Term = ({ termContent, termId, setTermAChecked, setTermBChecked }) => {
+  const checkTermHandler = () => {
+    if (termId === "termA") {
+      setTermAChecked((prev) => !prev);
+    }
+    if (termId === "termB") {
+      setTermBChecked((prev) => !prev);
+    }
+  };
+
   return (
     <Container>
       <p className="Term-content">{termContent}</p>
       <InputContainer>
-        <input type="checkbox" name="term" id={termId}></input>
+        <input
+          type="checkbox"
+          name="term"
+          id={termId}
+          onChange={checkTermHandler}
+        ></input>
         <label htmlFor={termId} className="Term__agreement">
           위 약관에 동의합니다.
         </label>
@@ -27,7 +41,8 @@ const Container = styled.div`
   margin: 30px 30px;
   @media (max-width: 768px) {
     width: 90% !important;
-    height: 300px;
+    height: 300pimport { TermContext } from '../../pages/Register';
+x;
   }
 `;
 
