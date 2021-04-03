@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 //Animations
@@ -13,22 +13,8 @@ import {
 } from "../animation";
 import { useScroll } from "../components/useScroll";
 import ScrollTop from "../components/ScrollTop";
-import GroupSearch from "../components/GroupSearch/GroupSearch";
-import moment from "moment";
-import "moment/locale/ko";
 
-const Rank = () => {
-  var currentDate = moment();
-  moment.locale("ko");
-
-  var weekStart = currentDate.clone().startOf("isoweek");
-
-  var days = [];
-
-  for (var i = 0; i <= 6; i++) {
-    console.log(moment(weekStart).add(i, "days").format("MMMM Do,dddd"));
-  }
-
+const GroupDetail = () => {
   return (
     <Work
       style={{ background: "#fff" }}
@@ -38,14 +24,17 @@ const Rank = () => {
       animate="show"
     >
       <Menu>
-        <motion.h2 variants={fade}>랭킹</motion.h2>
+        <motion.h2 variants={fade}>그룹 찾기</motion.h2>
         <motion.div variants={lineAnim} className="line"></motion.div>
+        <GroupSearch
+          groupList={groupList}
+          setGroupList={setGroupList}
+          setShow={setShowCreateGroupModal}
+        />
+        <Hide className="Group__container">
+          <motion.div className="Group__groupList"></motion.div>
+        </Hide>
       </Menu>
-      <motion.div className="Rank__variants">
-        <motion.h3>명예의 전당</motion.h3>
-        <motion.h3>그룹 랭킹</motion.h3>
-        <motion.h3>유저 랭킹</motion.h3>
-      </motion.div>
     </Work>
   );
 };
@@ -55,15 +44,16 @@ const Work = styled(motion.div)`
   overflow: hidden;
   padding: 5rem 10rem;
   @media (max-width: 900px) {
-    padding: 2rem 2rem;
+    padding: 1rem 1rem;
   }
 
   h2 {
     padding: 1rem 0rem;
   }
 `;
-
 const Menu = styled(motion.div)`
+  padding-bottom: 1rem;
+
   .line {
     height: 0.5rem;
     background: #40368a;
@@ -75,9 +65,28 @@ const Menu = styled(motion.div)`
     object-fit: cover;
   }
 `;
-
 const Hide = styled.div`
   overflow: hidden;
 `;
 
-export default Rank;
+//Frame Animation
+const Frame1 = styled(motion.div)`
+  position: fixed;
+  left: 0;
+  top: 10%;
+  width: 100%;
+  height: 100vh;
+  background: #fffebf;
+  z-index: 2;
+`;
+const Frame2 = styled(Frame1)`
+  background: #ff8efb;
+`;
+const Frame3 = styled(Frame1)`
+  background: #8ed2ff;
+`;
+const Frame4 = styled(Frame1)`
+  background: #8effa0;
+`;
+
+export default GroupDetail;

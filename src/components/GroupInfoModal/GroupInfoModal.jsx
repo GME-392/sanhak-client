@@ -7,6 +7,7 @@ import {
   Modal,
 } from "react-bootstrap";
 import React from "react";
+import Tag from "../Tag/Tag";
 
 const GroupInfoModal = ({
   showGroupInfoModal,
@@ -46,7 +47,7 @@ const GroupInfoModal = ({
             <Form.Label>그룹 태그</Form.Label>
             <Form.Text>
               {data?.tags.map((tag) => (
-                <span>{tag}</span>
+                <Tag name={tag}></Tag>
               ))}
             </Form.Text>
           </Form.Group>

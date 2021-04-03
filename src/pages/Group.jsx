@@ -63,7 +63,10 @@ const Group = () => {
               ></GroupList>
             ))}
           </motion.div>
-          <motion.div className="Group__ad">광고</motion.div>
+          <motion.div className="Group__ad-container">
+            <motion.div className="Group__ad1" />
+            <motion.div className="Group__ad2" />
+          </motion.div>
         </Hide>
         <GroupInfoModal
           setShowGroupInfoModal={setShowGroupInfoModal}
@@ -71,6 +74,7 @@ const Group = () => {
           data={selectedGroupInfo}
         />
         <CreateGroupModal
+          setGroupList={setGroupList}
           showCreateGroupModal={showCreateGroupModal}
           setShowCreateGroupModal={setShowCreateGroupModal}
         />
@@ -83,7 +87,7 @@ const Work = styled(motion.div)`
   min-height: 100vh;
   overflow: hidden;
   padding: 5rem 10rem;
-  @media (max-width: 1300px) {
+  @media (max-width: 900px) {
     padding: 1rem 1rem;
   }
 

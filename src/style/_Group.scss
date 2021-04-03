@@ -1,7 +1,27 @@
-.Group__ad {
-  display: inline-block;
+.Group__ad-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 1rem 0 0 3rem;
+  padding: 1rem;
+  flex: 1;
+}
+
+.Group__ad1 {
   background-color: antiquewhite;
-  margin: 3rem;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  background: url("../img/ad1.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-bottom: 3rem;
+}
+.Group__ad2 {
+  background-color: antiquewhite;
   height: 500px;
   width: 100%;
   flex: 1;
@@ -9,6 +29,9 @@
   justify-content: center;
   align-items: center;
   font-size: 1.5rem;
+  background: url("../img/ad2.png");
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .Group__container {
