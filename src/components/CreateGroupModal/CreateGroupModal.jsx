@@ -8,10 +8,12 @@ import {
 } from "react-bootstrap";
 import React, { useState } from "react";
 import Tag from "../Tag/Tag";
+import axios from "axios";
 
 const CreateGroupModal = ({
   showCreateGroupModal,
   setShowCreateGroupModal,
+  setGroupList,
 }) => {
   const handleClose = () => setShowCreateGroupModal(false);
   const [name, setName] = useState(null);
@@ -25,12 +27,36 @@ const CreateGroupModal = ({
       setTagList([...tagList, tagName]);
       setTagName("");
     }
-    console.log(tagList);
   };
 
   const removeTag = (name) => {
-    console.log(name);
     setTagList(tagList.filter((tag) => tag !== name));
+  };
+
+  const onSubmit = () => {
+    axios.post("http://localhost:4000/groups", {
+      name,
+      leader: "chanmin",
+      max_member: memberLimit,
+      tagList,
+      status: "open",
+      rank: "24",
+      members: [],
+    });
+
+    setGroupList((prev) => [
+      ...prev,
+      {
+        name,
+        leader: "chanmin",
+        max_member: memberLimit,
+        tags: tagList,
+        status: "open",
+        rank: "24",
+        members: [],
+      },
+    ]);
+    handleClose();
   };
 
   return (
@@ -92,11 +118,7 @@ const CreateGroupModal = ({
         >
           취소
         </Button>
-        <Button
-          className="Modal__Button"
-          variant="primary"
-          onClick={handleClose}
-        >
+        <Button className="Modal__Button" variant="primary" onClick={onSubmit}>
           그룹 생성
         </Button>
       </Modal.Footer>

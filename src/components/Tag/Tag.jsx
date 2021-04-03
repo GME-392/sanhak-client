@@ -3,7 +3,7 @@ import "./Tag.scss";
 
 const Tag = ({ name, onRemove }) => {
   const removeTagOnClick = () => {
-    onRemove(name);
+    if (onRemove) onRemove(name);
   };
 
   return (
