@@ -1,6 +1,9 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import Amplify, {Auth, Hub} from 'aws-amplify';
+import awsconfig from '../aws-exports';
+
 //Animations
 import { motion } from "framer-motion";
 import {
@@ -12,7 +15,55 @@ import {
   lineAnim,
 } from "../animation";
 
+Amplify.configure(awsconfig);
+
+const initialFormState = {
+  username: '', password:'', formType:'signIn'
+}
+
 const Login = () => {
+
+  const [formState, updateFormState] = useState(initialFormState)
+  const [user, updateUser] = useState(null)
+  useEffect(() => {
+    checkUser()
+    setAuthListener()
+  }, [])
+
+  async function setAuthListener() {
+    Hub.listen('auth', (data) => {
+      switch (data.payload.event) {
+        case 'signOut':
+          updateFormState(() => ({ ...formState, formType:"signIn"}))
+          break;
+        default:
+          break;
+      }
+    })
+  }
+  async function checkUser() {
+    try{
+      const user = await Auth.currentAuthenticatedUser()
+      console.log('user: ', user)
+      updateUser(user)
+      updateFormState(() => ({ ...formState, formType:"signedIn"}))
+    } catch (err) {
+      // updateUser(null)
+    }
+  }
+  function onChange(e){
+    e.persist()
+    updateFormState(() => ({ ...formState, [e.target.name]: e.target.value}))
+  }
+  
+  const {formType} = formState
+
+  async function signIn() {
+    const { username, password } = formState
+    await Auth.signIn(username, password)
+    updateFormState(() => ({ ...formState, formType:"signedIn"}))
+  }
+
   return (
     <Work
       style={{ background: "#fff" }}
@@ -21,6 +72,8 @@ const Login = () => {
       initial="hidden"
       animate="show"
     >
+      {
+        formType === 'signIn' && (
       <Menu>
         <motion.h2 variants={fade}>로그인</motion.h2>
         <motion.div variants={lineAnim} className="line"></motion.div>
@@ -28,13 +81,15 @@ const Login = () => {
           <div className="login__input-container">
             <label htmlFor="login__id">아이디</label>
             <Input
-              id="login__id"
+              name="username"
+              onChange={onChange}
               placeholder="아이디 또는 이메일을 입력하세요"
             ></Input>
             <label htmlFor="login__pw">비밀번호</label>
             <Input
-              id="login__pw"
+              name="password"
               type="password"
+              onChange={onChange}
               placeholder="비밀번호를 입력하세요"
             ></Input>
           </div>
@@ -46,10 +101,18 @@ const Login = () => {
               <input id="login__auto" type="checkbox" />
               <label htmlFor="login__auto">자동 로그인</label>
             </div>
-            <button>로그인</button>
+            <button onClick={signIn}>로그인</button>
           </div>
         </div>
       </Menu>
+        )
+}
+{
+        formType === 'signedIn' && (
+          <Link to="/">코맷 소개</Link>
+        )
+}
+
     </Work>
   );
 };
