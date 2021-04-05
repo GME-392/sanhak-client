@@ -26,11 +26,7 @@ const GroupDetail = () => {
       <Menu>
         <motion.h2 variants={fade}>그룹 찾기</motion.h2>
         <motion.div variants={lineAnim} className="line"></motion.div>
-        <GroupSearch
-          groupList={groupList}
-          setGroupList={setGroupList}
-          setShow={setShowCreateGroupModal}
-        />
+        그룹 상세 페이지
         <Hide className="Group__container">
           <motion.div className="Group__groupList"></motion.div>
         </Hide>

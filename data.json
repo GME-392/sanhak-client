@@ -132,6 +132,18 @@
       "rank": "24",
       "members": [],
       "id": 8
+    },
+    {
+      "name": "아무거나 만들어봐요",
+      "leader": "chanmin",
+      "max_member": null,
+      "tagList": [
+        "되나?"
+      ],
+      "status": "open",
+      "rank": "24",
+      "members": [],
+      "id": 9
     }
   ]
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 //Animations
@@ -13,6 +13,7 @@ import {
 } from "../animation";
 
 const Login = () => {
+  const [isLoggedIn, setisLoggedIn] = useState(false);
   return (
     <Work
       style={{ background: "#fff" }}

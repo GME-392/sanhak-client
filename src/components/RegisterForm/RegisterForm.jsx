@@ -1,12 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import axios from "axios";
 
 const RegisterForm = () => {
+  const [userName, setUserName] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [confirmPassword, setConfirmPassword] = useState(null);
+  const [bojName, setBojName] = useState(null);
+
+  axios.post("");
+
   return (
     <Form className="Register-form">
       <Form.Group controlId="id">
         <Form.Label>아이디</Form.Label>
-        <Form.Control type="text" placeholder="아이디를 입력해 주세요" />
+        <Form.Control
+          type="text"
+          placeholder="아이디를 입력해 주세요"
+          onChange={(e) => {
+            setUserName(e.target.value);
+            console.log(userName);
+          }}
+        />
         <Form.Text className="text-muted">
           아이디는 로그인에 사용되며, 다른 사용자들에게 공개됩니다.
         </Form.Text>
@@ -16,6 +31,10 @@ const RegisterForm = () => {
         <Form.Control
           type="text"
           placeholder="백준 온라인 저지 아이디를 입력해 주세요"
+          onChange={(e) => {
+            setBojName(e.target.value);
+            console.log(userName);
+          }}
         />
         <Form.Text className="text-muted">
           아이디가 없다면, 먼저{" "}
