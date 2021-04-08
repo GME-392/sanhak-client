@@ -71,6 +71,7 @@ const CreateGroupModal = ({
             <Form.Control
               type="text"
               placeholder="그룹 이름을 4 ~ 20자 사이로 입력하세요"
+              autoComplete="off"
               onChange={(e) => setName(e.target.value)}
               value={name}
             />
@@ -97,6 +98,7 @@ const CreateGroupModal = ({
               type="text"
               placeholder="DFS, 취업스터디 등 그룹을 나타내는 키워드를 입력하세요"
               value={tagName}
+              autoComplete="off"
               onChange={(e) => setTagName(e.target.value)}
               onKeyPress={onPressEnter}
             />

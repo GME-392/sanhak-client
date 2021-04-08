@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-sanhakclient-dev-104610-authRole",
+      "UnauthRoleArn": "arn:aws:iam::561483794067:role/amplify-sanhakclient-dev-104610-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::561483794067:role/amplify-sanhakclient-dev-104610-authRole",
+      "Region": "ap-northeast-2",
+      "DeploymentBucketName": "amplify-sanhakclient-dev-104610-deployment",
+      "UnauthRoleName": "amplify-sanhakclient-dev-104610-unauthRole",
+      "StackName": "amplify-sanhakclient-dev-104610",
+      "StackId": "arn:aws:cloudformation:ap-northeast-2:561483794067:stack/amplify-sanhakclient-dev-104610/b30cb7f0-95b0-11eb-a2ee-0680f60760ae",
+      "AmplifyAppId": "dlwo8zqklsnrp"
+    },
+    "categories": {
+      "auth": {
+        "sanhakclient7b2d66f1": {}
+      }
+    }
+  }
+}
