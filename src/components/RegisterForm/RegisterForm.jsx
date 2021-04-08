@@ -203,7 +203,7 @@ const RegisterForm = () => {
           <Button
             className="Register-button"
             onClick={signUp}
-            disabled={!formCheckComplete}
+            // disabled={!formCheckComplete}
           >
             회원가입
           </Button>
@@ -220,7 +220,9 @@ const RegisterForm = () => {
           <Button onClick={confirmSignUp}>확인</Button>
         </Form>
       )}
-      {formType === "signIn" && <Link to="/login">로그인</Link>}
+      {formType === "signIn" && (
+        <div>코맷에 함께하게 되신 것을 환영합니다 :)</div>
+      )}
     </>
   );
 };
