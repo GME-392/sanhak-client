@@ -110,28 +110,16 @@
       "status": "open"
     },
     {
-      "name": "이건 뭔",
+      "name": "항공대",
       "leader": "chanmin",
-      "max_member": null,
+      "max_member": "10",
       "tagList": [
-        "호호"
+        "DFS"
       ],
       "status": "open",
       "rank": "24",
       "members": [],
       "id": 7
-    },
-    {
-      "name": null,
-      "leader": "chanmin",
-      "max_member": null,
-      "tagList": [
-        "취업"
-      ],
-      "status": "open",
-      "rank": "24",
-      "members": [],
-      "id": 8
     }
   ]
 }

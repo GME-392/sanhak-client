@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 //Global Style
 import GlobalStyle from "./components/GlobalStyle";
 //Import Pages
@@ -14,9 +14,30 @@ import { Switch, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import "./style/app.scss";
 import Footer from "./components/Footer/Footer";
+import { useDispatch, useSelector } from "react-redux";
+import { checkSignedIn, onLoginSuccess } from "./redux/actions/actions";
+import { Auth } from "aws-amplify";
 
 function App() {
   const location = useLocation();
+  const isSignedIn = useSelector((state) => state.AppState.isSignedIn);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    checkUser();
+    console.log(isSignedIn);
+  }, [isSignedIn]);
+
+  const checkUser = async () => {
+    try {
+      const { username } = await Auth.currentAuthenticatedUser();
+      if (username) {
+        dispatch(onLoginSuccess(username));
+      }
+      console.log("username: ", username);
+      // dispatch(checkSignedIn(username));
+    } catch (err) {}
+  };
 
   return (
     <div className="App">

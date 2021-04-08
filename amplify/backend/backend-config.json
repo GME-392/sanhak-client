@@ -1,0 +1,10 @@
+{
+  "auth": {
+    "sanhakclient7b2d66f1": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}
