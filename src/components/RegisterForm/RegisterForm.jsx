@@ -25,7 +25,7 @@ const RegisterForm = () => {
   const [bojIdExists, setBojIdExists] = useState(null);
   const [passwordConfirmed, setPasswordConfirmed] = useState(false);
   const [userListOnDB, setUserListOnDB] = useState([]);
-  const [isAvailable, setIsAvailable] = useState(false);
+  const [formCheckComplete, setFormCheckComplete] = useState(false);
 
   // 전역 상태로 로그인 상태 관리
   const { formType } = formState;
@@ -79,7 +79,7 @@ const RegisterForm = () => {
       bojIdExists === false &&
       formState.password === formState.confirmpassword
     ) {
-      setIsAvailable(true);
+      setPasswordConfirmed(true);
     }
   };
 
@@ -200,7 +200,11 @@ const RegisterForm = () => {
               placeholder="비밀번호를 한번 더 입력해 주세요"
             />
           </Form.Group>
-          <Button className="Register-button" onClick={signUp}>
+          <Button
+            className="Register-button"
+            onClick={signUp}
+            disabled={!formCheckComplete}
+          >
             회원가입
           </Button>
         </Form>
