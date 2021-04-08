@@ -8,7 +8,7 @@ import awsconfig from "../aws-exports";
 import { motion } from "framer-motion";
 import { pageAnimation, fade, lineAnim } from "../animation";
 import { useDispatch, useSelector } from "react-redux";
-import { onLoginSuccess, onLoginFail } from "../redux/actions/actions";
+import { onLoginSuccess, onLoginFail } from "../redux/actions/authActions";
 
 Amplify.configure(awsconfig);
 

@@ -3,14 +3,13 @@ import profile from "../../img/profile.png";
 import { useDispatch, useSelector } from "react-redux";
 import { Auth } from "aws-amplify";
 import "./UserWelcome.scss";
-import { onLoginFail } from "../../redux/actions/actions";
+import { onLoginFail } from "../../redux/actions/authActions";
 
 const UserWelcome = () => {
   const activeUser = useSelector((state) => state.AppState.activeUser);
   const dispatch = useDispatch();
 
   async function signOut() {
-    console.log("out!");
     await Auth.signOut();
     dispatch(onLoginFail());
   }

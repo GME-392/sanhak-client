@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, CHECK_LOGIN, LOGIN_FAIL } from "../actions/actions";
+import { LOGIN_SUCCESS, CHECK_LOGIN, LOGIN_FAIL } from "../actions/authActions";
 
 const initialState = {
   isSignedIn: false,
