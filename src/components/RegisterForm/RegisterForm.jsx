@@ -1,18 +1,15 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Amplify, { Auth, Hub } from "aws-amplify";
 import awsconfig from "../../aws-exports";
 import { Link } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
-import { Switch, Route, useLocation } from "react-router-dom";
-import Login from "../../pages/Login";
-import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 
 Amplify.configure(awsconfig);
 
 const initialFormState = {
   username: "",
-  bojid: "",
+  bojname: "",
   email: "",
   password: "",
   confirmpassword: "",
@@ -21,50 +18,20 @@ const initialFormState = {
 };
 
 const RegisterForm = () => {
-  const [userName, setUserName] = useState(null);
-  const [password, setPassword] = useState(null);
-  const [confirmPassword, setConfirmPassword] = useState(null);
-  const [bojName, setBojName] = useState(null);
-
   const [formState, updateFormState] = useState(initialFormState);
-  const [user, updateUser] = useState(null);
 
   // 전역 상태로 로그인 상태 관리
   const { formType } = formState;
-  const isSignedIn = useSelector((state) => state.AppState.isSignedIn);
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    checkUser();
-    setAuthListener();
-  }, []);
+  const validateForm = () => {};
 
-  async function setAuthListener() {
-    Hub.listen("auth", (data) => {
-      switch (data.payload.event) {
-        case "signOut":
-          updateFormState(() => ({ ...formState, formType: "signUp" }));
-          break;
-        default:
-          break;
-      }
-    });
-  }
-  async function checkUser() {
-    try {
-      const user = await Auth.currentAuthenticatedUser();
-      console.log("user: ", user);
-      updateUser(user);
-      updateFormState(() => ({ ...formState, formType: "signedIn" }));
-    } catch (err) {}
-  }
   function onChange(e) {
     e.persist();
     updateFormState(() => ({ ...formState, [e.target.name]: e.target.value }));
   }
 
   async function signUp() {
-    const { username, bojid, email, password, confirmpassword } = formState;
+    const { username, bojname, email, password, confirmpassword } = formState;
     await Auth.signUp({ username, password, attributes: { email } });
     updateFormState(() => ({ ...formState, formType: "confirmSignUp" }));
   }
@@ -81,22 +48,26 @@ const RegisterForm = () => {
         <Form className="Register-form">
           <Form.Group controlId="id">
             <Form.Label>아이디</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="아이디를 입력해 주세요"
-              name="username"
-              onChange={onChange}
-            />
+            <div>
+              <Form.Control
+                type="text"
+                placeholder="아이디를 입력해 주세요"
+                name="username"
+                onChange={onChange}
+                style={{ display: "inline-block" }}
+              />
+              <Button>중복 확인</Button>
+            </div>
             <Form.Text className="text-muted">
               아이디는 로그인에 사용되며, 다른 사용자들에게 공개됩니다.
             </Form.Text>
           </Form.Group>
-          <Form.Group controlId="bojId">
+          <Form.Group controlId="bojname">
             <Form.Label>백준 온라인 저지 아이디</Form.Label>
             <Form.Control
               type="text"
               placeholder="백준 온라인 저지 아이디를 입력해 주세요"
-              name="bojid"
+              name="bojname"
               onChange={onChange}
             />
             <Form.Text className="text-muted">

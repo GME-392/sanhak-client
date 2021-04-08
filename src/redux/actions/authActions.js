@@ -3,7 +3,7 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGOUT = "LOGOUT";
 export const LOGIN_FAIL = "LOGIN_FAIL";
 
-export const checkSignedIn = async (username) => {
+export const checkSignedIn = (username) => {
   if (username !== null) {
     return { type: CHECK_LOGIN, payload: false };
   }

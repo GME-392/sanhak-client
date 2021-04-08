@@ -15,8 +15,11 @@ import { AnimatePresence } from "framer-motion";
 import "./style/app.scss";
 import Footer from "./components/Footer/Footer";
 import { useDispatch, useSelector } from "react-redux";
-import { checkSignedIn, onLoginSuccess } from "./redux/actions/actions";
+import { checkSignedIn, onLoginSuccess } from "./redux/actions/authActions";
+import { getUserAction } from "./redux/actions/userActions";
 import { Auth } from "aws-amplify";
+import { USER_ENDPOINT } from "./constants/URL";
+import axios from "axios";
 
 function App() {
   const location = useLocation();
@@ -33,8 +36,15 @@ function App() {
       const { username } = await Auth.currentAuthenticatedUser();
       if (username) {
         dispatch(onLoginSuccess(username));
+        // 엔드포인트 요청 = 유저 정보 불러오기
+        try {
+          await axios
+            .get(`${USER_ENDPOINT}/userid=${username}&funcname=getUser`)
+            .then((data) => dispatch(getUserAction(data)));
+        } catch (err) {
+          console.error(err);
+        }
       }
-      console.log("username: ", username);
       // dispatch(checkSignedIn(username));
     } catch (err) {}
   };
