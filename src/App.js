@@ -8,6 +8,7 @@ import Nav from "./components/Nav";
 import Rank from "./pages/Rank";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Forgot from "./pages/Forgot";
 //Router
 import { Switch, Route, useLocation } from "react-router-dom";
 //Animation
@@ -71,6 +72,9 @@ function App() {
           </Route>
           <Route path="/register" exact>
             <Register />
+          </Route>
+          <Route path="/forgot" exact>
+            <Forgot />
           </Route>
           <Route
             path={`/user/:username`}
