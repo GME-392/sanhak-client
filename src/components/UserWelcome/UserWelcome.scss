@@ -1,11 +1,13 @@
 .user-welcome {
   color: white;
+  transition: 0.2s ease-in-out;
   border-radius: 8px;
   border: 1px solid white;
   margin-top: 0.5rem;
   margin-left: -2rem;
   margin-right: -5rem;
   padding: 0.5rem 1rem !important;
+  cursor: pointer;
   img {
     margin-right: 10px;
   }
@@ -18,4 +20,12 @@
     margin-left: 1rem;
     font-weight: 400;
   }
+  button:hover {
+    border-color: none !important;
+  }
+}
+
+.user-welcome:hover {
+  border-color: #638ce6;
+  transition: 0.2s ease-in-out;
 }
