@@ -210,14 +210,21 @@ const RegisterForm = () => {
         </Form>
       )}
       {formType === "confirmSignUp" && (
-        <Form>
+        <Form className="Register-form">
+          <Form.Group controlId= "confirmSignUp">
+          <Form.Label>인증 코드 입력</Form.Label>
+          <div className="register-form__container">
           <Form.Control
+            type="text"
+            placeholder="인증 코드 6자리를 입력해 주세요"
             name="authCode"
             onChange={onChange}
-            placeholder="인증 코드 6자리를 입력해 주세요"
             value={formState.authCode}
+            style={{ display: "inline-block" }}
           />
           <Button onClick={confirmSignUp}>확인</Button>
+          </div>
+          </Form.Group>
         </Form>
       )}
       {formType === "signIn" && (
