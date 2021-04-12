@@ -25,12 +25,8 @@ const Rank = () => {
 
   var days = [];
 
-  for (var i = 0; i <= 6; i++) {
-    console.log(moment(weekStart).add(i, "days").format("MMMM Do,dddd"));
-  }
-
   return (
-    <Work
+    <Container
       style={{ background: "#fff" }}
       exit="exit"
       variants={pageAnimation}
@@ -46,11 +42,11 @@ const Rank = () => {
         <motion.h3>그룹 랭킹</motion.h3>
         <motion.h3>유저 랭킹</motion.h3>
       </motion.div>
-    </Work>
+    </Container>
   );
 };
 
-const Work = styled(motion.div)`
+const Container = styled(motion.div)`
   min-height: 100vh;
   overflow: hidden;
   padding: 5rem 10rem;

@@ -8,7 +8,6 @@ const initialState = {
 export const AppState = (state = initialState, action) => {
   switch (action.type) {
     case CHECK_LOGIN:
-      console.log(action);
       return { ...state, isSignedIn: action.payload };
     case LOGIN_SUCCESS:
       return {

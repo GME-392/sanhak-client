@@ -15,7 +15,6 @@ const GroupInfoModal = ({
   data,
 }) => {
   const handleClose = () => setShowGroupInfoModal(false);
-  console.log(data);
 
   return (
     <Modal show={showGroupInfoModal} onHide={handleClose}>

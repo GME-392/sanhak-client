@@ -20,15 +20,16 @@ import { getUserAction } from "./redux/actions/userActions";
 import { Auth } from "aws-amplify";
 import { USER_ENDPOINT } from "./constants/URL";
 import axios from "axios";
+import User from "./pages/User";
 
 function App() {
   const location = useLocation();
   const isSignedIn = useSelector((state) => state.AppState.isSignedIn);
+  const activeUser = useSelector((state) => state.AppState.activeUser);
   const dispatch = useDispatch();
 
   useEffect(() => {
     checkUser();
-    console.log(isSignedIn);
   }, [isSignedIn]);
 
   const checkUser = async () => {
@@ -71,6 +72,10 @@ function App() {
           <Route path="/register" exact>
             <Register />
           </Route>
+          <Route
+            path={`/user/:username`}
+            render={(props) => <User {...props} />}
+          />
         </Switch>
       </AnimatePresence>
       <Footer />
