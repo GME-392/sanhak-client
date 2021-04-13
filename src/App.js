@@ -21,6 +21,7 @@ import { Auth } from "aws-amplify";
 import { USER_ENDPOINT } from "./constants/URL";
 import axios from "axios";
 import User from "./pages/User";
+import GroupDetail from "./pages/GroupDetail";
 
 function App() {
   const location = useLocation();
@@ -76,6 +77,12 @@ function App() {
           <Route
             path={`/user/:username`}
             render={(props) => <User name={"chanmin"} {...props} />}
+          />
+          <Route
+            path={`/group/:groupname`}
+            render={(props) => (
+              <GroupDetail name={"항공대 알고리즘 소모임"} {...props} />
+            )}
           />
 
           <Route path={`/user/:username`}>

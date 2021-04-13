@@ -1,22 +1,15 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 //Animations
 import { motion } from "framer-motion";
-import {
-  sliderContainer,
-  slider,
-  pageAnimation,
-  fade,
-  photoAnim,
-  lineAnim,
-} from "../animation";
-import { useScroll } from "../components/useScroll";
-import ScrollTop from "../components/ScrollTop";
+import { pageAnimation, fade, lineAnim } from "../animation";
 
-const GroupDetail = () => {
+import GroupMenu from "../components/GroupMenu/GroupMenu";
+import GroupUserList from "../components/GroupUserList/GroupUserList";
+
+const GroupDetail = ({ name }) => {
   return (
-    <Work
+    <Container
       style={{ background: "#fff" }}
       exit="exit"
       variants={pageAnimation}
@@ -24,18 +17,26 @@ const GroupDetail = () => {
       animate="show"
     >
       <Menu>
-        <motion.h2 variants={fade}>그룹 찾기</motion.h2>
-        <motion.div variants={lineAnim} className="line"></motion.div>
-        그룹 상세 페이지
-        <Hide className="Group__container">
-          <motion.div className="Group__groupList"></motion.div>
-        </Hide>
+        <div>
+          <motion.h2 variants={fade} className="group-detail-group-name">
+            {name}
+          </motion.h2>
+          <motion.div className="group-detail-group-rank">
+            {"Silver IV"}
+          </motion.div>
+        </div>
+        <motion.div
+          variants={lineAnim}
+          className="line group-detail-line"
+        ></motion.div>
+        <GroupMenu name={name} />
+        <GroupUserList />
       </Menu>
-    </Work>
+    </Container>
   );
 };
 
-const Work = styled(motion.div)`
+const Container = styled(motion.div)`
   min-height: 100vh;
   overflow: hidden;
   padding: 5rem 10rem;
@@ -60,29 +61,6 @@ const Menu = styled(motion.div)`
     height: 70vh;
     object-fit: cover;
   }
-`;
-const Hide = styled.div`
-  overflow: hidden;
-`;
-
-//Frame Animation
-const Frame1 = styled(motion.div)`
-  position: fixed;
-  left: 0;
-  top: 10%;
-  width: 100%;
-  height: 100vh;
-  background: #fffebf;
-  z-index: 2;
-`;
-const Frame2 = styled(Frame1)`
-  background: #ff8efb;
-`;
-const Frame3 = styled(Frame1)`
-  background: #8ed2ff;
-`;
-const Frame4 = styled(Frame1)`
-  background: #8effa0;
 `;
 
 export default GroupDetail;

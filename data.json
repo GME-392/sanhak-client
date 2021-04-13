@@ -10,7 +10,7 @@
         "dijkstra"
       ],
       "rank": 1,
-      "tier": "Gold III",
+      "tier": "Gold",
       "members": [
         "suhwanc",
         "c17an",
@@ -31,7 +31,7 @@
         "대기업"
       ],
       "rank": 2,
-      "tier": "Silver IV",
+      "tier": "Silver",
       "members": [
         "leeleetheGirl",
         "hongik"
@@ -49,7 +49,7 @@
         "열공러들"
       ],
       "rank": 3,
-      "tier": "Platinum I",
+      "tier": "Platinum",
       "members": [
         "Jaedragon_the_god",
         "samsung"
@@ -67,7 +67,7 @@
         "취준생"
       ],
       "rank": 4,
-      "tier": "Bronze I",
+      "tier": "Diamond",
       "members": [
         "singsangsung",
         "konkuk"
@@ -84,7 +84,7 @@
         "알고리즘"
       ],
       "rank": 0,
-      "tier": "UnRatable",
+      "tier": "Ruby",
       "members": [
         "Inbok_the_King",
         "suhwanc"
@@ -101,7 +101,7 @@
         "알고리즘"
       ],
       "rank": 0,
-      "tier": "Silver III",
+      "tier": "Bronze",
       "members": [
         "sangcheol_my_roomate",
         "dongook_univ"
@@ -110,12 +110,10 @@
       "status": "open"
     },
     {
-      "name": "항공대",
+      "name": null,
       "leader": "chanmin",
-      "max_member": "10",
-      "tagList": [
-        "DFS"
-      ],
+      "max_member": null,
+      "tagList": [],
       "status": "open",
       "rank": "24",
       "members": [],

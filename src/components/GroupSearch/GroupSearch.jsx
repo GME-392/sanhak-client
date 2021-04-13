@@ -27,7 +27,9 @@ const GroupSearch = ({ setGroupList, setShow }) => {
         onChange={(e) => handleOnChange(e)}
         className="GroupSearch__input"
       />
-      <button onClick={handleShow}>그룹 생성하기</button>
+      <button onClick={handleShow} className="GroupSearch__button">
+        그룹 생성하기
+      </button>
     </div>
   );
 };
