@@ -72,10 +72,15 @@ function App() {
           <Route path="/register" exact>
             <Register />
           </Route>
+
           <Route
             path={`/user/:username`}
-            render={(props) => <User {...props} />}
+            render={(props) => <User name={"chanmin"} {...props} />}
           />
+
+          <Route path={`/user/:username`}>
+            <User />
+          </Route>
         </Switch>
       </AnimatePresence>
       <Footer />

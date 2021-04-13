@@ -23,4 +23,4 @@ const PaginationComponent = () => {
   );
 };
 
-export default Pagination;
+export default PaginationComponent;

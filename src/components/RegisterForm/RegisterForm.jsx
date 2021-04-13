@@ -13,6 +13,7 @@ const initialFormState = {
   username: "",
   bojname: "",
   email: "",
+  organization: "",
   password: "",
   confirmpassword: "",
   authCode: "",
@@ -23,7 +24,7 @@ const RegisterForm = () => {
   const [formState, updateFormState] = useState(initialFormState);
   const [idExists, setIdExists] = useState(null);
   const [bojIdExists, setBojIdExists] = useState(null);
-  const [passwordConfirmed, setPasswordConfirmed] = useState(false);
+  const [passwordConfirmed, setPasswordConfirmed] = useState(null);
   const [userListOnDB, setUserListOnDB] = useState([]);
   const [formCheckComplete, setFormCheckComplete] = useState(false);
 
@@ -32,7 +33,16 @@ const RegisterForm = () => {
 
   useEffect(() => {
     validateForm();
-  }, [idExists, bojIdExists]);
+  }, [
+    formState.username,
+    formState.password,
+    formState.confirmpassword,
+    formState.email,
+    formState.bojname,
+    idExists,
+    bojIdExists,
+    passwordConfirmed,
+  ]);
 
   const validateUsername = async () => {
     await axios.get(`${USER_ENDPOINT}/&funcname=getAllUsers`).then((res) => {
@@ -66,26 +76,33 @@ const RegisterForm = () => {
     });
   };
 
-  const checkPasswordMatches = () => {
-    if (formState.password !== formState.confirmpassword) {
-      return false;
-    }
-    return true;
-  };
-
   const validateForm = () => {
     if (
       idExists === false &&
       bojIdExists === false &&
-      formState.password === formState.confirmpassword
+      passwordConfirmed === true &&
+      formState.password !== null &&
+      formState.confirmpassword !== null &&
+      formState.bojname !== null &&
+      formState.username !== null &&
+      formState.email !== null
     ) {
-      setPasswordConfirmed(true);
+      console.log(formCheckComplete);
+      setFormCheckComplete((prev) => !prev);
     }
   };
 
   function onChange(e) {
     e.persist();
     updateFormState(() => ({ ...formState, [e.target.name]: e.target.value }));
+  }
+
+  function checkPassword(e) {
+    if (formState.password !== formState.confirmpassword) {
+      setPasswordConfirmed(false);
+    } else {
+      setPasswordConfirmed(true);
+    }
   }
 
   async function signUp() {
@@ -103,6 +120,7 @@ const RegisterForm = () => {
       bojname: formState.bojname,
       userpw: formState.password,
       useremail: formState.email,
+      organization: formState.organization,
     });
   }
 
@@ -197,13 +215,37 @@ const RegisterForm = () => {
               name="confirmpassword"
               value={formState.confirmpassword}
               onChange={onChange}
+              onKeyUp={checkPassword}
               placeholder="비밀번호를 한번 더 입력해 주세요"
+            />
+            <Form.Text className="text-muted">
+              {passwordConfirmed === null ? (
+                <span></span>
+              ) : passwordConfirmed === true ? (
+                <span style={{ color: "green" }}>
+                  {"비밀번호가 일치합니다."}
+                </span>
+              ) : (
+                <span style={{ color: "red" }}>
+                  {"비밀번호가 일치하지 않습니다."}
+                </span>
+              )}
+            </Form.Text>
+          </Form.Group>
+          <Form.Group controlId="organization">
+            <Form.Label>소속 (선택)</Form.Label>
+            <Form.Control
+              type="text"
+              name="organization"
+              value={formState.organization}
+              onChange={onChange}
+              placeholder="소속 학교/직장을 입력해 주세요"
             />
           </Form.Group>
           <Button
             className="Register-button"
             onClick={signUp}
-            // disabled={!formCheckComplete}
+            disabled={!formCheckComplete}
           >
             회원가입
           </Button>

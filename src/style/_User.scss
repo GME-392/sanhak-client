@@ -1,4 +1,17 @@
 .user__item {
-  font-size: 1.2rem;
+  border: 1px solid #cdcdcd;
+  padding: 2rem;
+  border-radius: 8px;
+  li {
+    margin: 1.5rem 0;
+    list-style-type: none;
+  }
+}
+.user__item__label {
+  font-size: 1.4rem;
   color: "#696969";
+}
+
+.user__item__content {
+  font-size: 1.2rem;
 }

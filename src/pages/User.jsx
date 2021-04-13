@@ -6,6 +6,7 @@ import axios from "axios";
 import { USER_ENDPOINT } from "../constants/URL";
 
 const User = (props) => {
+  console.log(props);
   const { username } = props.match.params;
   const [ranking, setRanking] = useState(0);
   const [school, setSchool] = useState(0);
@@ -28,14 +29,29 @@ const User = (props) => {
         animate="show"
       >
         <Menu>
-          <motion.h2 variants={fade}>유저 정보</motion.h2>
+          <motion.h2 variants={fade}>{username} 유저 정보</motion.h2>
           <motion.div variants={lineAnim} className="line"></motion.div>
         </Menu>
-        <div className="user__item">닉네임</div>
-        <div>{username}</div>
-        <div className="user__item">랭킹</div>
-        <div className="user__item">학교 / 회사</div>
-        <div className="user__item">소속 그룹 목록</div>
+        <motion.div variants={fade}>
+          <ul className="user__item">
+            <li>
+              <div className="user__item__label">닉네임</div>
+              <div className="user__item__content">{username}</div>
+            </li>
+            <li>
+              <div className="user__item__label">랭킹</div>
+              <div className="user__item__content"></div>
+            </li>
+            <li>
+              <div className="user__item__label">해결한 문제</div>
+              <div className="user__item__content"></div>
+            </li>
+            <li>
+              <div className="user__item__label">소속 그룹 목록</div>
+              <div className="user__item__content"></div>
+            </li>
+          </ul>
+        </motion.div>
       </motion.div>
     </Container>
   );
@@ -67,8 +83,4 @@ const Menu = styled(motion.div)`
     object-fit: cover;
   }
 `;
-const Hide = styled.div`
-  overflow: hidden;
-`;
-
 export default User;
