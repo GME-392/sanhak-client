@@ -3,22 +3,15 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 //Animations
 import { motion } from "framer-motion";
-import {
-  sliderContainer,
-  slider,
-  pageAnimation,
-  fade,
-  photoAnim,
-  lineAnim,
-} from "../animation";
+import { pageAnimation, fade, lineAnim } from "../animation";
 import { useScroll } from "../components/useScroll";
 import ScrollTop from "../components/ScrollTop";
 import GroupList from "../components/GroupList/GroupList";
 import GroupSearch from "../components/GroupSearch/GroupSearch";
 import axios from "axios";
-import { Pagination } from "react-bootstrap";
 import CreateGroupModal from "../components/CreateGroupModal/CreateGroupModal";
 import GroupInfoModal from "../components/GroupInfoModal/GroupInfoModal";
+import PaginationComponent from "../components/PaginationComponent/PaginationComponent";
 
 const Group = () => {
   const [showCreateGroupModal, setShowCreateGroupModal] = useState(false);
@@ -34,7 +27,7 @@ const Group = () => {
   }, []);
 
   return (
-    <Work
+    <Container
       style={{ background: "#fff" }}
       exit="exit"
       variants={pageAnimation}
@@ -68,6 +61,7 @@ const Group = () => {
             <motion.div className="Group__ad2" />
           </motion.div>
         </Hide>
+        <PaginationComponent />
         <GroupInfoModal
           setShowGroupInfoModal={setShowGroupInfoModal}
           showGroupInfoModal={showGroupInfoModal}
@@ -79,11 +73,11 @@ const Group = () => {
           setShowCreateGroupModal={setShowCreateGroupModal}
         />
       </Menu>
-    </Work>
+    </Container>
   );
 };
 
-const Work = styled(motion.div)`
+const Container = styled(motion.div)`
   min-height: 100vh;
   overflow: hidden;
   padding: 5rem 10rem;

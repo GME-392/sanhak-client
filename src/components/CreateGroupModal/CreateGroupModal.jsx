@@ -8,6 +8,7 @@ import {
 } from "react-bootstrap";
 import React, { useState } from "react";
 import Tag from "../Tag/Tag";
+import "./CreateGroupModal.scss";
 import axios from "axios";
 
 const CreateGroupModal = ({
@@ -20,6 +21,7 @@ const CreateGroupModal = ({
   const [memberLimit, setMemberLimit] = useState(null);
   const [tagName, setTagName] = useState(null);
   const [tagList, setTagList] = useState([]);
+  const [description, setDescription] = useState(null);
 
   const onPressEnter = (e) => {
     e.persist();
@@ -31,6 +33,10 @@ const CreateGroupModal = ({
 
   const removeTag = (name) => {
     setTagList(tagList.filter((tag) => tag !== name));
+  };
+
+  const onChangeDescription = (e) => {
+    setDescription(e.target.value);
   };
 
   const onSubmit = () => {
@@ -92,6 +98,16 @@ const CreateGroupModal = ({
             />
           </Form.Group>
 
+          <Form.Group controlId="groupMemberLimit">
+            <Form.Label>그룹 소개</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="그룹을 소개하는 문구를 입력해 주세요"
+              value={description}
+              onChange={setDescription}
+            />
+          </Form.Group>
+
           <Form.Group controlId="groupTag">
             <Form.Label>그룹 태그</Form.Label>
             <Form.Control
@@ -114,13 +130,17 @@ const CreateGroupModal = ({
 
       <Modal.Footer>
         <Button
-          className="Modal__Button"
+          className="Modal__Button cancel"
           variant="secondary"
           onClick={handleClose}
         >
           취소
         </Button>
-        <Button className="Modal__Button" variant="primary" onClick={onSubmit}>
+        <Button
+          className="Modal__Button create"
+          variant="primary"
+          onClick={onSubmit}
+        >
           그룹 생성
         </Button>
       </Modal.Footer>

@@ -63,10 +63,10 @@ const GroupInfoModal = ({
         </Button>
         <Button
           className="Modal__Button"
-          variant="primary"
+          variant="#402323"
           onClick={handleClose}
         >
-          그룹 참여 신청
+          그룹 참여
         </Button>
       </Modal.Footer>
     </Modal>
