@@ -10,8 +10,10 @@
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "classnames": "^2.3.1",
+    "concurrently": "^6.0.2",
     "framer-motion": "^2.9.1",
     "js-sha256": "^0.9.0",
+    "json-server": "^0.16.3",
     "moment": "^2.29.1",
     "node-sass": "^4.14.1",
     "react": "^16.14.0",
@@ -28,7 +30,7 @@
     "styled-components": "^5.2.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently \"json-server data.json --port 4000\" \"react-scripts start\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

@@ -71,19 +71,48 @@
   display: flex;
   justify-content: center;
 
+  a {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+  }
+  a:active {
+    outline: none;
+  }
+  a:focus {
+    outline: none;
+  }
+
   li {
     width: 4rem;
     height: 4rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 8px;
+    border-radius: 12px;
     margin: 0 0.3rem;
     border: 1px solid #cdcdcd;
     cursor: pointer;
     font-size: 1.2rem;
   }
 
+  li:hover {
+    color: white;
+    transition: 0.2s ease-in;
+    background-color: #7c9ece;
+    border-color: transparent;
+    border-radius: 8px;
+  }
+
+  li:active {
+    outline: none;
+  }
+  li:focus {
+    outline: none;
+  }
   .active {
     background-color: #40368a;
     color: white;
