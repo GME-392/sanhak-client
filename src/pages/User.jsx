@@ -4,14 +4,15 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 import axios from "axios";
 import { USER_ENDPOINT } from "../constants/URL";
+import { useSelector } from "react-redux";
 
 const User = (props) => {
   console.log(props);
   const { username } = props.match.params;
+  const activeUser = useSelector((state) => state.AppState.activeUser);
   const [ranking, setRanking] = useState(0);
   const [school, setSchool] = useState(0);
   const [groupList, setGroupList] = useState([]);
-
   useEffect(() => {
     getUserData();
   }, []);
@@ -37,6 +38,22 @@ const User = (props) => {
             <li>
               <div className="user__item__label">닉네임</div>
               <div className="user__item__content">{username}</div>
+            </li>
+            <li>
+              <div className="user__item__label">상태 메시지</div>
+              {username === activeUser ? (
+                <>
+                  <input
+                    className="user__item__content"
+                    type="text"
+                    placeholder={"상태 메시지를 입력하세요"}
+                    maxLength={"30"}
+                  />
+                  <button>변경</button>
+                </>
+              ) : (
+                <div></div>
+              )}
             </li>
             <li>
               <div className="user__item__label">랭킹</div>

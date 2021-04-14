@@ -12,6 +12,7 @@ import axios from "axios";
 import CreateGroupModal from "../components/CreateGroupModal/CreateGroupModal";
 import GroupInfoModal from "../components/GroupInfoModal/GroupInfoModal";
 import PaginationComponent from "../components/PaginationComponent/PaginationComponent";
+import ReactPaginate from "react-paginate";
 
 const Group = () => {
   const [showCreateGroupModal, setShowCreateGroupModal] = useState(false);
@@ -19,12 +20,19 @@ const Group = () => {
   const [selected, setSelected] = useState(null);
   const [selectedGroupInfo, setSelectedGroupInfo] = useState(null);
   const [groupList, setGroupList] = useState([]);
+  const [offset, setOffset] = useState(0);
 
   useEffect(() => {
     axios
       .get("http://localhost:4000/groups")
-      .then((res) => setGroupList(res.data));
-  }, []);
+      .then((res) => setGroupList(res.data.slice(offset, offset + 6)));
+  }, [offset]);
+
+  const handlePageClick = (data) => {
+    // let selected = data.selected;
+    // let offset = Math.ceil(selected * this.props.perPage);
+    setOffset(data.selected * 6);
+  };
 
   return (
     <Container
@@ -42,6 +50,7 @@ const Group = () => {
           setGroupList={setGroupList}
           setShow={setShowCreateGroupModal}
         />
+        <div className="divideLine"></div>
         <Hide className="Group__container">
           <motion.div className="Group__groupList">
             {groupList.map((group) => (
@@ -61,7 +70,19 @@ const Group = () => {
             <motion.div className="Group__ad2" />
           </motion.div>
         </Hide>
-        <PaginationComponent />
+        {/* <PaginationComponent /> */}
+        <ReactPaginate
+          previousLabel={"이전"}
+          nextLabel={"다음"}
+          breakLabel={"..."}
+          breakClassName={"break-me"}
+          pageCount={10}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={5}
+          onPageChange={handlePageClick}
+          containerClassName={"pagination"}
+          activeClassName={"active"}
+        />
         <GroupInfoModal
           setShowGroupInfoModal={setShowGroupInfoModal}
           showGroupInfoModal={showGroupInfoModal}
@@ -117,14 +138,4 @@ const Frame1 = styled(motion.div)`
   background: #fffebf;
   z-index: 2;
 `;
-const Frame2 = styled(Frame1)`
-  background: #ff8efb;
-`;
-const Frame3 = styled(Frame1)`
-  background: #8ed2ff;
-`;
-const Frame4 = styled(Frame1)`
-  background: #8effa0;
-`;
-
 export default Group;
