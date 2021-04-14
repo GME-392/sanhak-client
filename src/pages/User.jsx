@@ -13,6 +13,8 @@ const User = (props) => {
   const [ranking, setRanking] = useState(0);
   const [school, setSchool] = useState(0);
   const [groupList, setGroupList] = useState([]);
+  const [message, setMessage] = useState("즐겁게, 코드!");
+
   useEffect(() => {
     getUserData();
   }, []);
@@ -46,10 +48,11 @@ const User = (props) => {
                   <input
                     className="user__item__content"
                     type="text"
+                    value={message}
                     placeholder={"상태 메시지를 입력하세요"}
                     maxLength={"30"}
                   />
-                  <button>변경</button>
+                  <button className="user__item__change__button">변경</button>
                 </>
               ) : (
                 <div></div>
@@ -65,6 +68,10 @@ const User = (props) => {
             </li>
             <li>
               <div className="user__item__label">소속 그룹 목록</div>
+              <div className="user__item__content"></div>
+            </li>
+            <li>
+              <div className="user__item__label">블로그 / 홈페이지</div>
               <div className="user__item__content"></div>
             </li>
           </ul>

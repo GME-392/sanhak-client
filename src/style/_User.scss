@@ -5,13 +5,29 @@
   li {
     margin: 1.5rem 0;
     list-style-type: none;
+    input {
+      width: 40%;
+      font-size: 1.2rem;
+      min-width: 400px;
+      max-width: 800px;
+      padding: 1rem 1.2rem;
+      border: 1px solid #cdcdcd;
+      border-radius: 8px;
+      margin: 1rem 1rem 0 0;
+    }
+    button {
+      font-size: 1.2rem;
+      font-weight: 400;
+    }
   }
 }
+
 .user__item__label {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   color: "#696969";
 }
 
 .user__item__content {
-  font-size: 1.2rem;
+  margin-top: 0.5rem;
+  font-size: 1.6rem;
 }
