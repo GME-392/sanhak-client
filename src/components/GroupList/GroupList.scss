@@ -2,35 +2,39 @@
   transition: 0.3s ease-in;
   border: 5px solid #cdcdcd;
   border-left: 30px solid #cdcdcd;
-  border-radius: 8px;
+  border-radius: 30px;
   padding: 18px;
   padding-bottom: 10px;
   margin: 1rem 1rem;
+  width: 50%;
+  // max-width: 400px;
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
   cursor: pointer;
 }
 
 .Bronze {
   border-color: #967e74;
-  border-image: linear-gradient(to top, rgb(192, 192, 192), #967e74) 1 100%;
+  // border-image: linear-gradient(to top, rgb(192, 192, 192), #967e74) 20;
 }
 
 .Silver {
   border-color: #cdcdcd;
-  border-image: linear-gradient(to top, rgb(235, 233, 233), #a3a3a3) 1 100%;
+  // border-image: linear-gradient(to top, rgb(235, 233, 233), #a3a3a3) 20;
 }
 
 .Gold {
-  border-image: linear-gradient(to top, rgb(236, 230, 230), #f3cb5b) 1 100%;
+  // border-image: linear-gradient(to top, rgb(236, 230, 230), #f3cb5b) 20;
   border-color: #f3cb5b;
 }
 
 .Platinum {
   border-color: #74cfaa;
-  border-image: linear-gradient(to top, rgb(236, 230, 230), #74cfaa) 1 100%;
+  // border-image: linear-gradient(to top, rgb(236, 230, 230), #74cfaa) 20;
 }
 
 .Diamond {
-  border-image: linear-gradient(to top, rgb(236, 230, 230), #adcede) 1 100%;
+  // border-image: linear-gradient(to top, rgb(236, 230, 230), #adcede) 20;
   border-color: #adcede;
 }
 
@@ -39,7 +43,8 @@
 }
 
 .Ruby {
-  border-image: linear-gradient(to bottom, red, rgba(0, 0, 0, 0)) 1 100%;
+  border-color: #e04343;
+  // border-image: linear-gradient(to bottom, red, rgba(0, 0, 0, 0)) 20;
 }
 
 .GroupList__container:hover {
