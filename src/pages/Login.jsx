@@ -62,7 +62,7 @@ const Login = () => {
   }
 
   return (
-    <Work
+    <Container
       style={{ background: "#fff" }}
       exit="exit"
       variants={pageAnimation}
@@ -106,13 +106,13 @@ const Login = () => {
       ) : (
         <Link to="/">코맷 소개</Link>
       )}
-    </Work>
+    </Container>
   );
 };
 
-const Work = styled(motion.div)`
+const Container = styled(motion.div)`
   overflow: hidden;
-  padding: 5rem 10rem;
+  padding: 3rem 10rem;
   @media (max-width: 900px) {
     padding: 2rem 2rem;
   }
@@ -122,8 +122,6 @@ const Work = styled(motion.div)`
   }
 `;
 const Menu = styled(motion.div)`
-  padding-bottom: 10rem;
-
   .line {
     height: 0.5rem;
     background: #40368a;

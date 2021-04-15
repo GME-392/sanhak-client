@@ -14,6 +14,7 @@ const User = (props) => {
   const [message, setMessage] = useState("");
   const [homepage, setHomepage] = useState("https://merrily-code.tistory.com/");
   const [solved, setSolved] = useState([]);
+  const [isLoading, setIsloading] = useState(true);
   const [organization, setOrganization] = useState("");
 
   useEffect(() => {
@@ -33,7 +34,8 @@ const User = (props) => {
     await axios
       .post(`${SOLVED_PROBLEMS_ENDPOINT}`, { id: username })
       .then((res) => {
-        console.log(res.data);
+        setSolved(res.data.body);
+        setIsloading(false);
       });
   };
 
@@ -48,6 +50,8 @@ const User = (props) => {
         console.log(res);
       });
   };
+
+  console.log(isLoading);
 
   return (
     <Container>
@@ -151,11 +155,24 @@ const User = (props) => {
               <li>
                 <div className="user__item__label">해결한 문제</div>
                 <hr className="user__solved__divideline" />
-                <div className="user__item__content">
-                  {solved.map((problem) => (
-                    <span>{problem}</span>
-                  ))}
-                </div>
+                {isLoading ? (
+                  <div className="user__solved__loading">
+                    📪 데이터를 불러오는 중입니다...
+                  </div>
+                ) : (
+                  <div className="user__solved__problem__list">
+                    {solved.map((problem, idx) => (
+                      <a
+                        key={idx}
+                        className="user__solved__problem"
+                        target="_blank"
+                        href={`https://www.acmicpc.net/problem/${problem}`}
+                      >
+                        {problem}
+                      </a>
+                    ))}
+                  </div>
+                )}
               </li>
             </div>
           </div>

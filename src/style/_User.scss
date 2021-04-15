@@ -13,6 +13,28 @@
   flex-direction: row;
 }
 
+.user__solved__problem__list {
+  padding: 0 1rem 1rem 1rem;
+}
+
+.user__solved__problem {
+  transition: 0.15s ease-in;
+  display: inline-block;
+  margin: 0.5rem 1rem;
+  color: #313131;
+  border: 1px solid #c4c4c4;
+  border-bottom: 3px solid #537fd1;
+  border-radius: 4px;
+  padding: 4px 6px;
+}
+
+.user__solved__problem:hover {
+  transition: 0.15s ease-in;
+  -webkit-box-shadow: 3px 3px 5px 0px rgba(199, 199, 199, 1);
+  -moz-box-shadow: 3px 3px 5px 0px rgba(199, 199, 199, 1);
+  box-shadow: 3px 3px 5px 0px rgba(199, 199, 199, 1);
+}
+
 .user__solved__list {
   display: flex;
   flex: 1;
@@ -34,6 +56,13 @@
   width: 100%;
   border-color: #40368a;
   border-width: 5px;
+}
+
+.user__solved__loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.6rem;
 }
 
 .user__item {
