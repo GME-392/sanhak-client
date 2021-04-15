@@ -5,8 +5,12 @@ label {
 
 .login__container {
   display: flex;
+  justify-items: center;
   flex-direction: column;
+  border: 1px solid #cdcdcd;
   align-items: center;
+  padding: 4rem 5rem;
+  border-radius: 12px;
 }
 
 .login__input-container {
