@@ -87,7 +87,6 @@ const RegisterForm = () => {
       formState.username !== null &&
       formState.email !== null
     ) {
-      console.log(formCheckComplete);
       setFormCheckComplete((prev) => !prev);
     }
   };
@@ -107,6 +106,7 @@ const RegisterForm = () => {
 
   async function signUp() {
     const { username, bojname, email, password, confirmpassword } = formState;
+    console.log(username, password, email);
     await Auth.signUp({ username, password, attributes: { email } });
     updateFormState(() => ({ ...formState, formType: "confirmSignUp" }));
   }
@@ -253,19 +253,19 @@ const RegisterForm = () => {
       )}
       {formType === "confirmSignUp" && (
         <Form className="Register-form">
-          <Form.Group controlId= "confirmSignUp">
-          <Form.Label>인증 코드 입력</Form.Label>
-          <div className="register-form__container">
-          <Form.Control
-            type="text"
-            placeholder="인증 코드 6자리를 입력해 주세요"
-            name="authCode"
-            onChange={onChange}
-            value={formState.authCode}
-            style={{ display: "inline-block" }}
-          />
-          <Button onClick={confirmSignUp}>확인</Button>
-          </div>
+          <Form.Group controlId="confirmSignUp">
+            <Form.Label>인증 코드 입력</Form.Label>
+            <div className="register-form__container">
+              <Form.Control
+                type="text"
+                placeholder="인증 코드 6자리를 입력해 주세요"
+                name="authCode"
+                onChange={onChange}
+                value={formState.authCode}
+                style={{ display: "inline-block" }}
+              />
+              <Button onClick={confirmSignUp}>확인</Button>
+            </div>
           </Form.Group>
         </Form>
       )}

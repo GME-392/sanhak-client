@@ -29,8 +29,8 @@ const GroupList = ({
         <div>{`정원 : [${members.length}/${max_member}]`}</div>
         <span>
           태그 :{" "}
-          {tags?.map((tag) => (
-            <Tag name={tag} />
+          {tags?.map((tag, idx) => (
+            <Tag key={idx} name={tag} />
           ))}
         </span>
       </Container>

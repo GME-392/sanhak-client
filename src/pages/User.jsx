@@ -3,24 +3,45 @@ import { pageAnimation, fade, lineAnim } from "../animation";
 import { motion } from "framer-motion";
 import styled from "styled-components";
 import axios from "axios";
-import { USER_ENDPOINT } from "../constants/URL";
+import { SOLVED_PROBLEMS_ENDPOINT, USER_ENDPOINT } from "../constants/URL";
 import { useSelector } from "react-redux";
+import { Doughnut } from "react-chartjs-2";
 
 const User = (props) => {
-  console.log(props);
   const { username } = props.match.params;
   const activeUser = useSelector((state) => state.AppState.activeUser);
-  const [ranking, setRanking] = useState(0);
-  const [school, setSchool] = useState(0);
-  const [groupList, setGroupList] = useState([]);
-  const [message, setMessage] = useState("즐겁게, 코드!");
+  const [userData, setUserData] = useState(null);
+  const [message, setMessage] = useState("");
+  const [homepage, setHomepage] = useState("https://merrily-code.tistory.com/");
+  const [solved, setSolved] = useState([]);
 
   useEffect(() => {
     getUserData();
+    getProblemsList();
   }, []);
 
   const getUserData = async () => {
-    await axios.get(`${USER_ENDPOINT}/userid=${username}&funcname=getUser}`);
+    await axios
+      .get(`${USER_ENDPOINT}userid=${username}&funcname=getUser`)
+      .then((res) => {
+        setUserData(res.data);
+      });
+  };
+
+  const getProblemsList = async () => {
+    await axios.get(`${SOLVED_PROBLEMS_ENDPOINT}`, { data: { id: username } });
+  };
+
+  const updateMessage = async () => {
+    await axios
+      .patch(`${USER_ENDPOINT}`, {
+        funcname: "updateMessage",
+        userid: username,
+        message: "왜안되냐",
+      })
+      .then((res) => {
+        console.log(res);
+      });
   };
 
   return (
@@ -35,46 +56,105 @@ const User = (props) => {
           <motion.h2 variants={fade}>{username} 유저 정보</motion.h2>
           <motion.div variants={lineAnim} className="line"></motion.div>
         </Menu>
-        <motion.div variants={fade}>
-          <ul className="user__item">
-            <li>
-              <div className="user__item__label">닉네임</div>
-              <div className="user__item__content">{username}</div>
-            </li>
-            <li>
-              <div className="user__item__label">상태 메시지</div>
-              {username === activeUser ? (
-                <>
-                  <input
-                    className="user__item__content"
-                    type="text"
-                    value={message}
-                    placeholder={"상태 메시지를 입력하세요"}
-                    maxLength={"30"}
-                  />
-                  <button className="user__item__change__button">변경</button>
-                </>
-              ) : (
-                <div></div>
-              )}
-            </li>
-            <li>
-              <div className="user__item__label">랭킹</div>
-              <div className="user__item__content"></div>
-            </li>
-            <li>
-              <div className="user__item__label">해결한 문제</div>
-              <div className="user__item__content"></div>
-            </li>
-            <li>
-              <div className="user__item__label">소속 그룹 목록</div>
-              <div className="user__item__content"></div>
-            </li>
-            <li>
-              <div className="user__item__label">블로그 / 홈페이지</div>
-              <div className="user__item__content"></div>
-            </li>
-          </ul>
+        <motion.div variants={fade} className="user__container">
+          <div className="user__container__horizontal">
+            <ul className="user__item">
+              <li>
+                <div className="user__item__label">백준 온라인 저지 아이디</div>
+                <div className="user__item__content">{userData?.boj_name}</div>
+              </li>
+              <li>
+                <div className="user__item__label">랭킹</div>
+                <div className="user__item__content"></div>
+              </li>
+              <li>
+                <div className="user__item__label">소속 그룹 목록</div>
+                <div className="user__item__content"></div>
+              </li>
+              <li>
+                <div className="user__item__label">상태 메시지</div>
+                {username === activeUser ? (
+                  <>
+                    <input
+                      className="user__item__content"
+                      type="text"
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
+                      placeholder={"상태 메시지를 입력하세요"}
+                      maxLength={"30"}
+                    />
+                    <button
+                      className="user__item__change__button"
+                      onClick={updateMessage}
+                    >
+                      변경
+                    </button>
+                  </>
+                ) : (
+                  <div className="user__item__content">
+                    {userData?.user_message}
+                  </div>
+                )}
+              </li>
+
+              <li>
+                <div className="user__item__label">학교 / 회사</div>
+                {username === activeUser ? (
+                  <>
+                    <input
+                      className="user__item__content"
+                      type="text"
+                      value={userData?.organization}
+                      onChange={(e) => setMessage(e.target.value)}
+                      placeholder={"상태 메시지를 입력하세요"}
+                      maxLength={"30"}
+                    />
+                    <button className="user__item__change__button">변경</button>
+                  </>
+                ) : (
+                  <div className="user__item__content">
+                    {userData?.organization}
+                  </div>
+                )}
+              </li>
+              <li>
+                <div className="user__item__label">블로그 / 홈페이지</div>
+                <div className="user__item__content">
+                  {username === activeUser ? (
+                    <>
+                      <input
+                        className="user__item__content"
+                        type="text"
+                        value={homepage}
+                        onChange={(e) => setHomepage(e.target.value)}
+                        placeholder={"블로그 / 홈페이지 주소를 입력하세요"}
+                        maxLength={"40"}
+                      />
+                      <button className="user__item__change__button">
+                        변경
+                      </button>
+                    </>
+                  ) : (
+                    <a href={homepage} className="user__item__content">
+                      {homepage}
+                    </a>
+                  )}
+                </div>
+              </li>
+            </ul>
+            <div className="user__solved__list">
+              <li>
+                <div className="user__item__label">해결한 문제</div>
+                <hr className="user__solved__divideline" />
+                <div className="user__item__content">
+                  {solved.map((problem) => (
+                    <span>{problem}</span>
+                  ))}
+                </div>
+              </li>
+            </div>
+          </div>
+          {/* <Doughnut data={...} /> */}
         </motion.div>
       </motion.div>
     </Container>

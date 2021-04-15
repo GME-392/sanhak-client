@@ -36,7 +36,7 @@ const GroupInfoModal = ({
           <Form.Group controlId="groupMembers">
             <Form.Label>그룹원 목록</Form.Label>
             <Form.Text>
-              {data?.members.map((member) => (
+              {data?.members?.map((member) => (
                 <div>{member}</div>
               ))}
             </Form.Text>
@@ -45,7 +45,7 @@ const GroupInfoModal = ({
           <Form.Group controlId="groupMembers">
             <Form.Label>그룹 태그</Form.Label>
             <Form.Text>
-              {data?.tags.map((tag) => (
+              {data?.tags?.map((tag) => (
                 <Tag name={tag}></Tag>
               ))}
             </Form.Text>
@@ -61,11 +61,7 @@ const GroupInfoModal = ({
         >
           취소
         </Button>
-        <Button
-          className="Modal__Button"
-          variant="#402323"
-          onClick={handleClose}
-        >
+        <Button className="Modal__Button" onClick={handleClose}>
           그룹 참여
         </Button>
       </Modal.Footer>

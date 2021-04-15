@@ -1,12 +1,47 @@
-.user__item {
+.user__container {
   border: 1px solid #cdcdcd;
   padding: 2rem;
   border-radius: 8px;
   li {
-    margin: 1.5rem 0;
     list-style-type: none;
+  }
+}
+
+.user__container__horizontal {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.user__solved__list {
+  display: flex;
+  flex: 1;
+  justify-content: flex-start;
+  text-align: left;
+  border: 1px solid #cdcdcd;
+  border-radius: 12px;
+  .user__item__label {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin: 1.6rem 0 0 2rem;
+  }
+  li {
+    width: 100%;
+  }
+}
+
+.user__solved__divideline {
+  width: 100%;
+  border-color: #40368a;
+  border-width: 5px;
+}
+
+.user__item {
+  flex: 1;
+  li {
+    margin: 1.5rem 0;
     input {
-      width: 40%;
+      width: 30%;
       font-size: 1.2rem;
       min-width: 400px;
       max-width: 800px;
@@ -29,5 +64,17 @@
 
 .user__item__content {
   margin-top: 0.5rem;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
+}
+
+@media (max-width: 1200px) {
+  .user__container__horizontal {
+    flex-direction: column;
+  }
+
+  .user__solved__list {
+    .user__item__label {
+      margin: 1rem 0 0 1rem;
+    }
+  }
 }
