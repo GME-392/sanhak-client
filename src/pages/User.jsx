@@ -14,6 +14,7 @@ const User = (props) => {
   const [message, setMessage] = useState("");
   const [homepage, setHomepage] = useState("https://merrily-code.tistory.com/");
   const [solved, setSolved] = useState([]);
+  const [organization, setOrganization] = useState("");
 
   useEffect(() => {
     getUserData();
@@ -29,7 +30,11 @@ const User = (props) => {
   };
 
   const getProblemsList = async () => {
-    await axios.get(`${SOLVED_PROBLEMS_ENDPOINT}`, { data: { id: username } });
+    await axios
+      .post(`${SOLVED_PROBLEMS_ENDPOINT}`, { id: username })
+      .then((res) => {
+        console.log(res.data);
+      });
   };
 
   const updateMessage = async () => {
@@ -37,7 +42,7 @@ const User = (props) => {
       .patch(`${USER_ENDPOINT}`, {
         funcname: "updateMessage",
         userid: username,
-        message: "왜안되냐",
+        message: "바꿀 메시지",
       })
       .then((res) => {
         console.log(res);
@@ -104,7 +109,7 @@ const User = (props) => {
                     <input
                       className="user__item__content"
                       type="text"
-                      value={userData?.organization}
+                      value={organization}
                       onChange={(e) => setMessage(e.target.value)}
                       placeholder={"상태 메시지를 입력하세요"}
                       maxLength={"30"}
