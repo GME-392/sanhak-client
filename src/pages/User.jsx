@@ -44,7 +44,7 @@ const User = (props) => {
       .patch(`${USER_ENDPOINT}`, {
         funcname: "updateMessage",
         userid: username,
-        message: "바꿀 메시지",
+        message: message,
       })
       .then((res) => {
         console.log(res);
@@ -71,10 +71,6 @@ const User = (props) => {
               <li>
                 <div className="user__item__label">백준 온라인 저지 아이디</div>
                 <div className="user__item__content">{userData?.boj_name}</div>
-              </li>
-              <li>
-                <div className="user__item__label">랭킹</div>
-                <div className="user__item__content"></div>
               </li>
               <li>
                 <div className="user__item__label">소속 그룹 목록</div>

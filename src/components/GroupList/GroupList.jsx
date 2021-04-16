@@ -21,7 +21,7 @@ const GroupList = ({
   return (
     <>
       <Container
-        className={`GroupList__container ${tier}`}
+        className={`GroupList__container Diamond`}
         onClick={onListClick}
       >
         <h4 className="GroupList__name">{name}</h4>
