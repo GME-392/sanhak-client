@@ -58,9 +58,7 @@ const Container = styled.div`
   @media (max-width: 768px) {
     width: 100% !important;
     border: none !important;
-  }import { TermContext } from '../RegisterTerm.jsx/RegisterTerm';
-import { TermContext } from '../../pages/Register';
-
+  }
 `;
 
 const TermContainer = styled.div`
@@ -84,25 +82,6 @@ const Work = styled(motion.div)`
   h2 {
     padding: 1rem 0rem;
   }
-`;
-
-const Menu = styled(motion.div)`
-  .line {
-    height: 0.5rem;
-    background: #40368a;
-    margin-bottom: 3rem;
-  }
-  img {
-    width: 100%;
-    height: 70vh;
-    object-fit: cover;
-  }
-`;
-
-const Hide = styled.div`
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
 `;
 
 export default RegisterTerm;

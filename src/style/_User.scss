@@ -20,6 +20,8 @@
 .user__solved__problem {
   transition: 0.15s ease-in;
   display: inline-block;
+  width: 4rem;
+  text-align: center;
   margin: 0.5rem 1rem;
   color: #313131;
   border: 1px solid #c4c4c4;
@@ -33,6 +35,7 @@
   -webkit-box-shadow: 3px 3px 5px 0px rgba(199, 199, 199, 1);
   -moz-box-shadow: 3px 3px 5px 0px rgba(199, 199, 199, 1);
   box-shadow: 3px 3px 5px 0px rgba(199, 199, 199, 1);
+  text-decoration: none;
 }
 
 .user__solved__list {

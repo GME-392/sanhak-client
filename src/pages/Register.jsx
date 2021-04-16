@@ -76,8 +76,7 @@ const Container = styled.div`
   @media (max-width: 768px) {
     width: 100% !important;
     border: none !important;
-  }import RegisterForm from '../components/RegisterForm/RegisterForm';
-
+  }
 `;
 
 const Work = styled(motion.div)`
@@ -87,7 +86,6 @@ const Work = styled(motion.div)`
   @media (max-width: 900px) {
     padding: 2rem 2rem;
   }
-
   h2 {
     padding: 1rem 0rem;
   }
