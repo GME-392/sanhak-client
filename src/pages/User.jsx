@@ -37,7 +37,7 @@ const User = (props) => {
 
     datasets: [
       {
-        label: "푼 문제 수",
+        label: "해결한 문제 수",
         backgroundColor: "rgba(109, 151, 214, .2)",
         borderColor: "rgba(109, 151, 214, 1)",
         pointBackgroundColor: "rgba(109, 151, 214, 1)",
@@ -52,7 +52,7 @@ const User = (props) => {
     scale: {
       ticks: {
         min: 0,
-        max: 300,
+        max: solved.length,
         stepSize: 50,
         showLabelBackdrop: false,
         backdropColor: "rgba(203, 197, 11, 1)",
@@ -143,121 +143,126 @@ const User = (props) => {
           <motion.div variants={lineAnim} className="line"></motion.div>
         </Menu>
         <motion.div variants={fade} className="user__container">
-          <div className="user__container__horizontal">
-            <ul className="user__item">
-              <li>
-                <div className="user__item__label">백준 온라인 저지 아이디</div>
-                <div className="user__item__content">
-                  <a
-                    href={userData?.boj_name}
-                    target="_blank"
-                    style={{ fontSize: "1.4rem", color: "#0c1e52" }}
+          {userData ? (
+            <div className="user__container__horizontal">
+              <ul className="user__item">
+                <li>
+                  <div className="user__item__label">
+                    백준 온라인 저지 아이디
+                  </div>
+                  <div className="user__item__content">
+                    <a
+                      href={userData?.boj_name}
+                      target="_blank"
+                      style={{ fontSize: "1.4rem", color: "#0c1e52" }}
+                    >
+                      {userData?.boj_name}
+                    </a>
+                  </div>
+                </li>
+                <li>
+                  <div className="user__item__label">소속 그룹 목록</div>
+                  <div className="user__item__content"></div>
+                </li>
+                {username === activeUser && (
+                  <h6
+                    className="user__item__modify"
+                    onClick={() => setMode((prev) => !prev)}
                   >
-                    {userData?.boj_name}
-                  </a>
-                </div>
-              </li>
-              <li>
-                <div className="user__item__label">소속 그룹 목록</div>
-                <div className="user__item__content"></div>
-              </li>
-              {username === activeUser && (
-                <h6
-                  className="user__item__modify"
-                  onClick={() => setMode((prev) => !prev)}
-                >
-                  <img src={gear} /> 정보 수정
-                </h6>
-              )}
-              <li>
-                <div className="user__item__label">상태 메시지</div>
-                {mode === true ? (
-                  <>
-                    <input
-                      className="user__item__content"
-                      type="text"
-                      value={message}
-                      onChange={(e) => setMessage(e.target.value)}
-                      placeholder={"상태 메시지를 입력하세요"}
-                      maxLength={"30"}
-                    />
-                    <button
-                      className="user__item__change__button"
-                      onClick={updateMessage}
-                    >
-                      변경
-                    </button>
-                  </>
-                ) : (
-                  <div className="user__item__content">
-                    {userData?.user_message}
-                  </div>
+                    <img src={gear} /> 정보 수정
+                  </h6>
                 )}
-              </li>
-
-              <li>
-                <div className="user__item__label">학교 / 회사</div>
-                {mode === true ? (
-                  <>
-                    <input
-                      className="user__item__content"
-                      type="text"
-                      value={organization}
-                      onChange={(e) => setOrganization(e.target.value)}
-                      placeholder={"소속을 입력하세요"}
-                      maxLength={"30"}
-                    />
-                    <button
-                      className="user__item__change__button"
-                      onClick={updateOrganization}
-                    >
-                      변경
-                    </button>
-                  </>
-                ) : (
-                  <div className="user__item__content">
-                    {userData?.organization}
-                  </div>
-                )}
-              </li>
-              <li>
-                <div className="user__item__label">블로그 / 홈페이지</div>
-                <div className="user__item__content">
+                <li>
+                  <div className="user__item__label">상태 메시지</div>
                   {mode === true ? (
                     <>
                       <input
                         className="user__item__content"
                         type="text"
-                        value={homepage}
-                        onChange={(e) => setHomepage(e.target.value)}
-                        placeholder={"블로그 / 홈페이지 주소를 입력하세요"}
-                        maxLength={"40"}
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        placeholder={"상태 메시지를 입력하세요"}
+                        maxLength={"30"}
                       />
                       <button
                         className="user__item__change__button"
-                        onClick={updateHomepage}
+                        onClick={updateMessage}
                       >
                         변경
                       </button>
                     </>
                   ) : (
-                    <a
-                      href={homepage}
-                      className="user__item__content"
-                      style={{ fontSize: "1.4rem", color: "#0c1e52" }}
-                    >
-                      {userData?.homepage}
-                    </a>
+                    <div className="user__item__content">
+                      {userData?.user_message}
+                    </div>
                   )}
-                </div>
-              </li>
-            </ul>
-            <div className="user__solved__list">
-              <li>
-                <div className="user__item__label">해결한 문제</div>
-                <hr className="user__solved__divideline" />
-                <Radar data={RadarData} options={RadarOptions} />
-                {/* {isLoading ? (
+                </li>
+
+                <li>
+                  <div className="user__item__label">학교 / 회사</div>
+                  {mode === true ? (
+                    <>
+                      <input
+                        className="user__item__content"
+                        type="text"
+                        value={organization}
+                        onChange={(e) => setOrganization(e.target.value)}
+                        placeholder={"소속을 입력하세요"}
+                        maxLength={"30"}
+                      />
+                      <button
+                        className="user__item__change__button"
+                        onClick={updateOrganization}
+                      >
+                        변경
+                      </button>
+                    </>
+                  ) : (
+                    <div className="user__item__content">
+                      {userData?.organization}
+                    </div>
+                  )}
+                </li>
+                <li>
+                  <div className="user__item__label">블로그 / 홈페이지</div>
+                  <div className="user__item__content">
+                    {mode === true ? (
+                      <>
+                        <input
+                          className="user__item__content"
+                          type="text"
+                          value={homepage}
+                          onChange={(e) => setHomepage(e.target.value)}
+                          placeholder={"블로그 / 홈페이지 주소를 입력하세요"}
+                          maxLength={"40"}
+                        />
+                        <button
+                          className="user__item__change__button"
+                          onClick={updateHomepage}
+                        >
+                          변경
+                        </button>
+                      </>
+                    ) : (
+                      <a
+                        href={homepage}
+                        className="user__item__content"
+                        style={{ fontSize: "1.4rem", color: "#0c1e52" }}
+                      >
+                        {userData?.homepage}
+                      </a>
+                    )}
+                  </div>
+                </li>
+              </ul>
+              <div className="user__solved__list">
+                <li>
+                  <div className="user__item__label">
+                    해결한 문제 - {solved.length}문제
+                  </div>
+                  <hr className="user__solved__divideline" />
+                  <Radar data={RadarData} options={RadarOptions} />
+                  {/* {isLoading ? (
                   <div className="user__solved__loading">
                     📪 데이터를 불러오는 중입니다...
                   </div>
@@ -275,10 +280,14 @@ const User = (props) => {
                     ))}
                   </div>
                 )} */}
-              </li>
+                </li>
+              </div>
             </div>
-          </div>
-          {/* <Doughnut data={...} /> */}
+          ) : (
+            <div style={{ fontSize: "1.4rem" }}>
+              🚧 이런! 찾는 유저가 존재하지 않네요!
+            </div>
+          )}
         </motion.div>
       </motion.div>
     </Container>
