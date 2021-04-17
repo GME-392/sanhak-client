@@ -26,7 +26,14 @@ const UserWelcome = () => {
           <img src={profile} />
           {activeUser}님, 환영합니다.
         </span>
-        <button onClick={signOut}>로그아웃</button>
+        <button
+          onClick={() => {
+            signOut();
+            history.push(`/user/${activeUser}`);
+          }}
+        >
+          로그아웃
+        </button>
       </div>
     </li>
   );

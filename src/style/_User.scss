@@ -42,6 +42,8 @@
   display: flex;
   flex: 1;
   justify-content: flex-start;
+  max-height: 500px;
+  overflow: hidden;
   text-align: left;
   border: 1px solid #cdcdcd;
   border-radius: 12px;
@@ -91,12 +93,17 @@
 
 .user__item__label {
   font-size: 1.2rem;
-  color: "#696969";
+  color: #696969;
 }
 
 .user__item__content {
   margin-top: 0.5rem;
   font-size: 1.4rem;
+}
+
+.user__item__modify {
+  color: #8f8f8f;
+  cursor: pointer;
 }
 
 @media (max-width: 1200px) {

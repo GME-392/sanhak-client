@@ -3,24 +3,70 @@ import { pageAnimation, fade, lineAnim } from "../animation";
 import { motion } from "framer-motion";
 import styled from "styled-components";
 import axios from "axios";
-import { SOLVED_PROBLEMS_ENDPOINT, USER_ENDPOINT } from "../constants/URL";
+import {
+  SOLVED_SKILLS_ENDPOINT,
+  SOLVED_PROBLEMS_ENDPOINT,
+  USER_ENDPOINT,
+} from "../constants/URL";
 import { useSelector } from "react-redux";
-import { Doughnut } from "react-chartjs-2";
+import { Radar } from "react-chartjs-2";
+import gear from "../img/settings.png";
+import { max } from "moment";
 
 const User = (props) => {
   const { username } = props.match.params;
   const activeUser = useSelector((state) => state.AppState.activeUser);
   const [userData, setUserData] = useState(null);
   const [message, setMessage] = useState("");
-  const [homepage, setHomepage] = useState("https://merrily-code.tistory.com/");
+  const [homepage, setHomepage] = useState("");
   const [solved, setSolved] = useState([]);
   const [isLoading, setIsloading] = useState(true);
   const [organization, setOrganization] = useState("");
+  const [mode, setMode] = useState(false); // 정보 수정 텍스트 토글
+  const [solvedSkill, setSolvedSkill] = useState([]);
+  const [maxSolved, setMaxSolved] = useState(0);
 
   useEffect(() => {
     getUserData();
+    getSolvedSkillsList();
     getProblemsList();
-  }, []);
+  }, [mode]);
+
+  const RadarData = {
+    labels: ["Bronze", "Silver", "Gold", "Platinum", "Diamond"],
+
+    datasets: [
+      {
+        label: "푼 문제 수",
+        backgroundColor: "rgba(109, 151, 214, .2)",
+        borderColor: "rgba(109, 151, 214, 1)",
+        pointBackgroundColor: "rgba(109, 151, 214, 1)",
+        poingBorderColor: "#fff",
+        pointHoverBackgroundColor: "red",
+        pointHoverBorderColor: "rgba(109, 151, 214, 1)",
+        data: Object.values(solvedSkill),
+      },
+    ],
+  };
+  const RadarOptions = {
+    scale: {
+      ticks: {
+        min: 0,
+        max: 300,
+        stepSize: 50,
+        showLabelBackdrop: false,
+        backdropColor: "rgba(203, 197, 11, 1)",
+      },
+      angleLines: {
+        color: "rgba(125, 125, 125, .3)",
+        lineWidth: 1,
+      },
+      gridLines: {
+        color: "rgba(125, 125, 125, .3)",
+        circular: false,
+      },
+    },
+  };
 
   const getUserData = async () => {
     await axios
@@ -39,6 +85,15 @@ const User = (props) => {
       });
   };
 
+  const getSolvedSkillsList = async () => {
+    await axios
+      .post(`${SOLVED_SKILLS_ENDPOINT}`, { id: username })
+      .then((res) => {
+        setSolvedSkill(res.data.body);
+        setIsloading(false);
+      });
+  };
+
   const updateMessage = async () => {
     await axios
       .patch(`${USER_ENDPOINT}`, {
@@ -51,7 +106,29 @@ const User = (props) => {
       });
   };
 
-  console.log(isLoading);
+  const updateOrganization = async () => {
+    await axios
+      .patch(`${USER_ENDPOINT}`, {
+        funcname: "updateOrganization",
+        userid: username,
+        organization: organization,
+      })
+      .then((res) => {
+        console.log(res);
+      });
+  };
+
+  const updateHomepage = async () => {
+    await axios
+      .patch(`${USER_ENDPOINT}`, {
+        funcname: "updateHomepage",
+        userid: username,
+        homepage: homepage,
+      })
+      .then((res) => {
+        console.log(res);
+      });
+  };
 
   return (
     <Container>
@@ -70,15 +147,31 @@ const User = (props) => {
             <ul className="user__item">
               <li>
                 <div className="user__item__label">백준 온라인 저지 아이디</div>
-                <div className="user__item__content">{userData?.boj_name}</div>
+                <div className="user__item__content">
+                  <a
+                    href={userData?.boj_name}
+                    target="_blank"
+                    style={{ fontSize: "1.4rem", color: "#0c1e52" }}
+                  >
+                    {userData?.boj_name}
+                  </a>
+                </div>
               </li>
               <li>
                 <div className="user__item__label">소속 그룹 목록</div>
                 <div className="user__item__content"></div>
               </li>
+              {username === activeUser && (
+                <h6
+                  className="user__item__modify"
+                  onClick={() => setMode((prev) => !prev)}
+                >
+                  <img src={gear} /> 정보 수정
+                </h6>
+              )}
               <li>
                 <div className="user__item__label">상태 메시지</div>
-                {username === activeUser ? (
+                {mode === true ? (
                   <>
                     <input
                       className="user__item__content"
@@ -104,17 +197,22 @@ const User = (props) => {
 
               <li>
                 <div className="user__item__label">학교 / 회사</div>
-                {username === activeUser ? (
+                {mode === true ? (
                   <>
                     <input
                       className="user__item__content"
                       type="text"
                       value={organization}
-                      onChange={(e) => setMessage(e.target.value)}
-                      placeholder={"상태 메시지를 입력하세요"}
+                      onChange={(e) => setOrganization(e.target.value)}
+                      placeholder={"소속을 입력하세요"}
                       maxLength={"30"}
                     />
-                    <button className="user__item__change__button">변경</button>
+                    <button
+                      className="user__item__change__button"
+                      onClick={updateOrganization}
+                    >
+                      변경
+                    </button>
                   </>
                 ) : (
                   <div className="user__item__content">
@@ -125,7 +223,7 @@ const User = (props) => {
               <li>
                 <div className="user__item__label">블로그 / 홈페이지</div>
                 <div className="user__item__content">
-                  {username === activeUser ? (
+                  {mode === true ? (
                     <>
                       <input
                         className="user__item__content"
@@ -135,13 +233,20 @@ const User = (props) => {
                         placeholder={"블로그 / 홈페이지 주소를 입력하세요"}
                         maxLength={"40"}
                       />
-                      <button className="user__item__change__button">
+                      <button
+                        className="user__item__change__button"
+                        onClick={updateHomepage}
+                      >
                         변경
                       </button>
                     </>
                   ) : (
-                    <a href={homepage} className="user__item__content">
-                      {homepage}
+                    <a
+                      href={homepage}
+                      className="user__item__content"
+                      style={{ fontSize: "1.4rem", color: "#0c1e52" }}
+                    >
+                      {userData?.homepage}
                     </a>
                   )}
                 </div>
@@ -151,7 +256,8 @@ const User = (props) => {
               <li>
                 <div className="user__item__label">해결한 문제</div>
                 <hr className="user__solved__divideline" />
-                {isLoading ? (
+                <Radar data={RadarData} options={RadarOptions} />
+                {/* {isLoading ? (
                   <div className="user__solved__loading">
                     📪 데이터를 불러오는 중입니다...
                   </div>
@@ -168,7 +274,7 @@ const User = (props) => {
                       </a>
                     ))}
                   </div>
-                )}
+                )} */}
               </li>
             </div>
           </div>
