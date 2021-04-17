@@ -106,7 +106,8 @@ const RegisterForm = () => {
 
   async function signUp() {
     const { username, bojname, email, password, confirmpassword } = formState;
-    console.log(username, password, email);
+    await Auth.signUp({ username, password, attributes: { email } });
+
     updateFormState(() => ({ ...formState, formType: "confirmSignUp" }));
   }
 
@@ -119,7 +120,6 @@ const RegisterForm = () => {
       confirmpassword,
       authCode,
     } = formState;
-    await Auth.signUp({ username, password, attributes: { email } });
     await Auth.confirmSignUp(username, authCode);
     updateFormState(() => ({ ...formState, formType: "signIn" }));
     await axios.post(`${USER_ENDPOINT}`, {
