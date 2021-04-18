@@ -11,7 +11,7 @@ const GroupList = ({
   setShowGroupInfoModal,
   setSelectedGroupInfo,
 }) => {
-  const { name, leader, tier, tags, group_info, max_member, members } = data;
+  const { name, leader, tier, tags, group_info, max_member, member } = data;
   const onListClick = () => {
     setShowGroupInfoModal(true);
     setSelectedGroupInfo(data);
@@ -28,7 +28,7 @@ const GroupList = ({
         </h4>
 
         <div className="GroupList__info">{group_info}</div>
-        <div>{`정원 : [${members?.length}/${max_member}]`}</div>
+        <div>{`정원 : [${member?.length}/${max_member}]`}</div>
       </Container>
     </>
   );
