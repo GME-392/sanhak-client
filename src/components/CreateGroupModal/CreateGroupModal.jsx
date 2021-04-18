@@ -38,25 +38,25 @@ const CreateGroupModal = ({
       name,
       leader: activeUser,
       max_member: memberLimit,
-      description: description,
+      group_info: description,
       tag: tagList,
       status: "open",
       members: [],
     });
 
-    setGroupList((prev) => [
-      ...prev,
-      {
-        id: uuidv4(),
-        name,
-        leader: activeUser,
-        max_member: memberLimit,
-        description: description,
-        tag: tagList,
-        status: "open",
-        members: [],
-      },
-    ]);
+    // setGroupList((prev) => [
+    //   ...prev,
+    //   {
+    //     id: uuidv4(),
+    //     name,
+    //     leader: activeUser,
+    //     max_member: memberLimit,
+    //     group_info: description,
+    //     tag: tagList,
+    //     status: "open",
+    //     members: [],
+    //   },
+    // ]);
     handleClose();
     window.location.reload(false);
   };

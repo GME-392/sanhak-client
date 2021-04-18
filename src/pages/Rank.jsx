@@ -1,29 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-//Animations
 import { motion } from "framer-motion";
-import {
-  sliderContainer,
-  slider,
-  pageAnimation,
-  fade,
-  photoAnim,
-  lineAnim,
-} from "../animation";
-import { useScroll } from "../components/useScroll";
-import ScrollTop from "../components/ScrollTop";
-import GroupSearch from "../components/GroupSearch/GroupSearch";
+import { pageAnimation, fade, lineAnim } from "../animation";
+
 import moment from "moment";
 import "moment/locale/ko";
 
 const Rank = () => {
   var currentDate = moment();
   moment.locale("ko");
-
-  var weekStart = currentDate.clone().startOf("isoweek");
-
-  var days = [];
 
   return (
     <Container

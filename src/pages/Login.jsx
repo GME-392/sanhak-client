@@ -60,13 +60,13 @@ const Login = () => {
       console.log("login Failed");
       dispatch(onLoginFail());
       checkIdExists = false;
-      idCheckComplete(checkIdExists)
+      idCheckComplete(checkIdExists);
       return;
     }
     // 로그인 성공 시
     dispatch(onLoginSuccess(username));
     checkIdExists = true;
-    idCheckComplete(checkIdExists)
+    idCheckComplete(checkIdExists);
     history.push("/");
   }
 
@@ -100,9 +100,15 @@ const Login = () => {
             </div>
             <div className="text-muted">
               {idCheck === false && (
-                <span style={{ color: "red" }}>
-                {"가입하지 않은 아이디이거나, 잘못된 비밀번호입니다."}
-              </span>
+                <div
+                  style={{
+                    color: "red",
+                    marginTop: "-1.5rem",
+                    fontWeight: "600",
+                  }}
+                >
+                  {"가입하지 않은 아이디이거나, 잘못된 비밀번호입니다."}
+                </div>
               )}
             </div>
             <div className="login__button">

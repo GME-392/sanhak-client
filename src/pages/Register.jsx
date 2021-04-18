@@ -1,20 +1,9 @@
 import React, { createContext, useState, useEffect } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 //Animations
 import { motion } from "framer-motion";
-import {
-  sliderContainer,
-  slider,
-  pageAnimation,
-  fade,
-  photoAnim,
-  lineAnim,
-} from "../animation";
-import { useScroll } from "../components/useScroll";
-import ScrollTop from "../components/ScrollTop";
-import Term from "../components/Terms/Term";
-import { Button } from "react-bootstrap";
+import { pageAnimation } from "../animation";
+
 import RegisterTerm from "../components/RegisterTerm/RegisterTerm";
 import RegisterForm from "../components/RegisterForm/RegisterForm";
 

@@ -11,7 +11,6 @@ import {
 import { useSelector } from "react-redux";
 import { Radar } from "react-chartjs-2";
 import gear from "../img/settings.png";
-import { max } from "moment";
 
 const User = (props) => {
   const { username } = props.match.params;
@@ -24,7 +23,6 @@ const User = (props) => {
   const [organization, setOrganization] = useState("");
   const [mode, setMode] = useState(false); // 정보 수정 텍스트 토글
   const [solvedSkill, setSolvedSkill] = useState([]);
-  const [maxSolved, setMaxSolved] = useState(0);
 
   useEffect(() => {
     getUserData();
