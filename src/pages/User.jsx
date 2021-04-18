@@ -255,33 +255,28 @@ const User = (props) => {
                   </div>
                 </li>
               </ul>
-              <div className="user__solved__list">
-                <li>
-                  <div className="user__item__label">
-                    해결한 문제 - {solved.length}문제
-                  </div>
-                  <hr className="user__solved__divideline" />
-                  <Radar data={RadarData} options={RadarOptions} />
-                  {/* {isLoading ? (
-                  <div className="user__solved__loading">
-                    📪 데이터를 불러오는 중입니다...
-                  </div>
-                ) : (
-                  <div className="user__solved__problem__list">
-                    {solved.map((problem, idx) => (
-                      <a
-                        key={idx}
-                        className="user__solved__problem"
-                        target="_blank"
-                        href={`https://www.acmicpc.net/problem/${problem}`}
-                      >
-                        {problem}
-                      </a>
-                    ))}
-                  </div>
-                )} */}
-                </li>
-              </div>
+              {isLoading ? (
+                <div
+                  className="user__solved__list"
+                  style={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                    fontSize: "1.7rem",
+                  }}
+                >
+                  📪 데이터를 불러오는 중입니다...
+                </div>
+              ) : (
+                <div className="user__solved__list">
+                  <li>
+                    <div className="user__item__label">
+                      해결한 문제 - {solved.length}문제
+                    </div>
+                    <hr className="user__solved__divideline" />
+                    <Radar data={RadarData} options={RadarOptions} />
+                  </li>
+                </div>
+              )}
             </div>
           ) : (
             <div style={{ fontSize: "1.4rem" }}>
