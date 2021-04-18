@@ -5,4 +5,4 @@ export const SOLVED_PROBLEMS_ENDPOINT =
 export const SOLVED_SKILLS_ENDPOINT =
   "https://4f5hmhskte.execute-api.us-east-2.amazonaws.com/return_diff";
 export const GROUP_ENDPOINT =
-  "https://bb80o1csdl.execute-api.ap-northeast-2.amazonaws.com/groupDB?func=getAllGroup";
+  "https://bb80o1csdl.execute-api.ap-northeast-2.amazonaws.com/groupDB";

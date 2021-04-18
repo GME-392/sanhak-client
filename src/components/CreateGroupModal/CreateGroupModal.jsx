@@ -41,7 +41,7 @@ const CreateGroupModal = ({
       group_info: description,
       tag: tagList,
       status: "open",
-      members: [],
+      member: [],
     });
 
     // setGroupList((prev) => [
