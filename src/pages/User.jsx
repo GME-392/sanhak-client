@@ -26,8 +26,8 @@ const User = (props) => {
 
   useEffect(() => {
     getUserData();
-    getSolvedSkillsList();
-    getProblemsList();
+    // getSolvedSkillsList();
+    // getProblemsList();
   }, [mode]);
 
   const RadarData = {
@@ -71,24 +71,27 @@ const User = (props) => {
       .get(`${USER_ENDPOINT}userid=${username}&funcname=getUser`)
       .then((res) => {
         setUserData(res.data);
+        getProblemsList(res.data.boj_name);
+        getSolvedSkillsList(res.data.boj_name);
       });
   };
 
-  const getProblemsList = async () => {
+  const getProblemsList = async (boj_name) => {
     await axios
-      .post(`${SOLVED_PROBLEMS_ENDPOINT}`, { id: username })
+      .post(`${SOLVED_PROBLEMS_ENDPOINT}`, { id: boj_name })
       .then((res) => {
         setSolved(res.data.body);
         setIsloading(false);
       });
   };
 
-  const getSolvedSkillsList = async () => {
+  const getSolvedSkillsList = async (boj_name) => {
     await axios
-      .post(`${SOLVED_SKILLS_ENDPOINT}`, { id: username })
+      .post(`${SOLVED_SKILLS_ENDPOINT}`, { id: boj_name })
       .then((res) => {
         setSolvedSkill(res.data.body);
         setIsloading(false);
+        console.log(userData);
       });
   };
 
@@ -163,7 +166,9 @@ const User = (props) => {
                 <li>
                   <div className="user__item__label">소속 그룹 목록</div>
                   <div className="user__item__content">
-                    {/* {userData?.active_group_set.map()} */}
+                    {userData?.active_group_set.map((group) => (
+                      <div>{group.group_name}</div>
+                    ))}
                   </div>
                 </li>
                 {username === activeUser && (
