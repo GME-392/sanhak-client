@@ -32,8 +32,8 @@ const CreateGroupModal = ({
     setTagList(tagList.filter((tag) => tag !== name));
   };
 
-  const onSubmit = () => {
-    axios.post(`${GROUP_ENDPOINT}`, {
+  const onSubmit = async () => {
+    await axios.post(`${GROUP_ENDPOINT}`, {
       id: uuidv4(),
       name,
       leader: activeUser,
@@ -58,6 +58,7 @@ const CreateGroupModal = ({
       },
     ]);
     handleClose();
+    window.location.reload(false);
   };
 
   return (
