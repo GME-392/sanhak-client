@@ -58,8 +58,8 @@ const GroupInfoModal = ({
           <Form.Group controlId="groupMembers">
             <Form.Label>그룹 태그</Form.Label>
             <Form.Text>
-              {data?.tags?.map((tag) => (
-                <Tag name={tag}></Tag>
+              {data?.tag?.map((tag, idx) => (
+                <Tag key={idx} name={tag}></Tag>
               ))}
             </Form.Text>
           </Form.Group>

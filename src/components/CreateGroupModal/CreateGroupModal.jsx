@@ -14,7 +14,7 @@ const CreateGroupModal = ({
 }) => {
   const handleClose = () => setShowCreateGroupModal(false);
   const [name, setName] = useState(null);
-  const [memberLimit, setMemberLimit] = useState(null);
+  const [memberLimit, setMemberLimit] = useState(20);
   const [tagName, setTagName] = useState(null);
   const [tagList, setTagList] = useState([]);
   const [description, setDescription] = useState(null);
@@ -41,7 +41,7 @@ const CreateGroupModal = ({
       group_info: description,
       tag: tagList,
       status: "open",
-      member: [],
+      member: [activeUser],
     });
 
     // setGroupList((prev) => [
