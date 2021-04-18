@@ -2,25 +2,30 @@ import { Button, Form, Modal } from "react-bootstrap";
 import axios from "axios";
 import React from "react";
 import Tag from "../Tag/Tag";
-import { USER_ENDPOINT } from "../../constants/URL";
+import { GROUP_ENDPOINT, USER_ENDPOINT } from "../../constants/URL";
 import { useSelector } from "react-redux";
+import "./GroupInfoModal.scss";
 
 const GroupInfoModal = ({
   showGroupInfoModal,
   setShowGroupInfoModal,
   data,
 }) => {
-  const username = useSelector((state) => state.AppState.activeUser);
+  const activeUser = useSelector((state) => state.AppState.activeUser);
   const handleClose = () => setShowGroupInfoModal(false);
   const joinGroup = async () => {
     const { name, id } = data;
-    await axios.patch(`${USER_ENDPOINT}userid=${username}`, {
+    await axios.patch(`${USER_ENDPOINT}userid=${activeUser}`, {
       funcname: "addGroup",
-      userid: username,
+      userid: activeUser,
       groupname: name,
       groupid: id,
     });
-    console.log(username, name, id);
+    await axios.patch(`${GROUP_ENDPOINT}`, {
+      func: "addMember",
+      id: "1",
+      new_member: [activeUser],
+    });
     setShowGroupInfoModal(false);
   };
 
@@ -44,8 +49,8 @@ const GroupInfoModal = ({
           <Form.Group controlId="groupMembers">
             <Form.Label>그룹원 목록</Form.Label>
             <Form.Text>
-              {data?.members?.map((member) => (
-                <div>{member}</div>
+              {data?.member?.map((member, idx) => (
+                <div key={idx}>{member}</div>
               ))}
             </Form.Text>
           </Form.Group>

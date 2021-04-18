@@ -117,6 +117,12 @@
   }
 }
 
+button.close:hover {
+  border: none;
+  padding: none;
+  background-color: transparent !important;
+}
+
 @media (max-width: 800px) {
   .Group__container {
     flex-direction: column;
