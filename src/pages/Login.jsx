@@ -10,6 +10,9 @@ import { pageAnimation, fade, lineAnim } from "../animation";
 import { useDispatch, useSelector } from "react-redux";
 import { onLoginSuccess, onLoginFail } from "../redux/actions/authActions";
 
+//Bootstrap
+import { Form, Button } from "react-bootstrap";
+
 Amplify.configure(awsconfig);
 
 const initialFormState = {
@@ -20,6 +23,7 @@ const initialFormState = {
 
 const Login = () => {
   const [formState, updateFormState] = useState(initialFormState);
+  const [idCheck, idCheckComplete] = useState(null);
   const history = useHistory();
   const isSignedIn = useSelector((state) => state.AppState.isSignedIn);
   const dispatch = useDispatch();
@@ -48,16 +52,21 @@ const Login = () => {
 
   async function signIn() {
     const { username, password } = formState;
+    let checkIdExists = null;
     try {
       await Auth.signIn(username, password);
     } catch (error) {
       // 로그인 실패 시
       console.log("login Failed");
       dispatch(onLoginFail());
+      checkIdExists = false;
+      idCheckComplete(checkIdExists)
       return;
     }
     // 로그인 성공 시
     dispatch(onLoginSuccess(username));
+    checkIdExists = true;
+    idCheckComplete(checkIdExists)
     history.push("/");
   }
 
@@ -88,6 +97,13 @@ const Login = () => {
                 onChange={onChange}
                 placeholder="비밀번호를 입력하세요"
               ></Input>
+            </div>
+            <div className="text-muted">
+              {idCheck === false && (
+                <span style={{ color: "red" }}>
+                {"가입하지 않은 아이디이거나, 잘못된 비밀번호입니다."}
+              </span>
+              )}
             </div>
             <div className="login__button">
               <Link to="/forgot">
