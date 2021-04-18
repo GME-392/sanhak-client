@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-//Animations
 import { motion } from "framer-motion";
 import { pageAnimation, fade, lineAnim } from "../animation";
-import { useScroll } from "../components/useScroll";
-import ScrollTop from "../components/ScrollTop";
 import GroupList from "../components/GroupList/GroupList";
 import GroupSearch from "../components/GroupSearch/GroupSearch";
 import axios from "axios";
 import CreateGroupModal from "../components/CreateGroupModal/CreateGroupModal";
 import GroupInfoModal from "../components/GroupInfoModal/GroupInfoModal";
-import PaginationComponent from "../components/PaginationComponent/PaginationComponent";
 import ReactPaginate from "react-paginate";
 import { GROUP_ENDPOINT } from "../constants/URL";
 
@@ -30,10 +25,10 @@ const Group = () => {
   }, [offset]);
 
   const handlePageClick = (data) => {
-    // let selected = data.selected;
-    // let offset = Math.ceil(selected * this.props.perPage);
     setOffset(data.selected * 6);
   };
+
+  console.log(groupList);
 
   return (
     <Container

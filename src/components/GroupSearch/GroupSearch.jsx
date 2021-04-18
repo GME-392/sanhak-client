@@ -1,9 +1,21 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./GroupSearch.scss";
+import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const GroupSearch = ({ setGroupList, setShow }) => {
-  const handleShow = () => setShow(true);
+  const activeUser = useSelector((state) => state.AppState.activeUser);
+  const history = useHistory();
+
+  const handleShow = () => {
+    if (activeUser === null) {
+      // 로그인 안돼있으면 홈으로 보내버림
+      history.push("/");
+    } else {
+      setShow(true);
+    }
+  };
 
   const handleOnChange = (e) => {
     e.persist();

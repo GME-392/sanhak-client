@@ -11,7 +11,6 @@ import {
 import { useSelector } from "react-redux";
 import { Radar } from "react-chartjs-2";
 import gear from "../img/settings.png";
-import { max } from "moment";
 
 const User = (props) => {
   const { username } = props.match.params;
@@ -24,7 +23,6 @@ const User = (props) => {
   const [organization, setOrganization] = useState("");
   const [mode, setMode] = useState(false); // 정보 수정 텍스트 토글
   const [solvedSkill, setSolvedSkill] = useState([]);
-  const [maxSolved, setMaxSolved] = useState(0);
 
   useEffect(() => {
     getUserData();
@@ -105,6 +103,8 @@ const User = (props) => {
         console.log(res);
       });
   };
+  console.log(userData);
+  console.log(userData?.active_group_set);
 
   const updateOrganization = async () => {
     await axios
@@ -162,7 +162,9 @@ const User = (props) => {
                 </li>
                 <li>
                   <div className="user__item__label">소속 그룹 목록</div>
-                  <div className="user__item__content"></div>
+                  <div className="user__item__content">
+                    {/* {userData?.active_group_set.map()} */}
+                  </div>
                 </li>
                 {username === activeUser && (
                   <h6
