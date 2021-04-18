@@ -1,15 +1,11 @@
-import {
-  Button,
-  Card,
-  Form,
-  FormLabel,
-  InputGroup,
-  Modal,
-} from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 import React, { useState } from "react";
 import Tag from "../Tag/Tag";
+import { GROUP_ENDPOINT } from "../../constants/URL";
 import "./CreateGroupModal.scss";
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
+import { useSelector } from "react-redux";
 
 const CreateGroupModal = ({
   showCreateGroupModal,
@@ -22,6 +18,7 @@ const CreateGroupModal = ({
   const [tagName, setTagName] = useState(null);
   const [tagList, setTagList] = useState([]);
   const [description, setDescription] = useState(null);
+  const activeUser = useSelector((state) => state.AppState.activeUser);
 
   const onPressEnter = (e) => {
     e.persist();
@@ -35,30 +32,28 @@ const CreateGroupModal = ({
     setTagList(tagList.filter((tag) => tag !== name));
   };
 
-  const onChangeDescription = (e) => {
-    setDescription(e.target.value);
-  };
-
   const onSubmit = () => {
-    axios.post("http://localhost:4000/groups", {
+    axios.post(`${GROUP_ENDPOINT}`, {
+      id: uuidv4(),
       name,
-      leader: "chanmin",
+      leader: activeUser,
       max_member: memberLimit,
-      tagList,
+      description: description,
+      tag: tagList,
       status: "open",
-      rank: "24",
       members: [],
     });
 
     setGroupList((prev) => [
       ...prev,
       {
+        id: uuidv4(),
         name,
-        leader: "chanmin",
+        leader: activeUser,
         max_member: memberLimit,
-        tags: tagList,
+        description: description,
+        tag: tagList,
         status: "open",
-        rank: "24",
         members: [],
       },
     ]);
@@ -98,13 +93,13 @@ const CreateGroupModal = ({
             />
           </Form.Group>
 
-          <Form.Group controlId="groupMemberLimit">
+          <Form.Group controlId="groupDescription">
             <Form.Label>그룹 소개</Form.Label>
             <Form.Control
               type="text"
               placeholder="그룹을 소개하는 문구를 입력해 주세요"
               value={description}
-              onChange={setDescription}
+              onChange={(e) => setDescription(e.target.value)}
             />
           </Form.Group>
 

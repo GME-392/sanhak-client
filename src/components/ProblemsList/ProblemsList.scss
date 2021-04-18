@@ -1,0 +1,28 @@
+.problems-list__container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.problems-list {
+  display: flex;
+  flex-direction: column;
+  margin-left: 3rem;
+  div {
+    margin-left: 2rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    padding-bottom: 0.5rem;
+    text-align: center;
+    width: 20rem;
+    border-bottom: 4px solid #22125a;
+  }
+}
+
+.problems-number-list {
+  font-size: 1.3rem;
+  margin-left: 5rem;
+  margin-top: -1rem;
+  li {
+    margin-top: 1rem;
+  }
+}

@@ -13,6 +13,7 @@ import CreateGroupModal from "../components/CreateGroupModal/CreateGroupModal";
 import GroupInfoModal from "../components/GroupInfoModal/GroupInfoModal";
 import PaginationComponent from "../components/PaginationComponent/PaginationComponent";
 import ReactPaginate from "react-paginate";
+import { GROUP_ENDPOINT } from "../constants/URL";
 
 const Group = () => {
   const [showCreateGroupModal, setShowCreateGroupModal] = useState(false);
@@ -24,8 +25,8 @@ const Group = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/groups")
-      .then((res) => setGroupList(res.data.slice(offset, offset + 6)));
+      .get(`${GROUP_ENDPOINT}`)
+      .then((res) => setGroupList(res.data.Items.slice(offset, offset + 6)));
   }, [offset]);
 
   const handlePageClick = (data) => {
@@ -51,7 +52,7 @@ const Group = () => {
           setShow={setShowCreateGroupModal}
         />
         <div className="divideLine"></div>
-        <Hide className="Group__container">
+        <div className="Group__container">
           <motion.div className="Group__groupList">
             {groupList.map((group) => (
               <GroupList
@@ -69,7 +70,7 @@ const Group = () => {
             <motion.div className="Group__ad1" />
             <motion.div className="Group__ad2" />
           </motion.div>
-        </Hide>
+        </div>
         {/* <PaginationComponent /> */}
         <ReactPaginate
           previousLabel={"이전"}
