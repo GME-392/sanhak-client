@@ -103,6 +103,8 @@ const User = (props) => {
         console.log(res);
       });
   };
+  console.log(userData);
+  console.log(userData?.active_group_set);
 
   const updateOrganization = async () => {
     await axios
@@ -160,7 +162,9 @@ const User = (props) => {
                 </li>
                 <li>
                   <div className="user__item__label">소속 그룹 목록</div>
-                  <div className="user__item__content"></div>
+                  <div className="user__item__content">
+                    {/* {userData?.active_group_set.map()} */}
+                  </div>
                 </li>
                 {username === activeUser && (
                   <h6

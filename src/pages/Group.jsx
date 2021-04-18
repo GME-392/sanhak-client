@@ -28,6 +28,8 @@ const Group = () => {
     setOffset(data.selected * 6);
   };
 
+  console.log(groupList);
+
   return (
     <Container
       style={{ background: "#fff" }}

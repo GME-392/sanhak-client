@@ -23,8 +23,10 @@ const GroupList = ({
         className={`GroupList__container Diamond`}
         onClick={onListClick}
       >
-        <h4 className="GroupList__name">{name}</h4>
-        <div className="GroupList__leader">그룹 리더 : {leader}</div>
+        <h4 className="GroupList__name">
+          {name} <span className="GroupList__leader">- by {leader}</span>
+        </h4>
+
         <div className="GroupList__info">{group_info}</div>
         <div>{`정원 : [${members?.length}/${max_member}]`}</div>
       </Container>

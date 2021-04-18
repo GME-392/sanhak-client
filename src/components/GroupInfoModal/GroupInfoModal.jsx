@@ -1,20 +1,28 @@
-import {
-  Button,
-  Card,
-  Form,
-  FormLabel,
-  InputGroup,
-  Modal,
-} from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
+import axios from "axios";
 import React from "react";
 import Tag from "../Tag/Tag";
+import { USER_ENDPOINT } from "../../constants/URL";
+import { useSelector } from "react-redux";
 
 const GroupInfoModal = ({
   showGroupInfoModal,
   setShowGroupInfoModal,
   data,
 }) => {
+  const username = useSelector((state) => state.AppState.activeUser);
   const handleClose = () => setShowGroupInfoModal(false);
+  const joinGroup = async () => {
+    const { name, id } = data;
+    await axios.patch(`${USER_ENDPOINT}userid=${username}`, {
+      funcname: "addGroup",
+      userid: username,
+      groupname: name,
+      groupid: id,
+    });
+    console.log(username, name, id);
+    setShowGroupInfoModal(false);
+  };
 
   return (
     <Modal show={showGroupInfoModal} onHide={handleClose}>
@@ -61,8 +69,8 @@ const GroupInfoModal = ({
         >
           취소
         </Button>
-        <Button className="Modal__Button" onClick={handleClose}>
-          그룹 참여
+        <Button className="Modal__Button" onClick={joinGroup}>
+          그룹 참가
         </Button>
       </Modal.Footer>
     </Modal>
