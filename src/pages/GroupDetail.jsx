@@ -6,6 +6,7 @@ import { pageAnimation, fade, lineAnim } from "../animation";
 
 import GroupMenu from "../components/GroupMenu/GroupMenu";
 import GroupUserList from "../components/GroupUserList/GroupUserList";
+import GroupGoal from "../components/GroupGoal/GroupGoal";
 
 const GroupDetail = ({ name }) => {
   return (
@@ -30,6 +31,7 @@ const GroupDetail = ({ name }) => {
           className="line group-detail-line"
         ></motion.div>
         <GroupMenu name={name} />
+        <GroupGoal />
         <GroupUserList />
       </Menu>
     </Container>
