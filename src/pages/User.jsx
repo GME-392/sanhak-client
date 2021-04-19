@@ -52,7 +52,7 @@ const User = (props) => {
       ticks: {
         min: 0,
         max: solved.length,
-        stepSize: 50,
+        stepSize: Math.floor(solved.length / 4),
         showLabelBackdrop: false,
         backdropColor: "rgba(203, 197, 11, 1)",
       },
