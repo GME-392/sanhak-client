@@ -156,6 +156,7 @@ const User = (props) => {
                   >
                     소속 그룹 목록
                   </div>
+                  <div className="user__item__borderline" />
                   <div className="user__item__content">
                     {userData?.active_group_set.map((group) => (
                       <JoinedGroupItem
