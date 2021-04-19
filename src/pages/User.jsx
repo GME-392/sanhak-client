@@ -92,46 +92,31 @@ const User = (props) => {
       .then((res) => {
         setSolvedSkill(res.data.body);
         setIsloading(false);
-        console.log(userData);
       });
   };
 
   const updateMessage = async () => {
-    await axios
-      .patch(`${USER_ENDPOINT}`, {
-        funcname: "updateMessage",
-        userid: username,
-        message: message,
-      })
-      .then((res) => {
-        console.log(res);
-      });
+    await axios.patch(`${USER_ENDPOINT}`, {
+      funcname: "updateMessage",
+      userid: username,
+      message: message,
+    });
   };
-  console.log(userData);
-  console.log(userData?.active_group_set);
 
   const updateOrganization = async () => {
-    await axios
-      .patch(`${USER_ENDPOINT}`, {
-        funcname: "updateOrganization",
-        userid: username,
-        organization: organization,
-      })
-      .then((res) => {
-        console.log(res);
-      });
+    await axios.patch(`${USER_ENDPOINT}`, {
+      funcname: "updateOrganization",
+      userid: username,
+      organization: organization,
+    });
   };
 
   const updateHomepage = async () => {
-    await axios
-      .patch(`${USER_ENDPOINT}`, {
-        funcname: "updateHomepage",
-        userid: username,
-        homepage: homepage,
-      })
-      .then((res) => {
-        console.log(res);
-      });
+    await axios.patch(`${USER_ENDPOINT}`, {
+      funcname: "updateHomepage",
+      userid: username,
+      homepage: homepage,
+    });
   };
 
   return (

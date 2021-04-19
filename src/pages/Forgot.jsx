@@ -29,9 +29,8 @@ const Forgot = () => {
     setAuthListener();
   }, []);
 
-   // 전역 상태로 로그인 상태 관리
-   const { formType } = formState;
-
+  // 전역 상태로 로그인 상태 관리
+  const { formType } = formState;
 
   async function setAuthListener() {
     Hub.listen("auth", (data) => {
@@ -57,7 +56,6 @@ const Forgot = () => {
       await Auth.signIn(username, password);
     } catch (error) {
       // 로그인 실패 시
-      console.log("login Failed");
       dispatch(onLoginFail());
       return;
     }
@@ -68,10 +66,9 @@ const Forgot = () => {
 
   async function forgotPassword() {
     const { username } = formState;
-    try{
-      await Auth.forgotPassword( username );
-    } catch(error){
-      console.log("not found username");
+    try {
+      await Auth.forgotPassword(username);
+    } catch (error) {
       return;
     }
     updateFormState(() => ({ ...formState, formType: "changepw" }));
@@ -79,10 +76,9 @@ const Forgot = () => {
 
   async function changePassword() {
     const { authCode, username, password } = formState;
-    try{
-      await Auth.forgotPasswordSubmit(username, authCode, password)
-    } catch(error){
-      console.log("not matched authcode");
+    try {
+      await Auth.forgotPasswordSubmit(username, authCode, password);
+    } catch (error) {
       return;
     }
     updateFormState(() => ({ ...formState, formType: "signIn" }));
@@ -90,74 +86,71 @@ const Forgot = () => {
 
   return (
     <>
-    {formType === "findpw" && (
-    <Work
-      style={{ background: "#fff" }}
-      exit="exit"
-      variants={pageAnimation}
-      initial="hidden"
-      animate="show"
-    >
-        <Menu>
-          <motion.h2 variants={fade}>아이디 / 비밀번호 찾기</motion.h2>
-          <motion.div variants={lineAnim} className="line"></motion.div>
-          <div className="login__container">
-            <div className="login__input-container">
-              <label htmlFor="login__id">아이디</label>
-              <Input
-                name="username"
-                onChange={onChange}
-                placeholder="아이디를 입력하세요"
-              ></Input>
+      {formType === "findpw" && (
+        <Work
+          style={{ background: "#fff" }}
+          exit="exit"
+          variants={pageAnimation}
+          initial="hidden"
+          animate="show"
+        >
+          <Menu>
+            <motion.h2 variants={fade}>아이디 / 비밀번호 찾기</motion.h2>
+            <motion.div variants={lineAnim} className="line"></motion.div>
+            <div className="login__container">
+              <div className="login__input-container">
+                <label htmlFor="login__id">아이디</label>
+                <Input
+                  name="username"
+                  onChange={onChange}
+                  placeholder="아이디를 입력하세요"
+                ></Input>
+              </div>
+              <div className="login__button">
+                <button onClick={forgotPassword}>찾기</button>
+              </div>
             </div>
-            <div className="login__button">
-              <button onClick={forgotPassword}>찾기</button>
-            </div>
-          </div>
-        </Menu>
-      
-    </Work>
-    )}
-    {formType === "changepw" && (
-    <Work
-      style={{ background: "#fff" }}
-      exit="exit"
-      variants={pageAnimation}
-      initial="hidden"
-      animate="show"
-    >
-        <Menu>
-          <motion.h2 variants={fade}>비밀번호 변경</motion.h2>
-          <motion.div variants={lineAnim} className="line"></motion.div>
-          <div className="login__container">
-            <div className="login__input-container">
-              <label htmlFor="login__id">인증 코드</label>
-              <Input
-                name="authCode"
-                onChange={onChange}
-                value={formState.authCode}
-                placeholder="인증 코드 6자리를 입력해 주세요"
-              ></Input>
-              <label htmlFor="login__pw">비밀번호</label>
-              <Input
-                name="password"
-                type="password"
-                value={formState.password}
-                onChange={onChange}
-                placeholder="변경할 비밀번호를 입력하세요"
-              ></Input>
-            </div>
-            <div className="login__button">
-              <button onClick={changePassword}>확인</button>
-            </div>
-          </div>
-        </Menu>
-    </Work>
-    )}
-    
-    {formType === "signIn" && (
-        <Link to="/">코맷 소개</Link>
+          </Menu>
+        </Work>
       )}
+      {formType === "changepw" && (
+        <Work
+          style={{ background: "#fff" }}
+          exit="exit"
+          variants={pageAnimation}
+          initial="hidden"
+          animate="show"
+        >
+          <Menu>
+            <motion.h2 variants={fade}>비밀번호 변경</motion.h2>
+            <motion.div variants={lineAnim} className="line"></motion.div>
+            <div className="login__container">
+              <div className="login__input-container">
+                <label htmlFor="login__id">인증 코드</label>
+                <Input
+                  name="authCode"
+                  onChange={onChange}
+                  value={formState.authCode}
+                  placeholder="인증 코드 6자리를 입력해 주세요"
+                ></Input>
+                <label htmlFor="login__pw">비밀번호</label>
+                <Input
+                  name="password"
+                  type="password"
+                  value={formState.password}
+                  onChange={onChange}
+                  placeholder="변경할 비밀번호를 입력하세요"
+                ></Input>
+              </div>
+              <div className="login__button">
+                <button onClick={changePassword}>확인</button>
+              </div>
+            </div>
+          </Menu>
+        </Work>
+      )}
+
+      {formType === "signIn" && <Link to="/">코맷 소개</Link>}
     </>
   );
 };

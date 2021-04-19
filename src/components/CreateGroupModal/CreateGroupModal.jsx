@@ -1,7 +1,7 @@
 import { Button, Form, Modal } from "react-bootstrap";
 import React, { useState } from "react";
 import Tag from "../Tag/Tag";
-import { GROUP_ENDPOINT } from "../../constants/URL";
+import { GROUP_ENDPOINT, USER_ENDPOINT } from "../../constants/URL";
 import "./CreateGroupModal.scss";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
@@ -33,8 +33,9 @@ const CreateGroupModal = ({
   };
 
   const onSubmit = async () => {
+    const id = uuidv4();
     await axios.post(`${GROUP_ENDPOINT}`, {
-      id: uuidv4(),
+      id,
       name,
       leader: activeUser,
       max_member: memberLimit,
@@ -44,19 +45,13 @@ const CreateGroupModal = ({
       member: [activeUser],
     });
 
-    // setGroupList((prev) => [
-    //   ...prev,
-    //   {
-    //     id: uuidv4(),
-    //     name,
-    //     leader: activeUser,
-    //     max_member: memberLimit,
-    //     group_info: description,
-    //     tag: tagList,
-    //     status: "open",
-    //     members: [],
-    //   },
-    // ]);
+    await axios.patch(`${USER_ENDPOINT}`, {
+      funcname: "addGroup",
+      userid: activeUser,
+      groupname: name,
+      groupid: id,
+    });
+
     handleClose();
     window.location.reload(false);
   };
