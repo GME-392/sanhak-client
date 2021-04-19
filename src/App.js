@@ -83,10 +83,8 @@ function App() {
             render={(props) => <User name={"chanmin"} {...props} />}
           />
           <Route
-            path={`/group/:groupname`}
-            render={(props) => (
-              <GroupDetail name={"항공대 알고리즘 소모임"} {...props} />
-            )}
+            path={`/group/:groupid`}
+            render={(props) => <GroupDetail {...props} />}
           />
 
           <Route path={`/user/:username`}>
