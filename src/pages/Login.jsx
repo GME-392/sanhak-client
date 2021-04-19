@@ -57,7 +57,6 @@ const Login = () => {
       await Auth.signIn(username, password);
     } catch (error) {
       // 로그인 실패 시
-      console.log("login Failed");
       dispatch(onLoginFail());
       checkIdExists = false;
       idCheckComplete(checkIdExists);
