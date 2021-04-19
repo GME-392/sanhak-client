@@ -139,6 +139,7 @@ const User = (props) => {
                   <div className="user__item__label">
                     백준 온라인 저지 아이디
                   </div>
+
                   <div className="user__item__content">
                     <a
                       href={userData?.boj_name}
@@ -154,7 +155,7 @@ const User = (props) => {
                     className="user__item__label"
                     style={{ marginBottom: "1rem" }}
                   >
-                    소속 그룹 목록
+                    현재 가입된 그룹
                   </div>
                   <div className="user__item__borderline" />
                   <div className="user__item__content">
@@ -166,14 +167,18 @@ const User = (props) => {
                     ))}
                   </div>
                 </li>
+                <div className="user__item__borderline" />
+
                 {username === activeUser && (
                   <h6
                     className="user__item__modify"
                     onClick={() => setMode((prev) => !prev)}
+                    style={{ marginTop: "1rem" }}
                   >
                     <img src={gear} /> 정보 수정
                   </h6>
                 )}
+
                 <li>
                   <div className="user__item__label">상태 메시지</div>
                   {mode === true ? (
