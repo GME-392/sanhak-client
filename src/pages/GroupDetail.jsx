@@ -7,8 +7,24 @@ import { pageAnimation, fade, lineAnim } from "../animation";
 import GroupMenu from "../components/GroupMenu/GroupMenu";
 import GroupUserList from "../components/GroupUserList/GroupUserList";
 import GroupGoal from "../components/GroupGoal/GroupGoal";
+import axios from "axios";
+import { GROUP_ENDPOINT } from "../constants/URL";
 
-const GroupDetail = ({ name }) => {
+const GroupDetail = ({ match }) => {
+  const { groupid } = match.params;
+  const [groupData, setGroupData] = useState(null);
+
+  useEffect(() => {
+    getGroupInfo();
+  }, []);
+
+  const getGroupInfo = async () => {
+    await axios
+      .get(`${GROUP_ENDPOINT}?func=getGroup&id=${groupid}`)
+      .then((res) => setGroupData(() => res.data.Item));
+  };
+  console.log(groupData?.name);
+
   return (
     <Container
       style={{ background: "#fff" }}
@@ -20,19 +36,19 @@ const GroupDetail = ({ name }) => {
       <Menu>
         <div>
           <motion.h2 variants={fade} className="group-detail-group-name">
-            {name}
+            {groupData?.name}
           </motion.h2>
           <motion.div className="group-detail-group-rank">
-            {"Silver IV"}
+            {groupData?.group_info}
           </motion.div>
         </div>
         <motion.div
           variants={lineAnim}
           className="line group-detail-line"
         ></motion.div>
-        <GroupMenu name={name} />
+        <GroupMenu name={groupData?.name} />
         <GroupGoal />
-        <GroupUserList />
+        {/* <GroupUserList /> */}
       </Menu>
     </Container>
   );

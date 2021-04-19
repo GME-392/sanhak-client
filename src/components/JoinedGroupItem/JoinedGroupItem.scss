@@ -1,10 +1,26 @@
+.JoinedGroupItem__link {
+  color: #5a5a5a;
+}
+
+.JoinedGroupItem__link:hover {
+  color: #5a5a5a;
+  text-decoration: none;
+}
+
 .JoinedGroupItem__container {
+  transition: 0.2s ease-in-out;
   border: 1px solid #cdcdcd;
   width: 20rem;
   border-radius: 0px 8px 8px 0px;
-  border-left: 12px solid #cdcdcd;
+  border-left: 12px solid #c6e0fd;
   font-size: 1rem;
   text-align: center;
   margin: 0.5rem 0;
   padding: 0.8rem;
+}
+
+.JoinedGroupItem__container:hover {
+  transition: 0.2s ease-in-out;
+  transform: scale(1.02);
+  border-color: #7199b9;
 }
