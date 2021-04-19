@@ -28,7 +28,9 @@ const GroupList = ({
         </h4>
 
         <div className="GroupList__info">{group_info}</div>
-        <div>{`정원 : [${member?.length}/${max_member}]`}</div>
+        <div
+          style={{ position: "relative", top: "1rem" }}
+        >{`정원 : [${member?.length}/${max_member}]`}</div>
       </Container>
     </>
   );

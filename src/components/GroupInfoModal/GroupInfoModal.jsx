@@ -1,6 +1,6 @@
 import { Button, Form, Modal } from "react-bootstrap";
 import axios from "axios";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Tag from "../Tag/Tag";
 import { GROUP_ENDPOINT, USER_ENDPOINT } from "../../constants/URL";
 import { useSelector } from "react-redux";
@@ -11,22 +11,42 @@ const GroupInfoModal = ({
   setShowGroupInfoModal,
   data,
 }) => {
+  const [isJoined, setIsJoined] = useState(false);
   const activeUser = useSelector((state) => state.AppState.activeUser);
+  // 모달 닫는 함수
   const handleClose = () => setShowGroupInfoModal(false);
+
+  useEffect(() => {
+    if (data !== null) {
+      const { member } = data;
+      member.forEach((member) => {
+        if (member === activeUser) {
+          setIsJoined(true);
+        }
+      });
+    }
+    return () => setIsJoined(false);
+  }, [showGroupInfoModal]);
+
   const joinGroup = async () => {
     const { name, id } = data;
-    await axios.patch(`${USER_ENDPOINT}userid=${activeUser}`, {
-      funcname: "addGroup",
-      userid: activeUser,
-      groupname: name,
-      groupid: id,
-    });
-    await axios.patch(`${GROUP_ENDPOINT}`, {
-      func: "addMember",
-      id: "1",
-      new_member: [activeUser],
-    });
-    setShowGroupInfoModal(false);
+
+    if (isJoined === false) {
+      await axios.patch(`${USER_ENDPOINT}userid=${activeUser}`, {
+        funcname: "addGroup",
+        userid: activeUser,
+        groupname: name,
+        groupid: id,
+      });
+      await axios.patch(`${GROUP_ENDPOINT}`, {
+        func: "addMember",
+        id: id,
+        new_member: [activeUser],
+      });
+      setShowGroupInfoModal(false);
+      window.location.reload(false);
+    } else {
+    }
   };
 
   return (
@@ -75,7 +95,7 @@ const GroupInfoModal = ({
           취소
         </Button>
         <Button className="Modal__Button" onClick={joinGroup}>
-          그룹 참가
+          {isJoined ? "이미 참여중인 그룹입니다" : "그룹 참가"}
         </Button>
       </Modal.Footer>
     </Modal>
