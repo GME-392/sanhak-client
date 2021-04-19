@@ -11,6 +11,7 @@ import {
 import { useSelector } from "react-redux";
 import { Radar } from "react-chartjs-2";
 import gear from "../img/settings.png";
+import JoinedGroupItem from "../components/JoinedGroupItem/JoinedGroupItem";
 
 const User = (props) => {
   const { username } = props.match.params;
@@ -164,10 +165,18 @@ const User = (props) => {
                   </div>
                 </li>
                 <li>
-                  <div className="user__item__label">소속 그룹 목록</div>
+                  <div
+                    className="user__item__label"
+                    style={{ marginBottom: "1rem" }}
+                  >
+                    소속 그룹 목록
+                  </div>
                   <div className="user__item__content">
                     {userData?.active_group_set.map((group) => (
-                      <div>{group.group_name}</div>
+                      <JoinedGroupItem
+                        name={group.group_name}
+                        id={group.group_id}
+                      />
                     ))}
                   </div>
                 </li>
