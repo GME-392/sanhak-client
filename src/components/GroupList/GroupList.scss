@@ -1,4 +1,7 @@
 .GroupList__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   transition: 0.3s ease-in;
   border: 5px solid #cdcdcd;
   border-left: 25px solid #cdcdcd;
@@ -44,4 +47,8 @@
   margin-bottom: 1.2rem;
   font-size: 1.1rem;
   color: #686868;
+}
+
+.GroupList__max-member {
+  // margin-top: 5%;
 }

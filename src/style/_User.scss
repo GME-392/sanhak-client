@@ -102,8 +102,20 @@
 }
 
 .user__item__modify {
+  transition: 0.15s ease-in;
   color: #8f8f8f;
   cursor: pointer;
+}
+.user__item__modify:hover {
+  transition: 0.15s ease-in;
+  color: #424242;
+}
+
+.user__item__borderline {
+  width: 20rem;
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #cdcdcd;
 }
 
 @media (max-width: 1200px) {
