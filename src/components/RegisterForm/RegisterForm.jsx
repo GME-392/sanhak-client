@@ -4,6 +4,7 @@ import awsconfig from "../../aws-exports";
 import { Link } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import { USER_ENDPOINT } from "../../constants/URL";
+import RegisterSuccess from "../RegisterSuccess/RegisterSuccess";
 import axios from "axios";
 import "./RegisterForm.scss";
 
@@ -20,7 +21,7 @@ const initialFormState = {
   formType: "signUp",
 };
 
-const RegisterForm = () => {
+const RegisterForm = ({ setRegisterSuccess }) => {
   const [formState, updateFormState] = useState(initialFormState);
   const [idExists, setIdExists] = useState(null);
   const [bojIdExists, setBojIdExists] = useState(null);
@@ -112,14 +113,7 @@ const RegisterForm = () => {
   }
 
   async function confirmSignUp() {
-    const {
-      username,
-      bojname,
-      email,
-      password,
-      confirmpassword,
-      authCode,
-    } = formState;
+    const { username, authCode } = formState;
     await Auth.confirmSignUp(username, authCode);
     updateFormState(() => ({ ...formState, formType: "signIn" }));
     await axios.post(`${USER_ENDPOINT}`, {
@@ -129,6 +123,7 @@ const RegisterForm = () => {
       useremail: formState.email,
       organization: formState.organization,
     });
+    setRegisterSuccess(true);
   }
 
   return (
@@ -148,17 +143,17 @@ const RegisterForm = () => {
               />
               <Button onClick={validateUsername}>중복 확인</Button>
             </div>
-            <Form.Text className="text-muted">
+            <Form.Text className="text-muted register-form__comment">
               {idExists === null ? (
                 "아이디는 로그인에 사용되며, 다른 사용자들에게 공개됩니다."
               ) : idExists === true ? (
-                <span style={{ color: "red" }}>
+                <div style={{ color: "red" }}>
                   {"이미 등록된 아이디입니다."}
-                </span>
+                </div>
               ) : (
-                <span style={{ color: "green" }}>
+                <div style={{ color: "green" }}>
                   {"사용 가능한 아이디입니다."}
-                </span>
+                </div>
               )}
             </Form.Text>
           </Form.Group>
@@ -174,23 +169,25 @@ const RegisterForm = () => {
               />
               <Button onClick={validateBojname}>중복 확인</Button>
             </div>
-            {bojIdExists === null ? (
-              <Form.Text className="text-muted">
-                아이디가 없다면, 먼저{" "}
-                <a href="https://www.acmicpc.net/" target="_blank">
-                  https://www.acmicpc.net/
-                </a>{" "}
-                에서 가입해 주세요.
-              </Form.Text>
-            ) : bojIdExists === true ? (
-              <span style={{ color: "red" }}>
-                {"이미 등록된 아이디입니다."}
-              </span>
-            ) : (
-              <span style={{ color: "green" }}>
-                {"사용 가능한 아이디입니다."}
-              </span>
-            )}
+            <Form.Text className="text-muted register-form__comment">
+              {bojIdExists === null ? (
+                <div>
+                  아이디가 없다면, 먼저{" "}
+                  <a href="https://www.acmicpc.net/" target="_blank">
+                    https://www.acmicpc.net/
+                  </a>{" "}
+                  에서 가입해 주세요.
+                </div>
+              ) : bojIdExists === true ? (
+                <div style={{ color: "red" }}>
+                  {"이미 등록된 아이디입니다."}
+                </div>
+              ) : (
+                <div style={{ color: "green" }}>
+                  {"사용 가능한 아이디입니다."}
+                </div>
+              )}
+            </Form.Text>
           </Form.Group>
           <Form.Group controlId="email">
             <Form.Label>이메일</Form.Label>
@@ -211,7 +208,7 @@ const RegisterForm = () => {
               onChange={onChange}
               placeholder="비밀번호를 입력해 주세요"
             />
-            <Form.Text className="text-muted">
+            <Form.Text className="text-muted register-form__comment">
               비밀번호는 8 ~ 16자 사이의 영어 + 숫자 조합으로 만들어 주세요.
             </Form.Text>
           </Form.Group>{" "}
@@ -225,17 +222,15 @@ const RegisterForm = () => {
               onKeyUp={checkPassword}
               placeholder="비밀번호를 한번 더 입력해 주세요"
             />
-            <Form.Text className="text-muted">
+            <Form.Text className="text-muted register-form__comment">
               {passwordConfirmed === null ? (
-                <span></span>
+                <div></div>
               ) : passwordConfirmed === true ? (
-                <span style={{ color: "green" }}>
-                  {"비밀번호가 일치합니다."}
-                </span>
+                <div style={{ color: "green" }}>{"비밀번호가 일치합니다."}</div>
               ) : (
-                <span style={{ color: "red" }}>
+                <div style={{ color: "red" }}>
                   {"비밀번호가 일치하지 않습니다."}
-                </span>
+                </div>
               )}
             </Form.Text>
           </Form.Group>
@@ -276,9 +271,7 @@ const RegisterForm = () => {
           </Form.Group>
         </Form>
       )}
-      {formType === "signIn" && (
-        <div>코맷에 함께하게 되신 것을 환영합니다 :)</div>
-      )}
+      {formType === "signIn" && <RegisterSuccess />}
     </>
   );
 };

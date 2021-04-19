@@ -15,3 +15,12 @@
     flex: 1;
   }
 }
+
+.register-form__comment {
+  display: inline-block;
+  font-size: 1rem;
+  div {
+    margin-top: 0.5rem;
+    font-weight: 600;
+  }
+}

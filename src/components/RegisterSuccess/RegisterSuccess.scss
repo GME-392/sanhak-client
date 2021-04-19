@@ -1,0 +1,43 @@
+.RegisterSuccess__container {
+  display: flex;
+  margin-top: 1rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  line-height: 3rem;
+}
+
+.RegisterSuccess__btn {
+  padding: 0.3rem 2rem !important;
+  a {
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+    font-weight: 400;
+    color: #ffffff;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: none;
+    color: white;
+  }
+}
+.RegisterSuccess__btn--home {
+  background-color: white;
+  margin-right: 5rem;
+  a {
+    color: #333333;
+  }
+}
+
+.RegisterSuccess__btn--home:hover {
+  a {
+    color: white;
+  }
+}
+
+.RegisterSuccess__btn__container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}

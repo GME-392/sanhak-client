@@ -13,6 +13,7 @@ const Register = () => {
   const [termAChecked, setTermAChecked] = useState(false);
   const [termBChecked, setTermBChecked] = useState(false);
   const [showRegisterForm, setShowRegisterForm] = useState(false);
+  const [registerSuccess, setRegisterSuccess] = useState(false);
 
   const checkTermsAllChecked = () => {
     if (termAChecked === true && termBChecked === true) {
@@ -40,8 +41,14 @@ const Register = () => {
             }}
           >
             <Container className="Container">
-              <h3 className="Register-text">회원가입</h3>
-              {showRegisterForm ? <RegisterForm /> : <RegisterTerm />}
+              <h3 className="Register-text">
+                {registerSuccess ? "회원가입 성공" : "회원가입"}
+              </h3>
+              {showRegisterForm ? (
+                <RegisterForm setRegisterSuccess={setRegisterSuccess} />
+              ) : (
+                <RegisterTerm />
+              )}
             </Container>
           </TermContext.Provider>
         </Hide>

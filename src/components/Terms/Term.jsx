@@ -42,7 +42,8 @@ const Container = styled.div`
   @media (max-width: 768px) {
     width: 90% !important;
     height: 300pimport { TermContext } from '../../pages/Register';
-x;
+x;import RegisterSuccess from '../RegisterSuccess/RegisterSuccess';
+
   }
 `;
 
