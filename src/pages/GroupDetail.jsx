@@ -39,7 +39,7 @@ const GroupDetail = ({ match }) => {
             {groupData?.name}
           </motion.h2>
           <motion.div className="group-detail-group-rank">
-            {"Silver IV"}
+            {groupData?.group_info}
           </motion.div>
         </div>
         <motion.div
@@ -48,7 +48,7 @@ const GroupDetail = ({ match }) => {
         ></motion.div>
         <GroupMenu name={groupData?.name} />
         <GroupGoal />
-        <GroupUserList />
+        {/* <GroupUserList /> */}
       </Menu>
     </Container>
   );
