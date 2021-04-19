@@ -117,10 +117,6 @@ const Login = () => {
                   아이디/비밀번호를 잊으셨나요?
                 </div>
               </Link>
-              <div className="login__auto-container">
-                <input id="login__auto" type="checkbox" />
-                <label htmlFor="login__auto">자동 로그인</label>
-              </div>
               <button onClick={signIn}>로그인</button>
             </div>
           </div>
