@@ -19,6 +19,10 @@
   border-color: #abcedf;
 }
 
+.Diamond:hover {
+  border-color: #4b8eaf;
+}
+
 .GroupList__container:hover {
   transition: 0.18s ease-in-out;
   transform: scale(1.01);
