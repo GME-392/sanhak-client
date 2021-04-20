@@ -5,6 +5,7 @@ import Tag from "../Tag/Tag";
 import { GROUP_ENDPOINT, USER_ENDPOINT } from "../../constants/URL";
 import { useSelector } from "react-redux";
 import "./GroupInfoModal.scss";
+import GroupInfoMember from "../GroupInfoMember/GroupInfoMember";
 
 const GroupInfoModal = ({
   showGroupInfoModal,
@@ -70,7 +71,7 @@ const GroupInfoModal = ({
             <Form.Label>그룹원 목록</Form.Label>
             <Form.Text>
               {data?.member?.map((member, idx) => (
-                <div key={idx}>{member}</div>
+                <GroupInfoMember name={member} key={idx} />
               ))}
             </Form.Text>
           </Form.Group>

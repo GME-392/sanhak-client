@@ -1,0 +1,21 @@
+.GroupInfoMember__container {
+  transition: 0.15s ease-in-out;
+  border: 1px solid #cdcdcd;
+  width: 18rem;
+  padding: 0.5rem 0;
+  text-align: center;
+  border-left: 8px solid #cdcdcd;
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 0.5rem;
+  text-decoration: none;
+  color: #333333;
+}
+
+.GroupInfoMember__link:hover {
+  text-decoration: none !important;
+}
+
+.GroupInfoMember__container:hover {
+  transition: 0.15s ease-in-out;
+  border-color: #40368a;
+}
