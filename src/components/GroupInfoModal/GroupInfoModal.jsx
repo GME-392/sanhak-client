@@ -70,15 +70,20 @@ const GroupInfoModal = ({
           <Form.Group controlId="groupMembers">
             <Form.Label>그룹원 목록</Form.Label>
             <Form.Text>
-              {data?.member?.map((member, idx) => (
-                <GroupInfoMember name={member} key={idx} />
-              ))}
+              <GroupInfoMember master={true} name={data?.leader} />
+              {data?.member?.map((member, idx) => {
+                if (data?.leader !== member) {
+                  return (
+                    <GroupInfoMember master={false} name={member} key={idx} />
+                  );
+                }
+              })}
             </Form.Text>
           </Form.Group>
 
           <Form.Group controlId="groupMembers">
             <Form.Label>그룹 태그</Form.Label>
-            <Form.Text>
+            <Form.Text style={{ marginTop: "-0.5rem" }}>
               {data?.tag?.map((tag, idx) => (
                 <Tag key={idx} name={tag}></Tag>
               ))}
