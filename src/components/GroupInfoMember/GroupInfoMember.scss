@@ -1,10 +1,10 @@
 .GroupInfoMember__container {
   transition: 0.15s ease-in-out;
-  border: 1px solid #cdcdcd;
+  border: 1px solid #c4dfe6;
   width: 18rem;
   padding: 0.5rem 0;
   text-align: center;
-  border-left: 8px solid #cdcdcd;
+  border-left: 8px solid #9fbbda;
   border-radius: 0 8px 8px 0;
   margin-bottom: 0.5rem;
   text-decoration: none;
@@ -18,4 +18,5 @@
 .GroupInfoMember__container:hover {
   transition: 0.15s ease-in-out;
   border-color: #40368a;
+  font-weight: 700;
 }
