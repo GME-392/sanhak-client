@@ -159,15 +159,20 @@ const User = (props) => {
                   </div>
                   <div className="user__item__borderline" />
                   <div className="user__item__content">
-                    {userData?.active_group_set.map((group) => (
-                      <JoinedGroupItem
-                        name={group.group_name}
-                        id={group.group_id}
-                      />
-                    ))}
+                    {userData?.active_group_set.length > 0 ? (
+                      userData?.active_group_set.map((group) => (
+                        <JoinedGroupItem
+                          name={group.group_name}
+                          id={group.group_id}
+                        />
+                      ))
+                    ) : (
+                      <div style={{ fontSize: "1.2rem" }}>
+                        아직 가입한 그룹이 없습니다.
+                      </div>
+                    )}
                   </div>
                 </li>
-                <div className="user__item__borderline" />
 
                 {username === activeUser && (
                   <h6
