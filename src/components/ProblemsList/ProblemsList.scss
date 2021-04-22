@@ -3,8 +3,31 @@
   justify-content: space-between;
 }
 
+.problems-item {
+  border: 3px solid #cdcdcd;
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  margin-right: 1rem;
+  border-radius: 12px;
+  list-style: none;
+  font-size: 1.1rem;
+}
+
+.problem_link {
+  color: #333 !important;
+}
+
+.solved {
+  border: 3px solid #1f815c;
+}
+
+.unsolved {
+  border: 3px solid #bd2828;
+}
+
 .problems-list {
   display: flex;
+  width: calc(100% - 10rem);
   flex-direction: column;
   margin-left: 3rem;
   div {
@@ -14,15 +37,25 @@
     padding-bottom: 0.5rem;
     text-align: center;
     width: 20rem;
-    border-bottom: 4px solid #22125a;
+    border-bottom: 3px solid #23246d;
   }
 }
 
 .problems-number-list {
+  width: 100%;
+  border: 1px solid #cdcdcd;
+  border-radius: 12px;
+  background-color: rgba(253, 253, 253, 0.8);
   font-size: 1.3rem;
-  margin-left: 5rem;
-  margin-top: -1rem;
+  padding: 1rem;
+  margin-left: 2rem;
   li {
-    margin-top: 1rem;
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+  }
+  li:hover {
+    transition: 0.2s ease-in-out;
+    border-color: #51c1c5;
+    font-weight: 600;
   }
 }

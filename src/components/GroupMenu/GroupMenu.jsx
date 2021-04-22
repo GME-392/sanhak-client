@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Form,
   Nav,
@@ -9,19 +9,21 @@ import {
 } from "react-bootstrap";
 
 import "./GroupMenu.scss";
+import { Link } from "react-router-dom";
 
-const GroupMenu = ({ name }) => {
+const GroupMenu = ({ groupId }) => {
+  const [pageRoute, setPageRoute] = useState("group-home");
   return (
     <Navbar className="group-detail-navbar" bg="light" expand="lg">
-      <Navbar.Brand href="#home">그룹 관리</Navbar.Brand>
+      <Navbar.Brand href="#home">그룹 메뉴</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link href={`/group/${name}`} className="group-detail-menu">
+          <Nav.Link to={`/group/${groupId}/info`} className="group-detail-menu">
             그룹 통계
           </Nav.Link>
-          <Nav.Link href={`/group/${name}/rank`} className="group-detail-menu">
-            그룹 내 랭킹
+          <Nav.Link to={`/group/${groupId}/rank`} className="group-detail-menu">
+            멤버 랭킹
           </Nav.Link>
           <NavDropdown
             title="과제 관리"

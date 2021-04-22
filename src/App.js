@@ -23,6 +23,7 @@ import { USER_ENDPOINT } from "./constants/URL";
 import axios from "axios";
 import User from "./pages/User";
 import GroupDetail from "./pages/GroupDetail";
+import GroupStatistics from "./components/GroupStatistics/GroupStatistics";
 
 function App() {
   const location = useLocation();
@@ -84,8 +85,15 @@ function App() {
           />
           <Route
             path={`/group/:groupid`}
+            exact
             render={(props) => <GroupDetail {...props} />}
           />
+          {/* 
+          <Route
+            path={`/group/:groupid/info`}
+            exact
+            render={(props) => <GroupStatistics {...props} />}
+          /> */}
 
           <Route path={`/user/:username`}>
             <User />
