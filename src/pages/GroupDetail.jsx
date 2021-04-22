@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import styled from "styled-components";
 //Animations
 import { motion } from "framer-motion";
@@ -8,22 +8,33 @@ import GroupMenu from "../components/GroupMenu/GroupMenu";
 import GroupUserList from "../components/GroupUserList/GroupUserList";
 import GroupGoal from "../components/GroupGoal/GroupGoal";
 import axios from "axios";
-import { GROUP_ENDPOINT } from "../constants/URL";
+import { GROUP_ENDPOINT, USER_ENDPOINT } from "../constants/URL";
+import { useSelector } from "react-redux";
+
+export const DataContext = createContext();
 
 const GroupDetail = ({ match }) => {
   const { groupid } = match.params;
+  const activeUser = useSelector((state) => state.AppState.activeUser);
   const [groupData, setGroupData] = useState(null);
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
     getGroupInfo();
-  }, []);
+    getUserInfo();
+  }, [activeUser]);
 
   const getGroupInfo = async () => {
     await axios
       .get(`${GROUP_ENDPOINT}?func=getGroup&id=${groupid}`)
       .then((res) => setGroupData(() => res.data.Item));
   };
-  console.log(groupData?.name);
+
+  const getUserInfo = async () => {
+    await axios
+      .get(`${USER_ENDPOINT}userid=${activeUser}&funcname=getUser`)
+      .then((res) => setUserData(() => res.data));
+  };
 
   return (
     <Container
@@ -46,8 +57,12 @@ const GroupDetail = ({ match }) => {
           variants={lineAnim}
           className="line group-detail-line"
         ></motion.div>
-        <GroupMenu name={groupData?.name} />
-        <GroupGoal />
+        <DataContext.Provider
+          value={{ groupData: groupData, userData: userData }}
+        >
+          <GroupMenu groupId={groupData?.id} />
+          <GroupGoal problems={groupData?.probs} />
+        </DataContext.Provider>
         {/* <GroupUserList /> */}
       </Menu>
     </Container>
