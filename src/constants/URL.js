@@ -6,3 +6,6 @@ export const SOLVED_SKILLS_ENDPOINT =
   "https://4f5hmhskte.execute-api.us-east-2.amazonaws.com/return_diff";
 export const GROUP_ENDPOINT =
   "https://bb80o1csdl.execute-api.ap-northeast-2.amazonaws.com/groupDB";
+
+export const GROUP_ATTENDANCE_ENDPOINT =
+  "https://9zl6kjhghe.execute-api.us-east-2.amazonaws.com/backend_api/return-attendance";
