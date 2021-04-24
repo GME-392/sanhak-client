@@ -8,8 +8,13 @@ import GroupMenu from "../components/GroupMenu/GroupMenu";
 import GroupUserList from "../components/GroupUserList/GroupUserList";
 import GroupGoal from "../components/GroupGoal/GroupGoal";
 import axios from "axios";
-import { GROUP_ENDPOINT, USER_ENDPOINT } from "../constants/URL";
+import {
+  GROUP_ENDPOINT,
+  USER_ENDPOINT,
+  GROUP_ATTENDANCE_ENDPOINT,
+} from "../constants/URL";
 import { useSelector } from "react-redux";
+import GroupAttendance from "../components/GroupAttendance/GroupAttendance";
 
 export const DataContext = createContext();
 
@@ -18,22 +23,46 @@ const GroupDetail = ({ match }) => {
   const activeUser = useSelector((state) => state.AppState.activeUser);
   const [groupData, setGroupData] = useState(null);
   const [userData, setUserData] = useState(null);
+  const [groupMenu, setGroupMenu] = useState("main");
+  const [attendanceData, setAttendanceData] = useState(null);
 
   useEffect(() => {
-    getGroupInfo();
-    getUserInfo();
+    fetchData();
   }, [activeUser]);
 
   const getGroupInfo = async () => {
-    await axios
+    return axios
       .get(`${GROUP_ENDPOINT}?func=getGroup&id=${groupid}`)
-      .then((res) => setGroupData(() => res.data.Item));
+      .then((res) => {
+        setGroupData(() => res.data.Item);
+        axios
+          .post(`${GROUP_ATTENDANCE_ENDPOINT}`, { id: res.data.Item.id })
+          .then((res) => setAttendanceData(() => res.data));
+      });
   };
 
   const getUserInfo = async () => {
-    await axios
+    return axios
       .get(`${USER_ENDPOINT}userid=${activeUser}&funcname=getUser`)
       .then((res) => setUserData(() => res.data));
+  };
+
+  const fetchData = async () => {
+    await getGroupInfo();
+    await getUserInfo();
+  };
+  console.log(groupData);
+  console.log(attendanceData);
+
+  const renderGroupMenu = () => {
+    switch (groupMenu) {
+      case "main":
+        return <GroupGoal problems={groupData?.probs} />;
+      case "attendance":
+        return <GroupAttendance data={groupData} />;
+      default:
+        break;
+    }
   };
 
   return (
@@ -60,8 +89,8 @@ const GroupDetail = ({ match }) => {
         <DataContext.Provider
           value={{ groupData: groupData, userData: userData }}
         >
-          <GroupMenu groupId={groupData?.id} />
-          <GroupGoal problems={groupData?.probs} />
+          <GroupMenu groupId={groupData?.id} setGroupMenu={setGroupMenu} />
+          {renderGroupMenu()}
         </DataContext.Provider>
         {/* <GroupUserList /> */}
       </Menu>

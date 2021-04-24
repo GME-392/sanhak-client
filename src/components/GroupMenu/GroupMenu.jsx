@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Form,
   Nav,
@@ -10,19 +10,39 @@ import {
 
 import "./GroupMenu.scss";
 import { Link } from "react-router-dom";
+import { DataContext } from "../../pages/GroupDetail";
 
-const GroupMenu = ({ groupId }) => {
-  const [pageRoute, setPageRoute] = useState("group-home");
+const GroupMenu = ({ groupId, setGroupMenu }) => {
   return (
     <Navbar className="group-detail-navbar" bg="light" expand="lg">
-      <Navbar.Brand href="#home">그룹 메뉴</Navbar.Brand>
+      <Navbar.Brand
+        style={{ cursor: "pointer" }}
+        onClick={() => setGroupMenu(() => "main")}
+      >
+        그룹 메뉴
+      </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link to={`/group/${groupId}/info`} className="group-detail-menu">
+          <Nav.Link
+            to={`/group/${groupId}/attendance`}
+            className="group-detail-menu"
+            onClick={() => setGroupMenu(() => "attendance")}
+          >
+            출석부
+          </Nav.Link>
+          <Nav.Link
+            to={`/group/${groupId}/info`}
+            className="group-detail-menu"
+            onClick={() => setGroupMenu(() => "statistics")}
+          >
             그룹 통계
           </Nav.Link>
-          <Nav.Link to={`/group/${groupId}/rank`} className="group-detail-menu">
+          <Nav.Link
+            to={`/group/${groupId}/rank`}
+            className="group-detail-menu"
+            onClick={() => setGroupMenu(() => "ranking")}
+          >
             멤버 랭킹
           </Nav.Link>
           <NavDropdown
@@ -33,11 +53,6 @@ const GroupMenu = ({ groupId }) => {
             <NavDropdown.Item href="#action/3.2">출석 관리</NavDropdown.Item>
             <NavDropdown.Item href="#action/3.1">
               수동 과제 지정
-            </NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item href="#action/3.4">
-              Separated link
             </NavDropdown.Item>
           </NavDropdown>
         </Nav>
