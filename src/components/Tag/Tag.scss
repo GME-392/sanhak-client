@@ -1,21 +1,16 @@
 .tag {
   transition: 0.2s ease-in;
   display: inline-block;
-  margin: 1rem 0.5rem 0.5rem 0;
+  margin: 1rem 0.7rem 0.7rem 0;
   padding: 4px 8px;
   border-radius: 8px;
-  border: 2px solid #cdcdcd;
-
-  background: linear-gradient(
-    90deg,
-    rgba(2, 0, 36, 1) 0%,
-    rgba(246, 246, 246, 1) 0%,
-    rgba(189, 219, 238, 1) 100%
-  );
+  border: 2px solid #104385;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
 }
 
 .tag:hover {
   transition: 0.2s ease-in;
-  border: 2px solid #40368a;
+  border: 2px solid #d61515;
 }

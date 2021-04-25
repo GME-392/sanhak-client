@@ -1,5 +1,7 @@
 .GuideMenu__container {
   position: absolute;
+  display: flex;
+  z-index: 1;
   top: calc(18rem + 10vh);
   left: 35%;
   h3 {
@@ -16,6 +18,12 @@
   }
 }
 
+.Guide__content__container {
+  display: flex;
+  flex: 2;
+  flex-direction: column;
+}
+
 .title--contest {
   border-color: #bb4743 !important;
 }
@@ -26,9 +34,58 @@
   border-color: #538fa7 !important;
 }
 
+.Guide__content__list {
+  opacity: 0;
+  animation: fadein 1s 1.5s forwards;
+}
+
 .GuideMenu__title {
   opacity: 0;
   animation: fadein 1s 1s forwards;
+  padding-bottom: 1.2rem;
+  border-bottom: 2px solid;
+}
+.Guide__tag__container {
+  margin-bottom: 1rem;
+  opacity: 0;
+  animation: fadein 1s 1.5s forwards;
+}
+
+.Guide__button__container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  animation: fadein 1s 1.5s forwards;
+  button {
+    margin: 0.8rem 0;
+    border: 3px solid transparent;
+    background-color: transparent;
+  }
+  .Guide__button {
+    background-color: rgb(47, 88, 201);
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: 400;
+  }
+
+  .Guide__button--secondary {
+    background-color: white;
+    color: #333333;
+    border-color: rgb(47, 88, 201);
+  }
+
+  .Guide__button:hover {
+    transform: scale(1.02);
+    -webkit-box-shadow: 5px 5px 3px 0px rgba(134, 134, 134, 0.7);
+    -moz-box-shadow: 5px 5px 3px 0px rgba(134, 134, 134, 0.7);
+    box-shadow: 5px 5px 3px 0px rgba(134, 134, 134, 0.7);
+  }
+}
+
+.Guide__recommended__list {
+  opacity: 0;
+  animation: fadein 1s 1.5s forwards;
 }
 
 @keyframes fadein {

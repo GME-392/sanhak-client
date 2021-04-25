@@ -29,7 +29,10 @@ const Guide = () => {
                 type !== null
                   ? type === "contest"
                     ? { animation: "1s moveRight1 forwards" }
-                    : { animation: "1s fadeout forwards" }
+                    : {
+                        animation: "1s fadeout forwards",
+                        pointerEvents: "none",
+                      }
                   : {}
               }
             >
@@ -48,7 +51,10 @@ const Guide = () => {
                 type !== null
                   ? type === "study"
                     ? { animation: "1s moveRight2 forwards" }
-                    : { animation: "1s fadeout forwards" }
+                    : {
+                        animation: "1s fadeout forwards",
+                        pointerEvents: "none",
+                      }
                   : {}
               }
             >
@@ -68,7 +74,10 @@ const Guide = () => {
                 type !== null
                   ? type === "job"
                     ? { animation: "1s moveRight3 forwards" }
-                    : { animation: "1s fadeout forwards" }
+                    : {
+                        animation: "1s fadeout forwards",
+                        pointerEvents: "none",
+                      }
                   : {}
               }
             >
