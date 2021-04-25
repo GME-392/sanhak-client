@@ -24,6 +24,7 @@ import axios from "axios";
 import User from "./pages/User";
 import GroupDetail from "./pages/GroupDetail";
 import GroupStatistics from "./components/GroupStatistics/GroupStatistics";
+import Guide from "./pages/Guide";
 
 function App() {
   const location = useLocation();
@@ -65,6 +66,9 @@ function App() {
           </Route>
           <Route path="/group" exact>
             <Group />
+          </Route>
+          <Route path="/guide" exact>
+            <Guide />
           </Route>
           <Route path="/rank" exact>
             <Rank />

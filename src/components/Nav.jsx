@@ -42,6 +42,15 @@ const Nav = () => {
           />
         </li>
         <li>
+          <Link to="/guide">학습 가이드</Link>
+          <Line
+            isSignedIn={isSignedIn}
+            transition={{ duration: 0.75 }}
+            initial={{ width: "0%" }}
+            animate={{ width: pathname === "/guide" ? "50%" : "0%" }}
+          />
+        </li>
+        <li>
           <Link to="/rank">랭킹</Link>
           <Line
             isSignedIn={isSignedIn}
@@ -108,7 +117,7 @@ const StyledNav = styled.nav`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 5rem;
+    padding: 0 4rem;
     position: relative;
   }
   @media (max-width: 900px) {

@@ -1,0 +1,38 @@
+.GuideMenu__container {
+  position: absolute;
+  top: calc(18rem + 10vh);
+  left: 35%;
+  h3 {
+    padding-bottom: 1.2rem;
+    border-bottom: 2px solid;
+  }
+  ul {
+    margin-top: 1rem;
+  }
+  li {
+    margin-left: 1.5rem;
+    font-size: 1.2rem;
+    line-height: 200%;
+  }
+}
+
+.title--contest {
+  border-color: #bb4743 !important;
+}
+.title--study {
+  border-color: #4aa04a !important;
+}
+.title--job {
+  border-color: #538fa7 !important;
+}
+
+.GuideMenu__title {
+  opacity: 0;
+  animation: fadein 1s 1s forwards;
+}
+
+@keyframes fadein {
+  to {
+    opacity: 1;
+  }
+}
