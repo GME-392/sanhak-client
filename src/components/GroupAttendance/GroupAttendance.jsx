@@ -1,28 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import BTable from "react-bootstrap/Table";
 import { useTable } from "react-table";
 import "./GroupAttendance.scss";
 
-const GroupAttendance = ({ data }) => {
+const GroupAttendance = ({ data, attendanceState }) => {
   const { probs: problemList } = data.group_attendance;
-  console.log(problemList);
-  console.log(data);
+  const [, updateState] = useState(false);
 
-  const tableData = data.member.map((member) => ({
-    ID: member,
-    1000: "hello",
-    1001: "hello",
-    1002: "hello",
-    1003: "hello",
-  }));
+  const tableData = React.useMemo(
+    () =>
+      data.member.map((member, idx) => ({
+        ID: attendanceState ? member : "데이터를 불러오는 중입니다.",
+        1000: attendanceState
+          ? attendanceState[member]?.includes("1000")
+            ? "✅"
+            : "❌"
+          : "데이터를 불러오는 중입니다.",
+        1001: attendanceState
+          ? attendanceState[member]?.includes("1001")
+            ? "✅"
+            : "❌"
+          : "데이터를 불러오는 중입니다.",
+        1002: attendanceState
+          ? attendanceState[member]?.includes("1002")
+            ? "✅"
+            : "❌"
+          : "데이터를 불러오는 중입니다.",
+        1003: attendanceState
+          ? attendanceState[member]?.includes("1003")
+            ? "✅"
+            : "❌"
+          : "데이터를 불러오는 중입니다.",
+      })),
+    [attendanceState]
+  );
 
-  const columns = [
-    { Header: "유저 아이디", accessor: "ID" },
-    ...problemList.map((el, idx) => ({
-      Header: el,
-      accessor: el,
-    })),
-  ];
+  const columns = React.useMemo(
+    () => [
+      { Header: "유저 아이디", accessor: "ID" },
+      ...problemList.map((el, idx) => ({
+        Header: el,
+        accessor: el,
+      })),
+    ],
+    []
+  );
 
   const tableInstance = useTable({ columns, data: tableData });
 
