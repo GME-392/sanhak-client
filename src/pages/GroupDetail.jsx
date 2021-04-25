@@ -12,6 +12,7 @@ import {
   GROUP_ENDPOINT,
   USER_ENDPOINT,
   GROUP_ATTENDANCE_ENDPOINT,
+  GROUP_SOLVED_ENDPOINT,
 } from "../constants/URL";
 import { useSelector } from "react-redux";
 import GroupAttendance from "../components/GroupAttendance/GroupAttendance";
@@ -25,6 +26,7 @@ const GroupDetail = ({ match }) => {
   const [userData, setUserData] = useState(null);
   const [groupMenu, setGroupMenu] = useState("main");
   const [attendanceData, setAttendanceData] = useState(null);
+  const [attendanceState, setAttendanceState] = useState(null);
 
   useEffect(() => {
     fetchData();
@@ -38,6 +40,9 @@ const GroupDetail = ({ match }) => {
         axios
           .post(`${GROUP_ATTENDANCE_ENDPOINT}`, { id: res.data.Item.id })
           .then((res) => setAttendanceData(() => res.data));
+        axios
+          .post(`${GROUP_SOLVED_ENDPOINT}`, { id: res.data.Item.id })
+          .then((res) => setAttendanceState(() => res.data.body));
       });
   };
 
@@ -51,15 +56,15 @@ const GroupDetail = ({ match }) => {
     await getGroupInfo();
     await getUserInfo();
   };
-  console.log(groupData);
-  console.log(attendanceData);
 
   const renderGroupMenu = () => {
     switch (groupMenu) {
       case "main":
         return <GroupGoal problems={groupData?.probs} />;
       case "attendance":
-        return <GroupAttendance data={groupData} />;
+        return (
+          <GroupAttendance data={groupData} attendanceState={attendanceState} />
+        );
       default:
         break;
     }
