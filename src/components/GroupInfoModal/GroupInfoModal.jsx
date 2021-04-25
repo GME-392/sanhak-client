@@ -6,6 +6,9 @@ import { GROUP_ENDPOINT, USER_ENDPOINT } from "../../constants/URL";
 import { useSelector } from "react-redux";
 import "./GroupInfoModal.scss";
 import GroupInfoMember from "../GroupInfoMember/GroupInfoMember";
+import members from "../../img/members.png";
+import limit from "../../img/limit.png";
+import title from "../../img/title.png";
 
 const GroupInfoModal = ({
   showGroupInfoModal,
@@ -58,17 +61,26 @@ const GroupInfoModal = ({
       <Modal.Body>
         <Form>
           <Form.Group controlId="groupName">
-            <Form.Label>그룹명</Form.Label>
+            <Form.Label>
+              <img src={title} width={20} style={{ marginRight: "0.5rem" }} />
+              그룹명
+            </Form.Label>
             <Form.Text>{data?.name}</Form.Text>
           </Form.Group>
 
           <Form.Group controlId="groupMemberLimit">
-            <Form.Label>최대 그룹원 수</Form.Label>
+            <Form.Label>
+              <img src={limit} width={18} style={{ marginRight: "0.6rem" }} />
+              최대 그룹원 수
+            </Form.Label>
             <Form.Text>{data?.max_member}명</Form.Text>
           </Form.Group>
 
           <Form.Group controlId="groupMembers">
-            <Form.Label>그룹원 목록</Form.Label>
+            <Form.Label>
+              <img src={members} width={20} style={{ marginRight: "0.5rem" }} />
+              그룹원 목록
+            </Form.Label>
             <Form.Text>
               <GroupInfoMember master={true} name={data?.leader} />
               {data?.member?.map((member, idx) => {

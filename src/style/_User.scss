@@ -104,7 +104,10 @@
 .user__item__modify {
   transition: 0.15s ease-in;
   color: #8f8f8f;
+  padding: 8px;
+  display: inline-block;
   cursor: pointer;
+  margin-left: 1rem;
 }
 .user__item__modify:hover {
   transition: 0.15s ease-in;

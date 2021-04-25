@@ -11,6 +11,10 @@ import {
 import { useSelector } from "react-redux";
 import { Radar } from "react-chartjs-2";
 import gear from "../img/settings.png";
+import website from "../img/website.png";
+import organizationImage from "../img/organization.png";
+import comment from "../img/comment.png";
+import group from "../img/group.png";
 import JoinedGroupItem from "../components/JoinedGroupItem/JoinedGroupItem";
 
 const User = (props) => {
@@ -155,6 +159,11 @@ const User = (props) => {
                     className="user__item__label"
                     style={{ marginBottom: "1rem" }}
                   >
+                    <img
+                      src={group}
+                      width={20}
+                      style={{ marginRight: "0.5rem" }}
+                    />
                     현재 가입된 그룹
                   </div>
                   <div className="user__item__borderline" />
@@ -173,19 +182,29 @@ const User = (props) => {
                     )}
                   </div>
                 </li>
-
-                {username === activeUser && (
-                  <h6
-                    className="user__item__modify"
-                    onClick={() => setMode((prev) => !prev)}
-                    style={{ marginTop: "1rem" }}
-                  >
-                    <img src={gear} /> 정보 수정
-                  </h6>
-                )}
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <h3>추가 정보</h3>
+                  {username === activeUser && (
+                    <h6
+                      style={{ fontSize: "0.88rem" }}
+                      className="user__item__modify"
+                      onClick={() => setMode((prev) => !prev)}
+                    >
+                      <img src={gear} width={14} /> 정보 수정
+                    </h6>
+                  )}
+                </div>
+                <div className="user__item__borderline" />
 
                 <li>
-                  <div className="user__item__label">상태 메시지</div>
+                  <div className="user__item__label">
+                    <img
+                      src={comment}
+                      width={15}
+                      style={{ marginRight: "0.5rem" }}
+                    />
+                    상태 메시지
+                  </div>
                   {mode === true ? (
                     <>
                       <input
@@ -211,7 +230,14 @@ const User = (props) => {
                 </li>
 
                 <li>
-                  <div className="user__item__label">학교 / 회사</div>
+                  <div className="user__item__label">
+                    <img
+                      src={organizationImage}
+                      width={15}
+                      style={{ marginRight: "0.5rem" }}
+                    />
+                    학교 / 회사
+                  </div>
                   {mode === true ? (
                     <>
                       <input
@@ -236,7 +262,14 @@ const User = (props) => {
                   )}
                 </li>
                 <li>
-                  <div className="user__item__label">블로그 / 홈페이지</div>
+                  <div className="user__item__label">
+                    <img
+                      src={website}
+                      width={15}
+                      style={{ marginRight: "0.5rem" }}
+                    />
+                    블로그 / 홈페이지
+                  </div>
                   <div className="user__item__content">
                     {mode === true ? (
                       <>
