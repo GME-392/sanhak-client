@@ -1,11 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./GuideMenu.scss";
+import { GROUP_ENDPOINT } from "../../constants/URL";
 import Tag from "../Tag/Tag";
 import RecommendedGroup from "../RecommendedGroup/RecommendedGroup";
+import axios from "axios";
 
 const GuideMenu = ({ type }) => {
   const [groupList, setGroupList] = useState([]);
   const [tagList, setTagList] = useState([]);
+
+  const getGroupList = async () => {
+    await axios
+      .get(`${GROUP_ENDPOINT}?func=getAllGroup`)
+      .then((res) => setGroupList(res.data.Items));
+  };
+
+  useEffect(() => {
+    getGroupList();
+  }, []);
 
   const renderContent = () => {
     switch (type) {
@@ -27,11 +39,28 @@ const GuideMenu = ({ type }) => {
               🎨 관련 태그
             </h3>
             <div className="Guide__tag__container">
-              <Tag name={"SCPC"} />
-              <Tag name={"CodeJam"} />
-              <Tag name={"ACM-ICPC"} />
-              <Tag name={"TopCoder"} />
-              <Tag name={"CodeForce"} />
+              <Tag
+                name={"SCPC"}
+                onAddTag={() => {
+                  setTagList([...tagList, "SCPC"]);
+                }}
+              />
+              <Tag
+                name={"CodeJam"}
+                onAddTag={() => setTagList([...tagList, "CodeJam"])}
+              />
+              <Tag
+                name={"ACM-ICPC"}
+                onAddTag={() => setTagList([...tagList, "ACM-ICPC"])}
+              />
+              <Tag
+                name={"TopCoder"}
+                onAddTag={() => setTagList([...tagList, "TopCoder"])}
+              />
+              <Tag
+                name={"CodeForce"}
+                onAddTag={() => setTagList([...tagList, "CodeForce"])}
+              />
             </div>
             <div className="Guide__button__container">
               <button className={`Guide__button Guide__button`}>
@@ -61,12 +90,30 @@ const GuideMenu = ({ type }) => {
               🎨 관련 태그
             </h3>
             <div className="Guide__tag__container">
-              <Tag name={"파이썬"} />
-              <Tag name={"C++"} />
-              <Tag name={"대학생"} />
-              <Tag name={"자바"} />
-              <Tag name={"기초"} />
-              <Tag name={"연습"} />
+              <Tag
+                name={"파이썬"}
+                onAddTag={() => setTagList([...tagList, "파이썬"])}
+              />
+              <Tag
+                name={"C++"}
+                onAddTag={() => setTagList([...tagList, "C++"])}
+              />
+              <Tag
+                name={"대학생"}
+                onAddTag={() => setTagList([...tagList, "대학생"])}
+              />
+              <Tag
+                name={"자바"}
+                onAddTag={() => setTagList([...tagList, "자바"])}
+              />
+              <Tag
+                name={"기초"}
+                onAddTag={() => setTagList([...tagList, "기초"])}
+              />
+              <Tag
+                name={"연습"}
+                onAddTag={() => setTagList([...tagList, "연습"])}
+              />
             </div>
             <div className="Guide__button__container">
               <button className={`Guide__button Guide__button`}>
@@ -96,12 +143,30 @@ const GuideMenu = ({ type }) => {
               🎨 관련 태그
             </h3>
             <div className="Guide__tag__container">
-              <Tag name={"삼성"} />
-              <Tag name={"LG"} />
-              <Tag name={"카카오"} />
-              <Tag name={"네이버"} />
-              <Tag name={"대기업"} />
-              <Tag name={"코테"} />
+              <Tag
+                name={"삼성"}
+                onAddTag={() => setTagList([...tagList, "삼성"])}
+              />
+              <Tag
+                name={"LG"}
+                onAddTag={() => setTagList([...tagList, "LG"])}
+              />
+              <Tag
+                name={"카카오"}
+                onAddTag={() => setTagList([...tagList, "카카오"])}
+              />
+              <Tag
+                name={"네이버"}
+                onAddTag={() => setTagList([...tagList, "네이버"])}
+              />
+              <Tag
+                name={"대기업"}
+                onAddTag={() => setTagList([...tagList, "대기업"])}
+              />
+              <Tag
+                name={"코테"}
+                onAddTag={() => setTagList([...tagList, "코테"])}
+              />
             </div>
             <div className="Guide__button__container">
               <button className={`Guide__button Guide__button`}>
@@ -122,7 +187,7 @@ const GuideMenu = ({ type }) => {
   return (
     <div className="GuideMenu__container">
       {renderContent()}
-      <div style={{ marginLeft: "5rem", flex: 1 }}>
+      <div style={{ marginLeft: "5rem", width: "300px" }}>
         <h3
           className={`GuideMenu__title title--${type}`}
           style={{ marginBottom: "1rem" }}
@@ -130,10 +195,18 @@ const GuideMenu = ({ type }) => {
           🖥 추천 그룹 목록
         </h3>
         <div className="Guide__recommended__list">
-          <RecommendedGroup />
-          <RecommendedGroup />
-          <RecommendedGroup />
-          <RecommendedGroup />
+          {groupList
+            ?.filter((group) => {
+              let include = false;
+              tagList.forEach((tag) => {
+                if (group.tag.includes(tag)) include = true;
+              });
+              return include;
+            })
+            .map((group, idx) => {
+              if (idx > 3) return;
+              return <RecommendedGroup key={idx} data={group} />;
+            })}
         </div>
       </div>
     </div>

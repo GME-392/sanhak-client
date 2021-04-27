@@ -12,6 +12,7 @@
   transition: 0.2s ease-in-out;
   margin: 0 2rem;
   height: 500px;
+  max-height: 100%;
   flex: 1;
   border-radius: 12px;
   padding: 0;
@@ -68,7 +69,7 @@
 
 .Guide__item__description {
   display: flex;
-  height: 150px !important;
+  height: 120px !important;
   align-items: center;
   opacity: 0;
   padding: 1.5rem 1.2rem;
