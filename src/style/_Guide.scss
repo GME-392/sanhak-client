@@ -1,0 +1,134 @@
+.Guide__item__container {
+  height: 80%;
+  display: flex;
+}
+
+.Guide__item {
+  display: flex;
+  padding-top: 5rem;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  transition: 0.2s ease-in-out;
+  margin: 0 2rem;
+  height: 500px;
+  max-height: 100%;
+  flex: 1;
+  border-radius: 12px;
+  padding: 0;
+  font-size: 1.3rem;
+  font-weight: 400;
+  border: 0px;
+  background-color: white;
+  border-width: 10px;
+  border: 10px solid;
+  color: #333;
+  animation: 1.8s animate;
+  transform-origin: center center;
+  cursor: pointer;
+}
+
+.Guide__item:hover {
+  transition: 0.2s ease-in-out;
+  color: #333;
+  background-color: white;
+  transform: scale(1.01);
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(33, 33, 33, 0.5);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(33, 33, 33, 0.5);
+  box-shadow: 10px 10px 5px 0px rgba(33, 33, 33, 0.5);
+}
+
+.Guide__basics__btn {
+  border-color: #63b884;
+}
+
+.Guide__contest__btn {
+  border-color: #d46561;
+}
+
+.Guide__job__btn {
+  border-color: #69bace;
+}
+
+.Guide__container {
+  height: 100%;
+}
+
+.Guide__item__title {
+  font-size: 2.3rem;
+}
+
+.Guide__title__container {
+  display: flex;
+  opacity: 0;
+  animation-name: fadein;
+  animation-duration: 1s;
+  animation-delay: 2s;
+  animation-fill-mode: forwards;
+}
+
+.Guide__item__description {
+  display: flex;
+  height: 120px !important;
+  align-items: center;
+  opacity: 0;
+  padding: 1.5rem 1.2rem;
+  margin: 0 2rem;
+  margin-bottom: -5rem;
+  font-size: 1.2rem;
+  height: 5rem;
+  vertical-align: middle;
+  border-radius: 12px;
+  border: 1px solid #cdcdcd;
+  animation-name: fadein;
+  animation-duration: 1s;
+  animation-delay: 2s;
+  animation-fill-mode: forwards;
+}
+
+.Guide__item__icon {
+  height: 3rem !important;
+  width: 3rem !important;
+  margin-right: 20px;
+}
+
+@keyframes animate {
+  from {
+    margin-left: 100%;
+  }
+}
+
+@keyframes fadein {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeout {
+  to {
+    opacity: 0;
+  }
+  100% {
+    display: none;
+  }
+}
+
+@keyframes moveRight1 {
+  to {
+    transform: translateX(-3vw);
+    // margin-right: 100%;
+  }
+}
+@keyframes moveRight2 {
+  to {
+    transform: translateX(-30vw);
+    // margin-right: 100%;
+  }
+}
+
+@keyframes moveRight3 {
+  to {
+    transform: translateX(-57vw);
+    // margin-right: 100%;
+  }
+}
