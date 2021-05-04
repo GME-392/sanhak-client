@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useLayoutEffect, useState } from "react";
 import styled from "styled-components";
 //Animations
 import { motion } from "framer-motion";
@@ -13,48 +13,58 @@ import {
   USER_ENDPOINT,
   GROUP_ATTENDANCE_ENDPOINT,
   GROUP_SOLVED_ENDPOINT,
+  GROUP_RANK_ENDPOINT,
 } from "../constants/URL";
 import { useSelector } from "react-redux";
 import GroupAttendance from "../components/GroupAttendance/GroupAttendance";
+import GroupRank from "../components/GroupRank/GroupRank";
 
 export const DataContext = createContext();
 
 const GroupDetail = ({ match }) => {
   const { groupid } = match.params;
   const activeUser = useSelector((state) => state.AppState.activeUser);
-  const [groupData, setGroupData] = useState(null);
-  const [userData, setUserData] = useState(null);
+  const [groupData, setGroupData] = useState([]);
+  const [userData, setUserData] = useState([]);
   const [groupMenu, setGroupMenu] = useState("main");
   const [attendanceData, setAttendanceData] = useState(null);
   const [attendanceState, setAttendanceState] = useState(null);
+  const [isMaster, setIsMaster] = useState(false);
+  const [rankData, setRankData] = useState([]);
 
   useEffect(() => {
     fetchData();
   }, [activeUser]);
 
-  const getGroupInfo = async () => {
-    return axios
-      .get(`${GROUP_ENDPOINT}?func=getGroup&id=${groupid}`)
-      .then((res) => {
-        setGroupData(() => res.data.Item);
-        axios
-          .post(`${GROUP_ATTENDANCE_ENDPOINT}`, { id: res.data.Item.id })
-          .then((res) => setAttendanceData(() => res.data));
-        axios
-          .post(`${GROUP_SOLVED_ENDPOINT}`, { id: res.data.Item.id })
-          .then((res) => setAttendanceState(() => res.data.body));
-      });
-  };
-
-  const getUserInfo = async () => {
-    return axios
-      .get(`${USER_ENDPOINT}userid=${activeUser}&funcname=getUser`)
-      .then((res) => setUserData(() => res.data));
-  };
-
   const fetchData = async () => {
-    await getGroupInfo();
-    await getUserInfo();
+    let tempUserData;
+    let tempGroupData;
+
+    await axios.get(`${GROUP_ENDPOINT}?func=getGroup&id=${groupid}`).then((res) => {
+      tempGroupData = res.data.Item;
+      setGroupData(() => res.data.Item);
+      axios
+        .post(`${GROUP_ATTENDANCE_ENDPOINT}`, { id: res.data.Item.id })
+        .then((res) => setAttendanceData(() => res.data));
+      axios
+        .post(`${GROUP_SOLVED_ENDPOINT}`, { id: res.data.Item.id })
+        .then((res) => setAttendanceState(() => res.data.body));
+    });
+
+    await axios.get(`${USER_ENDPOINT}userid=${activeUser}&funcname=getUser`).then((res) => {
+      tempUserData = res.data;
+      setUserData(() => res.data);
+    });
+
+    // await axios
+    //   .post(`${GROUP_RANK_ENDPOINT}`, { id: tempGroupData.id })
+    //   .then((res) => setRankData(res.data.body.rank_points));
+
+    tempUserData.active_group_set.forEach((group) => {
+      if (group.group_id === tempGroupData.id && group.group_auth === true) {
+        setIsMaster(true);
+      }
+    });
   };
 
   const renderGroupMenu = () => {
@@ -62,9 +72,9 @@ const GroupDetail = ({ match }) => {
       case "main":
         return <GroupGoal problems={groupData?.probs} />;
       case "attendance":
-        return (
-          <GroupAttendance data={groupData} attendanceState={attendanceState} />
-        );
+        return <GroupAttendance data={groupData} attendanceState={attendanceState} />;
+      case "rank":
+        return <GroupRank data={groupData} />;
       default:
         break;
     }
@@ -83,16 +93,16 @@ const GroupDetail = ({ match }) => {
           <motion.h2 variants={fade} className="group-detail-group-name">
             {groupData?.name}
           </motion.h2>
-          <motion.div className="group-detail-group-rank">
-            {groupData?.group_info}
-          </motion.div>
+          <motion.div className="group-detail-group-rank">{groupData?.group_info}</motion.div>
         </div>
-        <motion.div
-          variants={lineAnim}
-          className="line group-detail-line"
-        ></motion.div>
+        <motion.div variants={lineAnim} className="line group-detail-line"></motion.div>
         <DataContext.Provider
-          value={{ groupData: groupData, userData: userData }}
+          value={{
+            groupData: groupData,
+            userData: userData,
+            isMaster: isMaster,
+            rankData: rankData,
+          }}
         >
           <GroupMenu groupId={groupData?.id} setGroupMenu={setGroupMenu} />
           {renderGroupMenu()}

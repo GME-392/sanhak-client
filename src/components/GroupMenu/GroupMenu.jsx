@@ -41,18 +41,20 @@ const GroupMenu = ({ groupId, setGroupMenu }) => {
           <Nav.Link
             to={`/group/${groupId}/rank`}
             className="group-detail-menu"
-            onClick={() => setGroupMenu(() => "ranking")}
+            onClick={() => setGroupMenu(() => "rank")}
           >
             멤버 랭킹
           </Nav.Link>
           <NavDropdown
-            title="과제 관리"
+            title="공지사항"
             id="basic-nav-dropdown"
             className="group-detail-menu"
           >
-            <NavDropdown.Item href="#action/3.2">출석 관리</NavDropdown.Item>
+            <NavDropdown.Item href="#action/3.2">
+              그룹 공지사항
+            </NavDropdown.Item>
             <NavDropdown.Item href="#action/3.1">
-              수동 과제 지정
+              정보 공지사항
             </NavDropdown.Item>
           </NavDropdown>
         </Nav>

@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./GroupNotification.scss";
+import { DataContext } from "../../pages/GroupDetail";
 
 const GroupNotification = () => {
+  const { isMaster } = useContext(DataContext);
+  console.log(isMaster);
+
   return (
     <div className="group-notification-container">
       <div className="problems-list">
@@ -9,6 +13,7 @@ const GroupNotification = () => {
           style={{ width: "100%", textAlign: "left", paddingBottom: "1rem" }}
         >
           그룹 공지사항
+          {isMaster && <span>수정</span>}
         </div>
       </div>
       <div className="group-notification-content">

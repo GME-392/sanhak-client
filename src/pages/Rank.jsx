@@ -24,7 +24,6 @@ const Rank = () => {
       </Menu>
       <motion.div className="Rank__variants">
         <motion.h3>그룹 랭킹</motion.h3>
-        <motion.h3>명예의 전당</motion.h3>
       </motion.div>
     </Container>
   );

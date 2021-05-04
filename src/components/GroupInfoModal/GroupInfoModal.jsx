@@ -10,11 +10,7 @@ import members from "../../img/members.png";
 import limit from "../../img/limit.png";
 import title from "../../img/title.png";
 
-const GroupInfoModal = ({
-  showGroupInfoModal,
-  setShowGroupInfoModal,
-  data,
-}) => {
+const GroupInfoModal = ({ showGroupInfoModal, setShowGroupInfoModal, data }) => {
   const [isJoined, setIsJoined] = useState(false);
   const activeUser = useSelector((state) => state.AppState.activeUser);
   // 모달 닫는 함수
@@ -42,11 +38,13 @@ const GroupInfoModal = ({
         groupname: name,
         groupid: id,
       });
+
       await axios.patch(`${GROUP_ENDPOINT}`, {
         func: "addMember",
         id: id,
         new_member: [activeUser],
       });
+
       setShowGroupInfoModal(false);
       window.location.reload(false);
     } else {
@@ -85,9 +83,7 @@ const GroupInfoModal = ({
               <GroupInfoMember master={true} name={data?.leader} />
               {data?.member?.map((member, idx) => {
                 if (data?.leader !== member) {
-                  return (
-                    <GroupInfoMember master={false} name={member} key={idx} />
-                  );
+                  return <GroupInfoMember master={false} name={member} key={idx} />;
                 }
               })}
             </Form.Text>
@@ -105,11 +101,7 @@ const GroupInfoModal = ({
       </Modal.Body>
 
       <Modal.Footer>
-        <Button
-          className="Modal__Button"
-          variant="secondary"
-          onClick={handleClose}
-        >
+        <Button className="Modal__Button" variant="secondary" onClick={handleClose}>
           취소
         </Button>
         <Button className="Modal__Button" onClick={joinGroup}>
