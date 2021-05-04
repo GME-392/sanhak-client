@@ -5,12 +5,7 @@ import Tag from "../Tag/Tag";
 import styled from "styled-components";
 import classNames from "classnames";
 
-const GroupList = ({
-  data,
-  showGroupInfoModal,
-  setShowGroupInfoModal,
-  setSelectedGroupInfo,
-}) => {
+const GroupList = ({ data, showGroupInfoModal, setShowGroupInfoModal, setSelectedGroupInfo }) => {
   const { name, leader, tier, tags, group_info, max_member, member } = data;
   const onListClick = () => {
     setShowGroupInfoModal(true);
@@ -19,10 +14,7 @@ const GroupList = ({
 
   return (
     <>
-      <Container
-        className={`GroupList__container Diamond`}
-        onClick={onListClick}
-      >
+      <Container className={`GroupList__container Diamond`} onClick={onListClick}>
         <div>
           <h4 className="GroupList__name">
             {name} <span className="GroupList__leader">- by {leader}</span>

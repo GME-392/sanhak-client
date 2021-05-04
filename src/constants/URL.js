@@ -10,3 +10,5 @@ export const GROUP_ATTENDANCE_ENDPOINT =
   "https://9zl6kjhghe.execute-api.us-east-2.amazonaws.com/backend_api/return-attendance";
 export const GROUP_SOLVED_ENDPOINT =
   "https://hhya7n2t06.execute-api.us-east-2.amazonaws.com/backend_api/return-solved-attend-probs";
+export const GROUP_RANK_ENDPOINT =
+  "https://ycwvl0727g.execute-api.us-east-2.amazonaws.com/backend_api/return-rank";

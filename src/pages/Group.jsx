@@ -21,7 +21,7 @@ const Group = () => {
   useEffect(() => {
     axios
       .get(`${GROUP_ENDPOINT}?func=getAllGroup`)
-      .then((res) => setGroupList(res.data.Items.slice(offset, offset + 6)));
+      .then((res) => setGroupList(res.data.slice(offset, offset + 6)));
   }, [offset]);
 
   const handlePageClick = (data) => {

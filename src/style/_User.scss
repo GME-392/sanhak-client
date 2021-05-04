@@ -121,6 +121,85 @@
   border-bottom: 1px solid #cdcdcd;
 }
 
+.user__leave__button {
+  background-color: rgb(189, 20, 20);
+  border: none;
+  float: right;
+  margin-right: 2rem;
+}
+
+.user__leave__button:hover {
+  background-color: rgb(214, 135, 135);
+  border: none;
+}
+
+.ReactModal__Content {
+  position: absolute;
+  top: 150px !important;
+  width: 700px;
+  height: 350px;
+  margin: auto auto;
+  left: auto;
+  right: auto;
+}
+
+.user__leave__modal {
+  h2 {
+    font-weight: 400;
+    font-size: 2rem;
+  }
+  .user__leave__modal__content {
+    margin-top: 3rem;
+    div {
+      margin-top: 3rem;
+      font-size: 1.3rem;
+    }
+    input {
+      width: 25rem;
+      padding: 3px;
+      padding-left: 8px;
+      margin-top: 8px;
+      border-radius: 4px;
+    }
+    h4 {
+      font-weight: 400;
+      font-size: 1.3rem;
+    }
+  }
+  button {
+    position: relative;
+    top: 50px;
+    margin-right: 2rem;
+    float: right;
+  }
+}
+
+.button--leave {
+  background-color: rgb(173, 46, 46);
+  border: none;
+}
+
+.button--stay {
+  border: none;
+  background-color: rgb(70, 134, 61);
+}
+
+.ReactModal__Overlay {
+  opacity: 0;
+  transform: translateX(-20%);
+  transition: all 700ms ease-in-out;
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+  transform: translateX(0px);
+}
+
+.ReactModal__Overlay--before-close {
+  opacity: 0;
+  transform: translateX(-100px);
+}
+
 @media (max-width: 1200px) {
   .user__container__horizontal {
     flex-direction: column;

@@ -195,18 +195,23 @@ const GuideMenu = ({ type }) => {
           🖥 추천 그룹 목록
         </h3>
         <div className="Guide__recommended__list">
-          {groupList
-            ?.filter((group) => {
-              let include = false;
-              tagList.forEach((tag) => {
-                if (group.tag.includes(tag)) include = true;
-              });
-              return include;
-            })
-            .map((group, idx) => {
-              if (idx > 3) return;
-              return <RecommendedGroup key={idx} data={group} />;
-            })}
+          {tagList.length > 0
+            ? groupList
+                ?.filter((group) => {
+                  let include = false;
+                  tagList.forEach((tag) => {
+                    if (group.tag.includes(tag)) include = true;
+                  });
+                  return include;
+                })
+                .map((group, idx) => {
+                  if (idx > 3) return;
+                  return <RecommendedGroup key={idx} data={group} />;
+                })
+            : groupList.map((group, idx) => {
+                if (idx > 3) return;
+                return <RecommendedGroup key={idx} data={group} />;
+              })}
         </div>
       </div>
     </div>

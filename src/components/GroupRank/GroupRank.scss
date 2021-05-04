@@ -1,0 +1,42 @@
+.rank__fairy {
+  width: 90px !important;
+  height: 90px !important;
+}
+
+.group__rank__item {
+  display: flex;
+  transition: 0.2s ease-in-out;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 60px;
+  border: 1px solid #cdcdcd;
+  padding: 20px;
+  padding-left: 15px;
+  border-radius: 8px;
+  margin: 1rem 0;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.rank__content {
+  font-weight: 500;
+  color: #555;
+  padding-bottom: 4px;
+}
+
+.group__rank__item:hover {
+  transition: 0.2s ease-in-out;
+  border-color: rgb(60, 150, 145);
+  box-shadow: 3px 3px 5px 3px #cdcdcd;
+}
+
+.rank__medal {
+  width: 32px !important;
+  height: 32px !important;
+  margin-right: 1rem;
+}
+
+.group__rank__container {
+  margin-top: -1rem;
+}

@@ -1,8 +1,18 @@
 .Recommended__container {
-  border: 1px solid #cdcdcd;
+  border: 2px solid #cdcdcd;
+  transition: 0.2s ease-in-out;
   border-radius: 8px;
   padding: 1rem;
   width: 300px;
   height: 80px;
   margin: 1rem 0;
+  cursor: pointer;
+  span {
+    font-weight: 500;
+  }
+}
+
+.Recommended__container:hover {
+  transition: 0.2s ease-in-out;
+  border-color: rgb(17, 28, 92);
 }
