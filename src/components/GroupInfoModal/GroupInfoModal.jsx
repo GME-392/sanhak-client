@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Tag from "../Tag/Tag";
 import { GROUP_ENDPOINT, USER_ENDPOINT } from "../../constants/URL";
+import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./GroupInfoModal.scss";
 import GroupInfoMember from "../GroupInfoMember/GroupInfoMember";
@@ -15,6 +16,7 @@ const GroupInfoModal = ({ showGroupInfoModal, setShowGroupInfoModal, data }) => 
   const activeUser = useSelector((state) => state.AppState.activeUser);
   // 모달 닫는 함수
   const handleClose = () => setShowGroupInfoModal(false);
+  const history = useHistory();
 
   useEffect(() => {
     if (data !== null) {
@@ -30,6 +32,15 @@ const GroupInfoModal = ({ showGroupInfoModal, setShowGroupInfoModal, data }) => 
 
   const joinGroup = async () => {
     const { name, id } = data;
+    if (activeUser === null || activeUser === undefined) {
+      let moveToSignUp = window.confirm(
+        "회원가입이 필요한 서비스입니다. 회원가입 페이지로 이동하시겠습니까?"
+      );
+      if (moveToSignUp === true) {
+        history.push("/login");
+      }
+      return;
+    }
 
     if (isJoined === false) {
       await axios.patch(`${USER_ENDPOINT}userid=${activeUser}`, {

@@ -60,11 +60,10 @@ const GroupDetail = ({ match }) => {
     //   .post(`${GROUP_RANK_ENDPOINT}`, { id: tempGroupData.id })
     //   .then((res) => setRankData(res.data.body.rank_points));
 
-    tempUserData.active_group_set.forEach((group) => {
-      if (group.group_id === tempGroupData.id && group.group_auth === true) {
-        setIsMaster(true);
-      }
-    });
+    if (tempGroupData.leader === activeUser) {
+      // if (group.group_id === tempGroupData.id && group.group_auth === true) {
+      setIsMaster(true);
+    }
   };
 
   const renderGroupMenu = () => {

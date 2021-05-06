@@ -27,13 +27,7 @@ exports.handler = (event, context, callback) => {
     bojName == "" ||
     userEmail == ""
   ) {
-    console.log(
-      "userId, userPw, bojName, userEmail: ",
-      userId,
-      userPw,
-      bojName,
-      userEmail
-    );
+    console.log("userId, userPw, bojName, userEmail: ", userId, userPw, bojName, userEmail);
     let response = {
       statusCode: 400,
       headers: { post: "fail" },

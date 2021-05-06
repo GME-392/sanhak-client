@@ -10,3 +10,34 @@
   margin: 0 5rem;
   line-height: 200%;
 }
+
+.group-notification-input {
+  flex: 8;
+  border: 3px solid rgba(200, 200, 200, 0.6);
+  border-radius: 8px;
+  padding: 1rem 1.1rem;
+  font-size: 1.1rem;
+  margin-left: 5rem;
+  margin-right: 1rem;
+  line-height: 200%;
+}
+
+.group-notification-button--cancel {
+  background-color: rgb(199, 49, 49) !important;
+  border-color: transparent;
+}
+
+.group-notification-button {
+  margin: 0 1rem;
+}
+
+.notification__modify {
+  font-size: 16px;
+  margin-left: 1rem;
+  cursor: pointer;
+  color: #666 !important;
+  span {
+    display: inline-block;
+    margin-left: 1rem;
+  }
+}
