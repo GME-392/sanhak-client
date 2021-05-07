@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import { Auth } from "aws-amplify";
-import UserWelcome from "./UserWelcome/UserWelcome";
+import UserWelcome from "../UserWelcome/UserWelcome";
+import message from "../../img/message.png";
 import { useSelector } from "react-redux";
+import "./Nav.scss";
 
 const Nav = () => {
   const { pathname } = useLocation();
@@ -22,13 +24,14 @@ const Nav = () => {
           /* Comate */
         </Link>
       </h1>
-      <ul>
+      <ul style={{ alignItems: "center" }}>
         <li>
           <Link to="/">코맷 소개</Link>
           <Line
             isSignedIn={isSignedIn}
             transition={{ duration: 0.75 }}
             initial={{ width: "0%" }}
+            style={{ marginTop: "1rem" }}
             animate={{ width: pathname === "/" ? "50%" : "0%" }}
           />
         </li>
@@ -38,6 +41,7 @@ const Nav = () => {
             isSignedIn={isSignedIn}
             transition={{ duration: 0.75 }}
             initial={{ width: "0%" }}
+            style={{ marginTop: "1rem" }}
             animate={{ width: pathname === "/group" ? "50%" : "0%" }}
           />
         </li>
@@ -47,6 +51,7 @@ const Nav = () => {
             isSignedIn={isSignedIn}
             transition={{ duration: 0.75 }}
             initial={{ width: "0%" }}
+            style={{ marginTop: "1rem" }}
             animate={{ width: pathname === "/guide" ? "50%" : "0%" }}
           />
         </li>
@@ -56,11 +61,15 @@ const Nav = () => {
             isSignedIn={isSignedIn}
             transition={{ duration: 0.75 }}
             initial={{ width: "0%" }}
+            style={{ marginTop: "1rem" }}
             animate={{ width: pathname === "/rank" ? "50%" : "0%" }}
           />
         </li>
         {isSignedIn ? (
-          <UserWelcome />
+          <>
+            <UserWelcome />
+            <img src={message} className="message-icon" />
+          </>
         ) : (
           <>
             <li>
@@ -69,6 +78,7 @@ const Nav = () => {
                 isSignedIn={isSignedIn}
                 transition={{ duration: 0.75 }}
                 initial={{ width: "0%" }}
+                style={{ marginTop: "1rem" }}
                 animate={{ width: pathname === "/login" ? "50%" : "0%" }}
               />
             </li>
@@ -77,6 +87,7 @@ const Nav = () => {
               <Line
                 transition={{ duration: 0.75 }}
                 initial={{ width: "0%" }}
+                style={{ marginTop: "1rem" }}
                 animate={{ width: pathname === "/register" ? "50%" : "0%" }}
               />
             </li>

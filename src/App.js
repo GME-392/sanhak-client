@@ -4,7 +4,7 @@ import GlobalStyle from "./components/GlobalStyle";
 //Import Pages
 import About from "./pages/About";
 import Group from "./pages/Group";
-import Nav from "./components/Nav";
+import Nav from "./components/Nav/Nav";
 import Rank from "./pages/Rank";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -87,11 +87,7 @@ function App() {
             path={`/user/:username`}
             render={(props) => <User name={"chanmin"} {...props} />}
           />
-          <Route
-            path={`/group/:groupid`}
-            exact
-            render={(props) => <GroupDetail {...props} />}
-          />
+          <Route path={`/group/:groupid`} exact render={(props) => <GroupDetail {...props} />} />
           {/* 
           <Route
             path={`/group/:groupid/info`}

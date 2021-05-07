@@ -5,6 +5,7 @@ import { Auth } from "aws-amplify";
 import "./UserWelcome.scss";
 import { onLoginFail } from "../../redux/actions/authActions";
 import { Link, useHistory } from "react-router-dom";
+import message from "../../img/message.png";
 
 const UserWelcome = () => {
   const activeUser = useSelector((state) => state.AppState.activeUser);
@@ -18,10 +19,7 @@ const UserWelcome = () => {
 
   return (
     <li>
-      <div
-        className="user-welcome"
-        onClick={() => history.push(`/user/${activeUser}`)}
-      >
+      <div className="user-welcome" onClick={() => history.push(`/user/${activeUser}`)}>
         <span>
           <img src={profile} />
           {activeUser}님, 환영합니다.
