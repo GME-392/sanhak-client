@@ -1,6 +1,6 @@
 import { Button, Form, Modal } from "react-bootstrap";
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Tag from "../Tag/Tag";
 import { GROUP_ENDPOINT, USER_ENDPOINT } from "../../constants/URL";
 import { useHistory } from "react-router-dom";
@@ -10,10 +10,13 @@ import GroupInfoMember from "../GroupInfoMember/GroupInfoMember";
 import members from "../../img/members.png";
 import limit from "../../img/limit.png";
 import title from "../../img/title.png";
+import { DataContext } from "../../pages/Group";
 
 const GroupInfoModal = ({ showGroupInfoModal, setShowGroupInfoModal, data }) => {
   const [isJoined, setIsJoined] = useState(false);
   const activeUser = useSelector((state) => state.AppState.activeUser);
+
+  const { userData } = useContext(DataContext);
   // 모달 닫는 함수
   const handleClose = () => setShowGroupInfoModal(false);
   const history = useHistory();
@@ -54,6 +57,13 @@ const GroupInfoModal = ({ showGroupInfoModal, setShowGroupInfoModal, data }) => 
         func: "addMember",
         id: id,
         new_member: [activeUser],
+      });
+
+      await axios.patch(`${GROUP_ENDPOINT}`, {
+        func: "addRankMember",
+        id: id,
+        new_member: [activeUser],
+        boj_id: userData.boj_name,
       });
 
       setShowGroupInfoModal(false);

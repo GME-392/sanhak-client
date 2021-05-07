@@ -1,9 +1,7 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import { Form, Nav, Navbar, NavDropdown, Button, FormControl } from "react-bootstrap";
 
 import "./GroupMenu.scss";
-import { Link } from "react-router-dom";
-import { DataContext } from "../../pages/GroupDetail";
 
 const GroupMenu = ({ groupId, setGroupMenu }) => {
   return (

@@ -71,53 +71,54 @@ const Group = () => {
           setShow={setShowCreateGroupModal}
         />
         <div className="divideLine" />
-        {loadGroup === true && loadUser === true ? (
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <img src={fairy} className="rank__fairy" />
-            <h3>알고리즘의 요정이 정보를 불러오고 있습니다!</h3>
-          </div>
-        ) : (
-          <div className="Group__container">
-            <motion.div className="Group__groupList">
-              {groupList.map((group) => (
-                <GroupList
-                  key={group.id}
-                  data={group}
-                  id={group.id}
-                  setShowGroupInfoModal={setShowGroupInfoModal}
-                  showGroupInfoModal={showGroupInfoModal}
-                  setSelected={setSelected}
-                  setSelectedGroupInfo={setSelectedGroupInfo}
-                ></GroupList>
-              ))}
-            </motion.div>
-            <motion.div className="Group__ad-container">
-              <motion.div className="Group__ad1" />
-              <motion.div className="Group__ad2" />
-            </motion.div>
-          </div>
-        )}
 
-        {/* <PaginationComponent /> */}
-        <ReactPaginate
-          previousLabel={"이전"}
-          nextLabel={"다음"}
-          breakLabel={"..."}
-          breakClassName={"break-me"}
-          pageCount={10}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          onPageChange={handlePageClick}
-          containerClassName={"pagination"}
-          activeClassName={"active"}
-        />
         <DataContext.Provider value={{ userData: userData }}>
+          {loadGroup === true && loadUser === true ? (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <img src={fairy} className="rank__fairy" />
+              <h3>알고리즘의 요정이 정보를 불러오고 있습니다!</h3>
+            </div>
+          ) : (
+            <div className="Group__container">
+              <motion.div className="Group__groupList">
+                {groupList.map((group) => (
+                  <GroupList
+                    key={group.id}
+                    data={group}
+                    id={group.id}
+                    setShowGroupInfoModal={setShowGroupInfoModal}
+                    showGroupInfoModal={showGroupInfoModal}
+                    setSelected={setSelected}
+                    setSelectedGroupInfo={setSelectedGroupInfo}
+                  ></GroupList>
+                ))}
+              </motion.div>
+              <motion.div className="Group__ad-container">
+                <motion.div className="Group__ad1" />
+                <motion.div className="Group__ad2" />
+              </motion.div>
+            </div>
+          )}
+
+          {/* <PaginationComponent /> */}
+          <ReactPaginate
+            previousLabel={"이전"}
+            nextLabel={"다음"}
+            breakLabel={"..."}
+            breakClassName={"break-me"}
+            pageCount={10}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={handlePageClick}
+            containerClassName={"pagination"}
+            activeClassName={"active"}
+          />
           <GroupInfoModal
             setShowGroupInfoModal={setShowGroupInfoModal}
             showGroupInfoModal={showGroupInfoModal}
