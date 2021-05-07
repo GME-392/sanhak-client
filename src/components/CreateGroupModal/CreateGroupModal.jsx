@@ -248,7 +248,7 @@ const CreateGroupModal = ({ showCreateGroupModal, setShowCreateGroupModal, setGr
             }}
           >
             <img src={fairy} className="rank__fairy" />
-            <h3>알고리즘의 요정이 문제집을 만들고 있습니다!</h3>
+            <h3>알고리즘의 요정이 그룹을 만들고 있습니다!</h3>
             <div style={{ fontSize: "18px", marginTop: "1rem" }}>{ment}</div>
           </div>
         ) : (
