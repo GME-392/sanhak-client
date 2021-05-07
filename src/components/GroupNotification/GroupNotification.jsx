@@ -44,11 +44,11 @@ const GroupNotification = () => {
         <div className="group-notification-content">{groupNoti ?? groupData.group_noti}</div>
       ) : (
         <div style={{ display: "flex", width: "calc(100% - 3rem)" }}>
-          <input
+          <textarea
             className="group-notification-input"
             value={groupNoti}
             onChange={(e) => setGroupNoti(e.target.value)}
-          ></input>
+          ></textarea>
           <button className="group-notification-button group-notification-button--cancel">
             수정 취소
           </button>
