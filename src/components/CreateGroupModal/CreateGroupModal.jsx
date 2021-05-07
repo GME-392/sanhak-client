@@ -1,17 +1,14 @@
 import { Button, Form, Modal } from "react-bootstrap";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Tag from "../Tag/Tag";
 import { GROUP_ENDPOINT, USER_ENDPOINT } from "../../constants/URL";
 import "./CreateGroupModal.scss";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { useSelector } from "react-redux";
+import { DataContext } from "../../pages/Group";
 
-const CreateGroupModal = ({
-  showCreateGroupModal,
-  setShowCreateGroupModal,
-  setGroupList,
-}) => {
+const CreateGroupModal = ({ showCreateGroupModal, setShowCreateGroupModal, setGroupList }) => {
   const handleClose = () => setShowCreateGroupModal(false);
   const [name, setName] = useState(null);
   const [memberLimit, setMemberLimit] = useState(20);
@@ -20,6 +17,8 @@ const CreateGroupModal = ({
   const [groupType, setGroupType] = useState(null);
   const [description, setDescription] = useState(null);
   const activeUser = useSelector((state) => state.AppState.activeUser);
+  const { userData } = useContext(DataContext);
+  console.log(userData);
 
   const onPressEnter = (e) => {
     e.persist();
@@ -44,6 +43,7 @@ const CreateGroupModal = ({
       tag: tagList,
       status: "open",
       member: [activeUser],
+      boj_id: [userData?.boj_name],
     });
 
     await axios.patch(`${USER_ENDPOINT}`, {
@@ -73,10 +73,7 @@ const CreateGroupModal = ({
               onChange={(e) => setName(e.target.value)}
               value={name}
             />
-            <Form.Text
-              className="text-muted"
-              style={{ fontSize: "0.88rem", marginTop: "0.5rem" }}
-            >
+            <Form.Text className="text-muted" style={{ fontSize: "0.88rem", marginTop: "0.5rem" }}>
               입력한 그룹명을 통해 사용자들이 검색할 수 있습니다.
             </Form.Text>
           </Form.Group>
@@ -85,9 +82,7 @@ const CreateGroupModal = ({
             <Form.Label>그룹 유형</Form.Label>
             <div className="groupType__btn-container">
               <button
-                className={
-                  groupType === "학습" ? "groupType__btn--pressed" : ""
-                }
+                className={groupType === "학습" ? "groupType__btn--pressed" : ""}
                 onClick={(e) => {
                   e.preventDefault();
                   setGroupType("학습");
@@ -96,9 +91,7 @@ const CreateGroupModal = ({
                 학습
               </button>
               <button
-                className={
-                  groupType === "코딩 테스트" ? "groupType__btn--pressed" : ""
-                }
+                className={groupType === "코딩 테스트" ? "groupType__btn--pressed" : ""}
                 onClick={(e) => {
                   e.preventDefault();
                   setGroupType("코딩 테스트");
@@ -107,9 +100,7 @@ const CreateGroupModal = ({
                 코딩 테스트
               </button>
               <button
-                className={
-                  groupType === "대회" ? "groupType__btn--pressed" : ""
-                }
+                className={groupType === "대회" ? "groupType__btn--pressed" : ""}
                 onClick={(e) => {
                   e.preventDefault();
                   setGroupType("대회");
@@ -155,10 +146,7 @@ const CreateGroupModal = ({
             {tagList.map((tag, idx) => (
               <Tag name={tag} key={idx} onRemove={removeTag} />
             ))}
-            <Form.Text
-              className="text-muted"
-              style={{ fontSize: "0.88rem", marginTop: "0.5rem" }}
-            >
+            <Form.Text className="text-muted" style={{ fontSize: "0.88rem", marginTop: "0.5rem" }}>
               불건전한 태그를 포함할 경우 경고 없이 태그가 제거될 수 있습니다.
             </Form.Text>
           </Form.Group>
@@ -166,18 +154,10 @@ const CreateGroupModal = ({
       </Modal.Body>
 
       <Modal.Footer>
-        <Button
-          className="Modal__Button cancel"
-          variant="secondary"
-          onClick={handleClose}
-        >
+        <Button className="Modal__Button cancel" variant="secondary" onClick={handleClose}>
           취소
         </Button>
-        <Button
-          className="Modal__Button create"
-          variant="primary"
-          onClick={onSubmit}
-        >
+        <Button className="Modal__Button create" variant="primary" onClick={onSubmit}>
           그룹 생성
         </Button>
       </Modal.Footer>
