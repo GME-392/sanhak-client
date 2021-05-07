@@ -5,7 +5,6 @@ import { Auth } from "aws-amplify";
 import "./UserWelcome.scss";
 import { onLoginFail } from "../../redux/actions/authActions";
 import { Link, useHistory } from "react-router-dom";
-import message from "../../img/message.png";
 
 const UserWelcome = () => {
   const activeUser = useSelector((state) => state.AppState.activeUser);

@@ -19,9 +19,10 @@ const Group = () => {
   const [offset, setOffset] = useState(0);
 
   useEffect(() => {
-    axios
-      .get(`${GROUP_ENDPOINT}?func=getAllGroup`)
-      .then((res) => setGroupList(res.data.slice(offset, offset + 6)));
+    axios.get(`${GROUP_ENDPOINT}?func=getAllGroup`).then((res) => {
+      console.log(res.data);
+      setGroupList(res.data.slice(offset, offset + 6));
+    });
   }, [offset]);
 
   const handlePageClick = (data) => {
