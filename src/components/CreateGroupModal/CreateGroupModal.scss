@@ -31,26 +31,27 @@
 
 .probType__btn-container {
   margin-top: 0.5rem;
+  height: 150px;
+  overflow-y: scroll;
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
   button {
     width: 30%;
-    margin: 0 0.5rem;
+    margin: 5px 0.5rem;
     border: 1px solid #cdcdcd;
     background-color: rgb(255, 255, 255);
     color: #333;
   }
   button:hover {
-    background-color: #E3FFFF;
+    background-color: #e3ffff;
     color: #333;
   }
   .probType__btn--pressed {
-    background-color: #E3FFFF;
+    background-color: #e3ffff;
     color: #333;
   }
 }
-
 
 .groupType__btn-container {
   margin-top: 0.5rem;
@@ -58,7 +59,7 @@
   justify-content: space-evenly;
   button {
     width: 100%;
-    margin: 0 0.5rem;
+    margin: 5px 0.5rem;
     border: 1px solid #cdcdcd;
     background-color: rgb(255, 255, 255);
     color: #333;
