@@ -62,7 +62,7 @@ const GroupInfoModal = ({ showGroupInfoModal, setShowGroupInfoModal, data }) => 
       await axios.patch(`${GROUP_ENDPOINT}`, {
         func: "addRankMember",
         id: id,
-        member: [activeUser],
+        new_member: [activeUser],
         boj_id: userData.boj_name,
       });
 
