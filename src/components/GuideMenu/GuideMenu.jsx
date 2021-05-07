@@ -4,10 +4,15 @@ import { GROUP_ENDPOINT } from "../../constants/URL";
 import Tag from "../Tag/Tag";
 import RecommendedGroup from "../RecommendedGroup/RecommendedGroup";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
+// import CreateGroupModal from "../components/CreateGroupModal/CreateGroupModal";
 
 const GuideMenu = ({ type }) => {
   const [groupList, setGroupList] = useState([]);
   const [tagList, setTagList] = useState([]);
+  const activeUser = useSelector((state) => state.AppState.activeUser);
+  const history = useHistory();
 
   const getGroupList = async () => {
     await axios.get(`${GROUP_ENDPOINT}?func=getAllGroup`).then((res) => setGroupList(res.data));
@@ -16,6 +21,19 @@ const GuideMenu = ({ type }) => {
   useEffect(() => {
     getGroupList();
   }, []);
+
+  // const handleShow = () => {
+  //   if (activeUser === null) {
+  //     // 로그인 안돼있으면 홈으로 보내버림
+  //     history.push("/");
+  //   } else {
+  //     <CreateGroupModal
+  //         setGroupList={setGroupList}
+  //         showCreateGroupModal={true}
+  //         setShowCreateGroupModal={true}
+  //       />
+  //   }
+  // };
 
   const renderContent = () => {
     switch (type) {

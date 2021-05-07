@@ -1,5 +1,5 @@
 import { Button, Form, Modal } from "react-bootstrap";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Tag from "../Tag/Tag";
 import { GROUP_ENDPOINT, USER_ENDPOINT } from "../../constants/URL";
 import "./CreateGroupModal.scss";
@@ -19,7 +19,77 @@ const CreateGroupModal = ({
   const [tagList, setTagList] = useState([]);
   const [groupType, setGroupType] = useState(null);
   const [description, setDescription] = useState(null);
+  const [formType, setFormType] = useState(null);
+  const [testType, setTestType] = useState(null);
+  const [probLevel, setProbLevel] = useState(null);
+  const [selectedType, setSelectedType] = useState([]);
+  const [userData, setUserData] = useState(null);
   const activeUser = useSelector((state) => state.AppState.activeUser);
+
+  // 대회, 기업, 문제 유형, 난이도 목록
+  const codingTest = ["삼성","카카오", "네이버","라인", "쿠팡", "NC", "lg u+", "lg cns"];
+  const contests = ["ACM-ICPC", "USACO", "정보올림피아드"];
+  const levels = ["상", "중", "하"];
+  const easyProbTypeList = ["기초구현", "완전탐색", "그리디", "BFS/DFS", "자료구조(스택, 큐, 덱)", "다이내믹 프로그래밍", "시뮬레이션", "문자열"];
+  const normalProbTypeList = ["기초구현", "완전탐색", "백트래킹", "그리디", "BFS/DFS", "자료구조(스택, 큐, 덱)", "다이내믹 프로그래밍", "시뮬레이션", 
+  "우선순위 큐", "이분 탐색", "해시", "투 포인터", "트리", "다익스트라", "위상 정렬", "문자열"];
+  const matchProbTag = {"기초구현" : "basicimplement", "완전탐색" : "bruteforce", "백트래킹" : "backtracking", "그리디" : "greedy", "BFS/DFS" : "bfsdfs", "자료구조(스택, 큐, 덱)" : "datastruct", "다이내믹 프로그래밍" : "dp", "시뮬레이션" : "simul", 
+  "우선순위 큐" : "pq", "이분 탐색" : "binarysearch", "해시" : "hash", "투 포인터" : "twopointer", "트리" : "tree", "다익스트라" : "dijkstra", "위상 정렬" : "phasesort", "문자열" : "string"};
+  const matchTestType = {"학습" : "study", "코딩 테스트" : "test", "대회" : "contest"};
+  const matchContestType = {"삼성" : "samsung", "카카오" : "kakao", "네이버" : "naver", "라인" : "line", "NC" : "nc", "쿠팡" : "coupang", "lg u+" : "lguplus", "lg cns" : "lgcns", "ACM-ICPC" : "ICPC", "USACO" : "USACO", "정보올림피아드" : "KOI"};
+ 
+
+  useEffect(() => {
+    getUserData();
+  })
+
+
+  // 코딩테스트, 대회, 난이도 목록들은 여기서 버튼으로 만들어줍니다. (단일 선택)
+  let showProbList = (probList) => probList.map(
+    test => (<button
+      className={
+        testType === test ? "testType__btn--pressed" : ""
+      }
+      onClick={(e) => {
+        e.preventDefault();
+        setTestType(test);
+        setSelectedType([matchContestType[test]]);
+      }}
+    >
+      {test}
+    </button>)
+  );
+
+  let showProbLevelList = (levelList) => levelList.map(
+    level => (<button
+      className={
+        probLevel === level ? "testType__btn--pressed" : ""
+      }
+      onClick={(e) => {
+        e.preventDefault();
+        setProbLevel(level);
+      }}
+    >
+      {level}
+    </button>)
+  );
+  
+
+  // 문제유형 목록은 여기서 버튼으로 만들어줍니다. (다중 선택 가능)
+  let showTypeList = (typeList) => typeList.map(
+    prob => (<button
+      className={
+        selectedType.includes(matchProbTag[prob]) ? "probType__btn--pressed" : ""
+      }
+      onClick={(e) => {
+        e.preventDefault();
+        selectedType.includes(matchProbTag[prob]) ? setSelectedType(selectedType.filter((name) => name !== matchProbTag[prob])) : setSelectedType([...selectedType, matchProbTag[prob]]);
+      }}
+    >
+      {prob}
+    </button>)
+  );
+
 
   const onPressEnter = (e) => {
     e.persist();
@@ -33,10 +103,15 @@ const CreateGroupModal = ({
     setTagList(tagList.filter((tag) => tag !== name));
   };
 
+  const getUserData = async () => {
+    await axios.get(`${USER_ENDPOINT}userid=${activeUser}&funcname=getUser`).then((res) => {
+      setUserData(res.data);
+    });
+  };
+  
   const onSubmit = async () => {
-    const id = uuidv4();
     await axios.post(`${GROUP_ENDPOINT}`, {
-      id,
+      id: uuidv4(),
       name,
       leader: activeUser,
       max_member: memberLimit,
@@ -44,15 +119,32 @@ const CreateGroupModal = ({
       tag: tagList,
       status: "open",
       member: [activeUser],
+      boj_id: [userData.boj_name],
+      // group_type: groupType, //그룹 유형 ex. "대회", "코딩 테스트"
+      // test_type: testType, // 테스트 유형 (그룹이 대회, 테스트인 경우 한정) ex. "카카오"
+      // prob_level: probLevel, // 난이도 (그룹이 학습인 경우 한정) ex. "상","하"
+      // probTypeset: selectedType, // 선택된 문제 유형들 (그룹이 학습인 경우 한정, 배열 형태)
+    }).then(async(res) => {
+      await axios.patch(`${GROUP_ENDPOINT}`,{
+        func: "updateProblemNumber",
+        id: res.data.body,
+        prob_num: 3
+      })
+      await axios.post(`https://pj6kuuwo4e.execute-api.us-east-2.amazonaws.com/backend_api/getproblemset`, {
+        id: res.data.body,
+        diff: probLevel,
+        arr: selectedType,
+        goal: matchTestType[groupType], //test, contest, study
+      })
+      await axios.post(`https://g9eq7bmlgl.execute-api.us-east-2.amazonaws.com/backend_api/recommendprobs`, {
+        id: res.data.body,
+      })
+      await axios.post(`https://ycwvl0727g.execute-api.us-east-2.amazonaws.com/backend_api/return-rank`, {
+        id: res.data.body,
+      })
     });
-
-    await axios.patch(`${USER_ENDPOINT}`, {
-      funcname: "addGroup",
-      userid: activeUser,
-      groupname: name,
-      groupid: id,
-    });
-
+    
+    
     handleClose();
     window.location.reload(false);
   };
@@ -60,7 +152,7 @@ const CreateGroupModal = ({
   return (
     <Modal show={showCreateGroupModal} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title style={{ fontWeight: 500 }}>새 그룹 생성하기</Modal.Title>
+        <Modal.Title>새 그룹 생성하기</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
@@ -73,10 +165,7 @@ const CreateGroupModal = ({
               onChange={(e) => setName(e.target.value)}
               value={name}
             />
-            <Form.Text
-              className="text-muted"
-              style={{ fontSize: "0.88rem", marginTop: "0.5rem" }}
-            >
+            <Form.Text className="text-muted">
               입력한 그룹명을 통해 사용자들이 검색할 수 있습니다.
             </Form.Text>
           </Form.Group>
@@ -91,6 +180,7 @@ const CreateGroupModal = ({
                 onClick={(e) => {
                   e.preventDefault();
                   setGroupType("학습");
+                  setFormType("학습");
                 }}
               >
                 학습
@@ -102,6 +192,7 @@ const CreateGroupModal = ({
                 onClick={(e) => {
                   e.preventDefault();
                   setGroupType("코딩 테스트");
+                  setFormType("코딩 테스트");
                 }}
               >
                 코딩 테스트
@@ -113,11 +204,44 @@ const CreateGroupModal = ({
                 onClick={(e) => {
                   e.preventDefault();
                   setGroupType("대회");
+                  setFormType("대회");
                 }}
               >
                 대회
               </button>
             </div>
+          </Form.Group>
+          
+          {/* 바뀐 부분 : 그룹 유형 버튼 선택에 따라 아래 추가 정보 선택 기능 */}
+          <Form.Group controlId="groupType">
+          {formType === "학습" && (
+              <div>
+              <Form.Label>문제 수준</Form.Label>
+              <div className="testType__btn-container">
+                {showProbLevelList(levels)}
+                </div>
+              <Form.Label>문제 유형 (여러개 선택 가능)</Form.Label>
+              <div className="probType__btn-container">
+                {probLevel === "하" ? showTypeList(easyProbTypeList) : showTypeList(normalProbTypeList)}
+                </div>
+              </div>
+              )}
+            {formType === "코딩 테스트" && (
+              <div>
+              <Form.Label>기업 목록</Form.Label>
+                <div className="testType__btn-container">
+                {showProbList(codingTest)}
+                </div>
+              </div>
+              )}
+            {formType === "대회" && (
+              <div>
+              <Form.Label>대회 목록</Form.Label>
+                <div className="testType__btn-container">
+                {showProbList(contests)}
+                </div>
+              </div>
+              )}
           </Form.Group>
 
           <Form.Group controlId="groupMemberLimit">
@@ -155,10 +279,7 @@ const CreateGroupModal = ({
             {tagList.map((tag, idx) => (
               <Tag name={tag} key={idx} onRemove={removeTag} />
             ))}
-            <Form.Text
-              className="text-muted"
-              style={{ fontSize: "0.88rem", marginTop: "0.5rem" }}
-            >
+            <Form.Text className="text-muted">
               불건전한 태그를 포함할 경우 경고 없이 태그가 제거될 수 있습니다.
             </Form.Text>
           </Form.Group>

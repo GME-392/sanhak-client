@@ -2,11 +2,55 @@
   background-color: #2680d3 !important;
   border: none !important;
 }
-
 .cancel {
   background-color: #ec544c !important;
   border: none !important;
 }
+
+.testType__btn-container {
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  button {
+    width: 30%;
+    margin: 0 0.5rem;
+    border: 1px solid #cdcdcd;
+    background-color: rgb(255, 255, 255);
+    color: #333;
+  }
+  button:hover {
+    background-color: #bdecb6;
+    color: #333;
+  }
+  .testType__btn--pressed {
+    background-color: #bdecb6;
+    color: #333;
+  }
+}
+
+.probType__btn-container {
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  button {
+    width: 30%;
+    margin: 0 0.5rem;
+    border: 1px solid #cdcdcd;
+    background-color: rgb(255, 255, 255);
+    color: #333;
+  }
+  button:hover {
+    background-color: #E3FFFF;
+    color: #333;
+  }
+  .probType__btn--pressed {
+    background-color: #E3FFFF;
+    color: #333;
+  }
+}
+
 
 .groupType__btn-container {
   margin-top: 0.5rem;
