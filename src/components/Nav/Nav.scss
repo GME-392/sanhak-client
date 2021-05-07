@@ -10,3 +10,13 @@
   cursor: pointer;
   background-color: #fefefe;
 }
+
+.toast-container {
+  position: absolute;
+  right: 50px;
+  top: 100px;
+}
+
+.toast {
+  opacity: 1 !important;
+}

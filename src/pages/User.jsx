@@ -137,6 +137,7 @@ const User = (props) => {
       },
     });
     await Auth.signOut();
+    await Auth.DeleteUser();
   };
 
   return (
