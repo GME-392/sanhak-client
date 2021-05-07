@@ -38,9 +38,10 @@ const GroupAttendance = ({ data, attendanceState }) => {
   const columns = React.useMemo(
     () => [
       { Header: "유저 아이디", accessor: "ID" },
-      ...problemList.map((el, idx) => ({
-        Header: el,
-        accessor: el,
+      ...problemList.map((prob, idx) => ({
+        Header: `${prob.numb} - ${prob.name}`,
+        id: idx,
+        accessor: prob.numb,
       })),
     ],
     []
