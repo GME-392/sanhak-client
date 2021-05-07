@@ -1,7 +1,7 @@
 .group-goal__container {
   border: 3px solid #ebebeb;
   border-radius: 12px;
-  height: 80%;
+  height: 450px;
   margin-top: 4rem;
   padding-bottom: 3rem;
 }
@@ -17,4 +17,41 @@
   font-weight: 600;
   top: -2rem;
   left: 2.5rem;
+}
+
+.group-leave {
+  float: right;
+  position: relative;
+  background-color: rgb(211, 42, 42);
+  top: 30px;
+  border: transparent;
+  margin-right: 5rem;
+}
+
+.group-leave:hover {
+  background-color: rgb(83, 168, 160);
+}
+
+.group__leave__modal {
+  h2 {
+    font-weight: 400;
+    font-size: 2rem;
+  }
+  .group__leave__modal__content {
+    margin-top: 3rem;
+    div {
+      margin-top: 3rem;
+      font-size: 1.3rem;
+    }
+    h4 {
+      font-weight: 400;
+      font-size: 1.3rem;
+    }
+  }
+}
+
+.group__leave__btn__container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
