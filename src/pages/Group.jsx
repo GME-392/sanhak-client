@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { pageAnimation, fade, lineAnim } from "../animation";
@@ -8,7 +8,12 @@ import axios from "axios";
 import CreateGroupModal from "../components/CreateGroupModal/CreateGroupModal";
 import GroupInfoModal from "../components/GroupInfoModal/GroupInfoModal";
 import ReactPaginate from "react-paginate";
-import { GROUP_ENDPOINT } from "../constants/URL";
+import { GROUP_ENDPOINT, USER_ENDPOINT } from "../constants/URL";
+import { useSelector } from "react-redux";
+import { AppState } from "../redux/reducers/AppState";
+import fairy from "../img/fairy.png";
+
+export const DataContext = createContext();
 
 const Group = () => {
   const [showCreateGroupModal, setShowCreateGroupModal] = useState(false);
@@ -16,14 +21,34 @@ const Group = () => {
   const [selected, setSelected] = useState(null);
   const [selectedGroupInfo, setSelectedGroupInfo] = useState(null);
   const [groupList, setGroupList] = useState([]);
+  const [userData, setUserData] = useState(null);
   const [offset, setOffset] = useState(0);
+  const activeUser = useSelector((state) => state.AppState.activeUser);
+  const [loadGroup, setLoadingGroup] = useState(true);
+  const [loadUser, setLoadingUser] = useState(true);
 
   useEffect(() => {
-    axios.get(`${GROUP_ENDPOINT}?func=getAllGroup`).then((res) => {
-      console.log(res.data);
+    getGroupData();
+  }, [offset]);
+
+  useEffect(() => {
+    getUserData();
+  }, [activeUser]);
+
+  const getGroupData = async () => {
+    await axios.get(`${GROUP_ENDPOINT}?func=getAllGroup`).then((res) => {
       setGroupList(res.data.slice(offset, offset + 6));
     });
-  }, [offset]);
+    setLoadingGroup(false);
+  };
+
+  const getUserData = async () => {
+    await axios.get(`${USER_ENDPOINT}userid=${activeUser}&funcname=getUser`).then((res) => {
+      console.log(res.data);
+      setUserData(() => res.data);
+    });
+    setLoadingUser(false);
+  };
 
   const handlePageClick = (data) => {
     setOffset(data.selected * 6);
@@ -45,26 +70,40 @@ const Group = () => {
           setGroupList={setGroupList}
           setShow={setShowCreateGroupModal}
         />
-        <div className="divideLine"></div>
-        <div className="Group__container">
-          <motion.div className="Group__groupList">
-            {groupList.map((group) => (
-              <GroupList
-                key={group.id}
-                data={group}
-                id={group.id}
-                setShowGroupInfoModal={setShowGroupInfoModal}
-                showGroupInfoModal={showGroupInfoModal}
-                setSelected={setSelected}
-                setSelectedGroupInfo={setSelectedGroupInfo}
-              ></GroupList>
-            ))}
-          </motion.div>
-          <motion.div className="Group__ad-container">
-            <motion.div className="Group__ad1" />
-            <motion.div className="Group__ad2" />
-          </motion.div>
-        </div>
+        <div className="divideLine" />
+        {loadGroup === true && loadUser === true ? (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <img src={fairy} className="rank__fairy" />
+            <h3>알고리즘의 요정이 정보를 불러오고 있습니다!</h3>
+          </div>
+        ) : (
+          <div className="Group__container">
+            <motion.div className="Group__groupList">
+              {groupList.map((group) => (
+                <GroupList
+                  key={group.id}
+                  data={group}
+                  id={group.id}
+                  setShowGroupInfoModal={setShowGroupInfoModal}
+                  showGroupInfoModal={showGroupInfoModal}
+                  setSelected={setSelected}
+                  setSelectedGroupInfo={setSelectedGroupInfo}
+                ></GroupList>
+              ))}
+            </motion.div>
+            <motion.div className="Group__ad-container">
+              <motion.div className="Group__ad1" />
+              <motion.div className="Group__ad2" />
+            </motion.div>
+          </div>
+        )}
+
         {/* <PaginationComponent /> */}
         <ReactPaginate
           previousLabel={"이전"}
@@ -78,16 +117,18 @@ const Group = () => {
           containerClassName={"pagination"}
           activeClassName={"active"}
         />
-        <GroupInfoModal
-          setShowGroupInfoModal={setShowGroupInfoModal}
-          showGroupInfoModal={showGroupInfoModal}
-          data={selectedGroupInfo}
-        />
-        <CreateGroupModal
-          setGroupList={setGroupList}
-          showCreateGroupModal={showCreateGroupModal}
-          setShowCreateGroupModal={setShowCreateGroupModal}
-        />
+        <DataContext.Provider value={{ userData: userData }}>
+          <GroupInfoModal
+            setShowGroupInfoModal={setShowGroupInfoModal}
+            showGroupInfoModal={showGroupInfoModal}
+            data={selectedGroupInfo}
+          />
+          <CreateGroupModal
+            setGroupList={setGroupList}
+            showCreateGroupModal={showCreateGroupModal}
+            setShowCreateGroupModal={setShowCreateGroupModal}
+          />
+        </DataContext.Provider>
       </Menu>
     </Container>
   );
@@ -118,19 +159,5 @@ const Menu = styled(motion.div)`
     height: 70vh;
     object-fit: cover;
   }
-`;
-const Hide = styled.div`
-  overflow: hidden;
-`;
-
-//Frame Animation
-const Frame1 = styled(motion.div)`
-  position: fixed;
-  left: 0;
-  top: 10%;
-  width: 100%;
-  height: 100vh;
-  background: #fffebf;
-  z-index: 2;
 `;
 export default Group;
