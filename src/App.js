@@ -25,6 +25,7 @@ import User from "./pages/User";
 import GroupDetail from "./pages/GroupDetail";
 import GroupStatistics from "./components/GroupStatistics/GroupStatistics";
 import Guide from "./pages/Guide";
+import Message from "./pages/Message";
 
 function App() {
   const location = useLocation();
@@ -83,6 +84,11 @@ function App() {
           <Route path="/forgot" exact>
             <Forgot />
           </Route>
+
+          <Route path={`/message/:username`} exact>
+            <Message />
+          </Route>
+
           <Route
             path={`/user/:username`}
             render={(props) => <User name={"chanmin"} {...props} />}

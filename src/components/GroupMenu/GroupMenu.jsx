@@ -1,12 +1,5 @@
 import React, { useContext, useState } from "react";
-import {
-  Form,
-  Nav,
-  Navbar,
-  NavDropdown,
-  Button,
-  FormControl,
-} from "react-bootstrap";
+import { Form, Nav, Navbar, NavDropdown, Button, FormControl } from "react-bootstrap";
 
 import "./GroupMenu.scss";
 import { Link } from "react-router-dom";
@@ -15,10 +8,7 @@ import { DataContext } from "../../pages/GroupDetail";
 const GroupMenu = ({ groupId, setGroupMenu }) => {
   return (
     <Navbar className="group-detail-navbar" bg="light" expand="lg">
-      <Navbar.Brand
-        style={{ cursor: "pointer" }}
-        onClick={() => setGroupMenu(() => "main")}
-      >
+      <Navbar.Brand style={{ cursor: "pointer" }} onClick={() => setGroupMenu(() => "main")}>
         그룹 메뉴
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -36,7 +26,7 @@ const GroupMenu = ({ groupId, setGroupMenu }) => {
             className="group-detail-menu"
             onClick={() => setGroupMenu(() => "statistics")}
           >
-            그룹 통계
+            문제집
           </Nav.Link>
           <Nav.Link
             to={`/group/${groupId}/rank`}
@@ -45,25 +35,13 @@ const GroupMenu = ({ groupId, setGroupMenu }) => {
           >
             멤버 랭킹
           </Nav.Link>
-          <NavDropdown
-            title="공지사항"
-            id="basic-nav-dropdown"
-            className="group-detail-menu"
-          >
-            <NavDropdown.Item href="#action/3.2">
-              그룹 공지사항
-            </NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.1">
-              정보 공지사항
-            </NavDropdown.Item>
+          <NavDropdown title="공지사항" id="basic-nav-dropdown" className="group-detail-menu">
+            <NavDropdown.Item href="#action/3.2">그룹 공지사항</NavDropdown.Item>
+            <NavDropdown.Item href="#action/3.1">정보 공지사항</NavDropdown.Item>
           </NavDropdown>
         </Nav>
         <Form inline>
-          <FormControl
-            type="text"
-            placeholder="유저명 검색"
-            className="mr-sm-2"
-          />
+          <FormControl type="text" placeholder="유저명 검색" className="mr-sm-2" />
           <Button variant="outline-primary" className="group-detail-button">
             검색
           </Button>
