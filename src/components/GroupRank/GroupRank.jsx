@@ -35,7 +35,7 @@ const GroupRank = () => {
       <div className="group-attendance__text">{`${groupData.name} 멤버 랭킹`}</div>
       <div className="group__rank__container">
         {rankContent.length > 0 ? (
-          rankContent.reverse().map((rank, idx) => (
+          rankContent.map((rank, idx) => (
             <div key={idx} className="group__rank__item">
               <div>
                 {idx < 3 ? renderMedal(idx) : <span>{idx + 1}</span>}

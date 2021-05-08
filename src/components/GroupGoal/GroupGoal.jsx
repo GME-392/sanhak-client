@@ -5,7 +5,7 @@ import SolvedMemberList from "../SolvedMemberList/SolvedMemberList";
 import GroupNotification from "../GroupNotification/GroupNotification";
 import Modal from "react-modal";
 
-const GroupGoal = () => {
+const GroupGoal = ({ groupData }) => {
   const [leaveModalOpen, setLeaveModalOpen] = useState(false);
 
   function openModal() {
@@ -25,7 +25,7 @@ const GroupGoal = () => {
       <div className="group-goal__text">
         {`${new Date().getMonth() + 1}월 ${new Date().getDate()}일 - 오늘의 목표`}
       </div>
-      <ProblemsList />
+      <ProblemsList groupData={groupData} />
       <GroupNotification />
       <button className="group-leave" onClick={openModal}>
         그룹 나가기
