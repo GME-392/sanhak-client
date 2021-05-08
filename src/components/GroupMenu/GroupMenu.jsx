@@ -20,9 +20,9 @@ const GroupMenu = ({ groupId, setGroupMenu }) => {
             출석부
           </Nav.Link>
           <Nav.Link
-            to={`/group/${groupId}/info`}
+            to={`/group/${groupId}/problems`}
             className="group-detail-menu"
-            onClick={() => setGroupMenu(() => "statistics")}
+            onClick={() => setGroupMenu(() => "problems")}
           >
             문제집
           </Nav.Link>

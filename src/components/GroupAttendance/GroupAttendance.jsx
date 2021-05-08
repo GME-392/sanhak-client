@@ -9,31 +9,26 @@ const GroupAttendance = ({ data, attendanceState }) => {
 
   const tableData = React.useMemo(
     () =>
-      data.member.map((member, idx) => ({
-        ID: attendanceState ? member : "데이터를 불러오는 중입니다.",
-        1000: attendanceState
-          ? attendanceState[member]?.includes("1000")
-            ? "✅"
-            : "❌"
-          : "데이터를 불러오는 중입니다.",
-        1001: attendanceState
-          ? attendanceState[member]?.includes("1001")
-            ? "✅"
-            : "❌"
-          : "데이터를 불러오는 중입니다.",
-        1002: attendanceState
-          ? attendanceState[member]?.includes("1002")
-            ? "✅"
-            : "❌"
-          : "데이터를 불러오는 중입니다.",
-        1003: attendanceState
-          ? attendanceState[member]?.includes("1003")
-            ? "✅"
-            : "❌"
-          : "데이터를 불러오는 중입니다.",
-      })),
+      data.member.map((member, idx) => {
+        let memberAttendance = {
+          ID: attendanceState ? member : "데이터를 불러오는 중입니다.",
+        };
+        problemList.forEach((prob) => {
+          memberAttendance = {
+            ...memberAttendance,
+            [prob.numb]: attendanceState
+              ? attendanceState[member]?.includes(`${prob.numb}`)
+                ? "✅"
+                : "❌"
+              : "데이터를 불러오는 중입니다.",
+          };
+        });
+        return memberAttendance;
+      }),
     [attendanceState]
   );
+
+  console.log(tableData);
 
   const columns = React.useMemo(
     () => [

@@ -18,6 +18,7 @@ import {
 import { useSelector } from "react-redux";
 import GroupAttendance from "../components/GroupAttendance/GroupAttendance";
 import GroupRank from "../components/GroupRank/GroupRank";
+import ProblemSet from "../components/ProblemSet/ProblemSet";
 
 export const DataContext = createContext();
 
@@ -40,13 +41,13 @@ const GroupDetail = ({ match }) => {
     let tempUserData;
     let tempGroupData;
 
-    await axios.get(`${GROUP_ENDPOINT}?func=getGroup&id=${groupid}`).then((res) => {
+    await axios.get(`${GROUP_ENDPOINT}?func=getGroup&id=${groupid}`).then(async (res) => {
       tempGroupData = res.data.Item;
       setGroupData(() => res.data.Item);
-      axios
+      await axios
         .post(`${GROUP_ATTENDANCE_ENDPOINT}`, { id: res.data.Item.id })
         .then((res) => setAttendanceData(() => res.data));
-      axios
+      await axios
         .post(`${GROUP_SOLVED_ENDPOINT}`, { id: res.data.Item.id })
         .then((res) => setAttendanceState(() => res.data.body));
     });
@@ -55,10 +56,6 @@ const GroupDetail = ({ match }) => {
       tempUserData = res.data;
       setUserData(() => res.data);
     });
-
-    // await axios
-    //   .post(`${GROUP_RANK_ENDPOINT}`, { id: tempGroupData.id })
-    //   .then((res) => setRankData(res.data.body.rank_points));
 
     if (tempGroupData.leader === activeUser) {
       // if (group.group_id === tempGroupData.id && group.group_auth === true) {
@@ -69,9 +66,11 @@ const GroupDetail = ({ match }) => {
   const renderGroupMenu = () => {
     switch (groupMenu) {
       case "main":
-        return <GroupGoal problems={groupData?.probs} />;
+        return <GroupGoal groupData={groupData} />;
       case "attendance":
         return <GroupAttendance data={groupData} attendanceState={attendanceState} />;
+      case "problems":
+        return <ProblemSet />;
       case "rank":
         return <GroupRank data={groupData} />;
       default:
