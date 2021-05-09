@@ -11,16 +11,26 @@ const GroupAttendance = ({ data, attendanceState }) => {
     () =>
       data.member.map((member, idx) => {
         let memberAttendance = {
-          ID: attendanceState ? member : "데이터를 불러오는 중입니다.",
+          ID: attendanceState ? (
+            <a className="attendance__member" href={`/user/${member}`}>
+              {member}
+            </a>
+          ) : (
+            "데이터를 불러오는 중입니다."
+          ),
         };
         problemList.forEach((prob) => {
           memberAttendance = {
             ...memberAttendance,
-            [prob.numb]: attendanceState
-              ? attendanceState[member]?.includes(`${prob.numb}`)
-                ? "✅"
-                : "❌"
-              : "데이터를 불러오는 중입니다.",
+            [prob.numb]: attendanceState ? (
+              attendanceState[member]?.includes(`${prob.numb}`) ? (
+                <span className="attendance__result--complete">✅ - 해결 완료</span>
+              ) : (
+                <span className="attendance__result--pending">❌ - 미해결</span>
+              )
+            ) : (
+              "데이터를 불러오는 중입니다."
+            ),
           };
         });
         return memberAttendance;
@@ -49,7 +59,7 @@ const GroupAttendance = ({ data, attendanceState }) => {
   return (
     <div className="group-attendance__container">
       <div className="group-attendance__text">
-        {`${new Date().getMonth() + 1}월 ${new Date().getDate()}일 - 출석부`}
+        {`그룹 출석 현황 (${new Date().getMonth() + 1}월 ${new Date().getDate()}일 기준)`}
       </div>
       <div className="group-attendance__table">
         <BTable {...getTableProps()}>

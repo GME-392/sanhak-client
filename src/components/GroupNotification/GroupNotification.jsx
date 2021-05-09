@@ -21,6 +21,7 @@ const GroupNotification = () => {
       group_noti: groupNoti,
     });
     setGroupNoti(groupNoti);
+    setIsChangeMode(false);
   };
 
   return (

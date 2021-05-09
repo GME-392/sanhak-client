@@ -2,9 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import "./ProblemsList.scss";
 import { motion } from "framer-motion";
 import "../ProblemItem/ProblemItem";
-import { pageAnimation, fade, lineAnim } from "../../animation";
+import { fade } from "../../animation";
 
-import SolvedMemberList from "../SolvedMemberList/SolvedMemberList";
 import { DataContext } from "../../pages/GroupDetail";
 
 const ProblemsList = () => {
@@ -25,9 +24,6 @@ const ProblemsList = () => {
       );
     }
   }, [groupData, userData]);
-
-  console.log(problemsList);
-
   return (
     <div className="problems-list__container">
       <div className="problems-list">

@@ -19,6 +19,7 @@ import { useSelector } from "react-redux";
 import GroupAttendance from "../components/GroupAttendance/GroupAttendance";
 import GroupRank from "../components/GroupRank/GroupRank";
 import ProblemSet from "../components/ProblemSet/ProblemSet";
+import fairy from "../img/fairy.png";
 
 export const DataContext = createContext();
 
@@ -32,6 +33,7 @@ const GroupDetail = ({ match }) => {
   const [attendanceState, setAttendanceState] = useState(null);
   const [isMaster, setIsMaster] = useState(false);
   const [rankData, setRankData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetchData();
@@ -61,6 +63,7 @@ const GroupDetail = ({ match }) => {
       // if (group.group_id === tempGroupData.id && group.group_auth === true) {
       setIsMaster(true);
     }
+    setIsLoading(false);
   };
 
   const renderGroupMenu = () => {
@@ -73,6 +76,10 @@ const GroupDetail = ({ match }) => {
         return <ProblemSet />;
       case "rank":
         return <GroupRank data={groupData} />;
+      case "noti-job":
+        return <div>채용 정보</div>;
+      case "noti-contest":
+        return <div>대회 정보</div>;
       default:
         break;
     }
@@ -94,17 +101,25 @@ const GroupDetail = ({ match }) => {
           <motion.div className="group-detail-group-rank">{groupData?.group_info}</motion.div>
         </div>
         <motion.div variants={lineAnim} className="line group-detail-line"></motion.div>
-        <DataContext.Provider
-          value={{
-            groupData: groupData,
-            userData: userData,
-            isMaster: isMaster,
-            rankData: rankData,
-          }}
-        >
-          <GroupMenu groupId={groupData?.id} setGroupMenu={setGroupMenu} />
-          {renderGroupMenu()}
-        </DataContext.Provider>
+        {isLoading ? (
+          <div className="group--loading">
+            <img src={fairy}></img>
+            <div>그룹 정보를 불러오는 중입니다...</div>
+          </div>
+        ) : (
+          <DataContext.Provider
+            value={{
+              groupData: groupData,
+              userData: userData,
+              isMaster: isMaster,
+              rankData: rankData,
+            }}
+          >
+            <GroupMenu groupId={groupData?.id} setGroupMenu={setGroupMenu} />
+            {renderGroupMenu()}
+          </DataContext.Provider>
+        )}
+
         {/* <GroupUserList /> */}
       </Menu>
     </Container>
