@@ -26,3 +26,28 @@
   display: flex;
   justify-content: content;
 }
+
+.attendance__member {
+  transition: 0.2s ease-in-out;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  border-bottom: 3px solid transparent;
+  padding-bottom: 5px;
+  color: #333;
+}
+
+.attendance__member:hover {
+  transition: 0.2s ease-in-out;
+  border-bottom: 3px solid;
+  border-color: #3697af;
+  color: #333;
+}
+
+.attendance__result--complete {
+  color: #29974a;
+}
+
+.attendance__result--pending {
+  color: #b83d39;
+}

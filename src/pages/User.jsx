@@ -85,14 +85,19 @@ const User = (props) => {
   const getUserData = async () => {
     await axios.get(`${USER_ENDPOINT}userid=${username}&funcname=getUser`).then((res) => {
       setUserData(res.data);
-      getProblemsList(res.data.boj_name);
+      setProblemsList(res.data.boj_name);
       getSolvedSkillsList(res.data.boj_name);
     });
   };
 
-  const getProblemsList = async (boj_name) => {
-    await axios.post(`${SOLVED_PROBLEMS_ENDPOINT}`, { id: boj_name }).then((res) => {
+  const setProblemsList = async (boj_name) => {
+    await axios.post(`${SOLVED_PROBLEMS_ENDPOINT}`, { id: boj_name }).then(async (res) => {
       setSolved(res.data.body);
+      await axios.patch(`${USER_ENDPOINT}`, {
+        userid: username,
+        funcname: "updateSolved",
+        problems: res.data.body,
+      });
       setIsloading(false);
     });
   };

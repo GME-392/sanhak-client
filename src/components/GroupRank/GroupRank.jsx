@@ -38,7 +38,15 @@ const GroupRank = () => {
           rankContent.map((rank, idx) => (
             <div key={idx} className="group__rank__item">
               <div>
-                {idx < 3 ? renderMedal(idx) : <span>{idx + 1}</span>}
+                {idx < 3 ? (
+                  renderMedal(idx)
+                ) : (
+                  <span
+                    style={{ display: "inline-block", marginLeft: "10px", marginRight: "10px" }}
+                  >
+                    {idx + 1}.{" "}
+                  </span>
+                )}
                 <span className="rank__content">
                   {rankId[rankContent.length - idx - 1]}{" "}
                   <span style={{ color: "#999", fontSize: "0.88rem" }}>({rank.boj_id})</span>{" "}
