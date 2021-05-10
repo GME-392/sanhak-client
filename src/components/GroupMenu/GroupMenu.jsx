@@ -34,11 +34,11 @@ const GroupMenu = ({ groupId, setGroupMenu }) => {
             멤버 랭킹
           </Nav.Link>
           <NavDropdown title="이벤트" id="basic-nav-dropdown" className="group-detail-menu">
-            <NavDropdown.Item onClick={() => setGroupMenu(() => "noti-job")}>
-              소프트웨어직 채용 정보
-            </NavDropdown.Item>
             <NavDropdown.Item onClick={() => setGroupMenu(() => "noti-contest")}>
               코딩 테스트 & 대회 정보
+            </NavDropdown.Item>
+            <NavDropdown.Item onClick={() => setGroupMenu(() => "noti-job")}>
+              소프트웨어직 채용 정보
             </NavDropdown.Item>
           </NavDropdown>
         </Nav>

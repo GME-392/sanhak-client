@@ -22,7 +22,7 @@ const JobNotice = () => {
     const tempArray = [];
     const today = new Date().getTime();
     jobInfoList.forEach((jobInfo) => {
-      tempArray.push(Math.floor((new Date(jobInfo.date).getTime() - today) / 86400000));
+      tempArray.push(Math.ceil((new Date(jobInfo.date).getTime() - today) / 86400000));
     });
     setEventDday(tempArray);
   };
@@ -35,11 +35,18 @@ const JobNotice = () => {
       <div className="job__info__label__container">
         <div className="job__info__label">날짜</div>
         <div className="job__info__label">제목</div>
-        <div className="job__info__label">링크</div>
+        <div className="job__info__label">공고 링크</div>
       </div>
       {jobInfoList.map((jobInfo, idx) => (
         <div className="job__info__container">
-          <div className="job__date">
+          <div
+            className="job__date"
+            style={
+              Math.ceil(eventDday[idx]) <= 10 && Math.ceil(eventDday[idx]) > 0
+                ? { fontWeight: "400", color: "red" }
+                : {}
+            }
+          >
             {jobInfo.date}{" "}
             {`(D${
               eventDday[idx] > 0 ? "-" + Math.abs(eventDday[idx]) : "+" + Math.abs(eventDday[idx])

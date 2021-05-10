@@ -98,10 +98,9 @@ const CreateGroupModal = ({ showCreateGroupModal, setShowCreateGroupModal, setGr
     정보올림피아드: "KOI",
   };
 
-  let mentTimer;
   const changeMent = () => {
     let idx = 0;
-    mentTimer = setInterval(() => {
+    let mentTimer = setInterval(() => {
       setMent(() => mentList[idx++]);
     }, 5000);
   };
@@ -110,11 +109,14 @@ const CreateGroupModal = ({ showCreateGroupModal, setShowCreateGroupModal, setGr
     getUserData();
   }, [activeUser]);
 
+  console.log(groupType);
+
   // 코딩테스트, 대회, 난이도 목록들은 여기서 버튼으로 만들어줍니다. (단일 선택)
   let showProbList = (probList) =>
-    probList.map((test) => (
+    probList.map((test, idx) => (
       <button
         className={testType === test ? "testType__btn--pressed" : ""}
+        key={idx}
         onClick={(e) => {
           e.preventDefault();
           setTestType(test);
@@ -126,8 +128,9 @@ const CreateGroupModal = ({ showCreateGroupModal, setShowCreateGroupModal, setGr
     ));
 
   let showProbLevelList = (levelList) =>
-    levelList.map((level) => (
+    levelList.map((level, idx) => (
       <button
+        key={idx}
         className={probLevel === level ? "testType__btn--pressed" : ""}
         onClick={(e) => {
           e.preventDefault();
@@ -140,8 +143,9 @@ const CreateGroupModal = ({ showCreateGroupModal, setShowCreateGroupModal, setGr
 
   // 문제유형 목록은 여기서 버튼으로 만들어줍니다. (다중 선택 가능)
   let showTypeList = (typeList) =>
-    typeList.map((prob) => (
+    typeList.map((prob, idx) => (
       <button
+        key={idx}
         className={selectedType.includes(matchProbTag[prob]) ? "probType__btn--pressed" : ""}
         onClick={(e) => {
           e.preventDefault();
@@ -155,7 +159,7 @@ const CreateGroupModal = ({ showCreateGroupModal, setShowCreateGroupModal, setGr
     ));
 
   const onPressEnter = (e) => {
-    e.persist();
+    e.preventDefault();
     if (e.key === "Enter") {
       setTagList([...tagList, tagName]);
       setTagName("");
@@ -188,7 +192,7 @@ const CreateGroupModal = ({ showCreateGroupModal, setShowCreateGroupModal, setGr
         status: "open",
         member: [activeUser],
         boj_id: [userData.boj_name],
-        // group_type: groupType, //그룹 유형 ex. "대회", "코딩 테스트"
+        group_type: groupType, //그룹 유형 ex. "대회", "코딩 테스트"
         // test_type: testType, // 테스트 유형 (그룹이 대회, 테스트인 경우 한정) ex. "카카오"
         // prob_level: probLevel, // 난이도 (그룹이 학습인 경우 한정) ex. "상","하"
         // probTypeset: selectedType, // 선택된 문제 유형들 (그룹이 학습인 경우 한정, 배열 형태)
@@ -271,30 +275,30 @@ const CreateGroupModal = ({ showCreateGroupModal, setShowCreateGroupModal, setGr
               <Form.Label>그룹 유형</Form.Label>
               <div className="groupType__btn-container">
                 <button
-                  className={groupType === "학습" ? "groupType__btn--pressed" : ""}
+                  className={groupType === "study" ? "groupType__btn--pressed" : ""}
                   onClick={(e) => {
                     e.preventDefault();
-                    setGroupType("학습");
+                    setGroupType("study");
                     setFormType("학습");
                   }}
                 >
                   학습
                 </button>
                 <button
-                  className={groupType === "코딩 테스트" ? "groupType__btn--pressed" : ""}
+                  className={groupType === "test" ? "groupType__btn--pressed" : ""}
                   onClick={(e) => {
                     e.preventDefault();
-                    setGroupType("코딩 테스트");
+                    setGroupType("test");
                     setFormType("코딩 테스트");
                   }}
                 >
                   코딩 테스트
                 </button>
                 <button
-                  className={groupType === "대회" ? "groupType__btn--pressed" : ""}
+                  className={groupType === "contest" ? "groupType__btn--pressed" : ""}
                   onClick={(e) => {
                     e.preventDefault();
-                    setGroupType("대회");
+                    setGroupType("contest");
                     setFormType("대회");
                   }}
                 >

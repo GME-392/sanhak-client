@@ -1,26 +1,83 @@
 .Rank__variants {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  display: flex;
   cursor: pointer;
+  color: #555;
   h3 {
     transition: 0.3s ease;
-    margin: 0 3rem;
     flex: 1;
     text-align: center;
-    border: 1px solid #cdcdcd;
     padding: 1rem;
     border-radius: 12px;
-    background-color: #efefef;
   }
   h3:hover {
     transition: 0.3s ease;
-    background-color: #5073a8;
     color: #ffffff;
   }
   h3:active {
     transition: 0.3s ease;
     background-color: #40368a;
   }
+}
+
+.rank__type {
+  margin: 0 1rem;
+  box-shadow: 5px 5px 9px 2px rgba(175, 175, 175, 0.541);
+  border: 1px solid rgba(153, 153, 153, 0.253);
+}
+
+.rank__type--contest {
+  background-color: #ca2e2e60;
+}
+
+.rank__type--contest--selected {
+  box-shadow: 0px 0px 5px 5px rgba(194, 82, 78, 0.541) !important;
+  color: #ffffff;
+  background-color: #ca2e2ea8 !important;
+}
+
+.rank__type--contest:hover {
+  box-shadow: 0px 0px 5px 5px rgba(194, 82, 78, 0.541);
+  background-color: #ca2e2ea8;
+}
+
+.rank__type--study {
+  background-color: #2eca3656;
+}
+
+.rank__type--study--selected {
+  box-shadow: 0px 0px 5px 5px rgba(121, 194, 78, 0.541) !important;
+  color: #ffffff;
+  background-color: #1ea552a9 !important;
+}
+
+.rank__type--study:hover {
+  box-shadow: 0px 0px 5px 5px rgba(121, 194, 78, 0.541);
+  background-color: #1ea552a9;
+}
+
+.rank__type--test {
+  background-color: #3a6cc950;
+}
+
+.rank__type--test--selected {
+  box-shadow: 0px 0px 5px 5px rgba(78, 115, 194, 0.541) !important;
+  color: #ffffff;
+  background-color: #1f2b96a8 !important;
+}
+
+.rank__type--test:hover {
+  box-shadow: 0px 0px 5px 5px rgba(78, 115, 194, 0.541);
+  background-color: #1f2b96a8;
+}
+
+.rank__item {
+  flex: 1;
+  margin: 1rem 5rem;
+  border: 2px solid #3e75b45e;
+  padding: 20px;
+  border-radius: 12px;
+  font-size: 1.4rem;
 }
