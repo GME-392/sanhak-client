@@ -1,13 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { pageAnimation, fade, lineAnim } from "../animation";
-
-import moment from "moment";
-import "moment/locale/ko";
+import axios from "axios";
+import { GROUP_ENDPOINT } from "../constants/URL";
 
 const Rank = () => {
-  moment.locale("ko");
+  const [groupList, setGroupList] = useState([]);
+  const [rankType, setRankType] = useState(null);
+
+  useEffect(() => {
+    const fetchGroupList = async () => {
+      await axios.get(`${GROUP_ENDPOINT}?func=getAllGroup`).then((res) => {
+        setGroupList(res.data);
+      });
+    };
+
+    fetchGroupList();
+  }, []);
+
+  useEffect(() => {
+    const setGroupScore = () => {
+      groupList.forEach((group) => {
+        let groupItem = Object.values(group.rank_member);
+        let scoreSum = 0;
+        groupItem.forEach((item) => {
+          scoreSum += item.score;
+        });
+        group.score = scoreSum;
+      });
+
+      setGroupList(
+        groupList.sort((a, b) => {
+          return b.score - a.score;
+        })
+      );
+    };
+
+    setGroupScore();
+  }, [groupList]);
+
+  console.log(groupList);
 
   return (
     <Container
@@ -18,11 +51,53 @@ const Rank = () => {
       animate="show"
     >
       <Menu>
-        <motion.h2 variants={fade}>랭킹</motion.h2>
+        <motion.h2 variants={fade}>그룹 랭킹</motion.h2>
         <motion.div variants={lineAnim} className="line"></motion.div>
       </Menu>
       <motion.div className="Rank__variants">
-        <motion.h3>그룹 활동점수 랭킹</motion.h3>
+        <div
+          style={{
+            display: "flex",
+            marginBottom: "2rem",
+            paddingBottom: "2rem",
+            borderBottom: "2px solid rgba(92, 92, 92, 0.24)",
+          }}
+        >
+          <motion.h3
+            className={`rank__type rank__type--contest ${
+              rankType === "contest" ? "rank__type--contest--selected" : ""
+            }`}
+            onClick={() => setRankType("contest")}
+          >
+            대회 그룹 랭킹 Top 10
+          </motion.h3>
+          <motion.h3
+            className={`rank__type rank__type--study ${
+              rankType === "study" ? "rank__type--study--selected" : ""
+            }`}
+            onClick={() => setRankType("study")}
+          >
+            학습 그룹 랭킹 Top 10
+          </motion.h3>
+          <motion.h3
+            className={`rank__type rank__type--test ${
+              rankType === "test" ? "rank__type--test--selected" : ""
+            }`}
+            onClick={() => setRankType("test")}
+          >
+            코딩 테스트 그룹 랭킹 Top 10
+          </motion.h3>
+        </div>
+        <div className="rank__container">
+          {groupList.map((group) => {
+            return (
+              <div className="rank__item">
+                <div>{group.name}</div>
+                {/* <div>{Object.values(group.rank_member)}</div> */}
+              </div>
+            );
+          })}
+        </div>
       </motion.div>
     </Container>
   );

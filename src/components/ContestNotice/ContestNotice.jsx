@@ -35,7 +35,7 @@ const ContestNotice = () => {
       <div className="job__info__label__container">
         <div className="job__info__label">날짜</div>
         <div className="job__info__label">제목</div>
-        <div className="job__info__label">링크</div>
+        <div className="job__info__label">공고 링크</div>
       </div>
       {contestInfoList.map((contestInfo, idx) => (
         <div className="job__info__container">
