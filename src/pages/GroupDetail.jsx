@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import { pageAnimation, fade, lineAnim } from "../animation";
 
 import GroupMenu from "../components/GroupMenu/GroupMenu";
-import GroupUserList from "../components/GroupUserList/GroupUserList";
 import GroupGoal from "../components/GroupGoal/GroupGoal";
 import axios from "axios";
 import {
@@ -20,6 +19,8 @@ import GroupAttendance from "../components/GroupAttendance/GroupAttendance";
 import GroupRank from "../components/GroupRank/GroupRank";
 import ProblemSet from "../components/ProblemSet/ProblemSet";
 import fairy from "../img/fairy.png";
+import JobNotice from "../components/JobNotice/JobNotice";
+import ContestNotice from "../components/ContestNotice/ContestNotice";
 
 export const DataContext = createContext();
 
@@ -77,9 +78,9 @@ const GroupDetail = ({ match }) => {
       case "rank":
         return <GroupRank data={groupData} />;
       case "noti-job":
-        return <div>채용 정보</div>;
+        return <JobNotice />;
       case "noti-contest":
-        return <div>대회 정보</div>;
+        return <ContestNotice />;
       default:
         break;
     }

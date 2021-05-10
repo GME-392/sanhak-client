@@ -64,7 +64,6 @@
   animation-name: fadein;
   animation-duration: 1s;
   animation-delay: 2s;
-  animation-fill-mode: forwards;
 }
 
 .Guide__item__description {
@@ -83,7 +82,7 @@
   animation-name: fadein;
   animation-duration: 1s;
   animation-delay: 2s;
-  animation-fill-mode: forwards;
+  // animation-fill-mode: ;
 }
 
 .Guide__item__icon {
@@ -99,6 +98,9 @@
 }
 
 @keyframes fadein {
+  from {
+    opacity: 0;
+  }
   to {
     opacity: 1;
   }
