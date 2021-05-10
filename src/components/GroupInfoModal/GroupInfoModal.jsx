@@ -2,7 +2,7 @@ import { Button, Form, Modal } from "react-bootstrap";
 import axios from "axios";
 import React, { useState, useEffect, useContext } from "react";
 import Tag from "../Tag/Tag";
-import { GROUP_ENDPOINT, USER_ENDPOINT } from "../../constants/URL";
+import { GROUP_ENDPOINT, GROUP_RANK_ENDPOINT, USER_ENDPOINT } from "../../constants/URL";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./GroupInfoModal.scss";
@@ -64,6 +64,10 @@ const GroupInfoModal = ({ showGroupInfoModal, setShowGroupInfoModal, data }) => 
         id: id,
         new_member: [activeUser],
         boj_id: userData.boj_name,
+      });
+
+      await axios.post(`${GROUP_RANK_ENDPOINT}`, {
+        id: id,
       });
 
       setShowGroupInfoModal(false);
