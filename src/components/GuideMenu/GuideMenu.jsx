@@ -3,14 +3,15 @@ import "./GuideMenu.scss";
 import { GROUP_ENDPOINT } from "../../constants/URL";
 import Tag from "../Tag/Tag";
 import RecommendedGroup from "../RecommendedGroup/RecommendedGroup";
+import CreateGroupModal from "../CreateGroupModal/CreateGroupModal";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
-// import CreateGroupModal from "../components/CreateGroupModal/CreateGroupModal";
 
 const GuideMenu = ({ type }) => {
   const [groupList, setGroupList] = useState([]);
   const [tagList, setTagList] = useState([]);
+  const [showCreateGroupModal, setShowCreateGroupModal] = useState(false);
   const activeUser = useSelector((state) => state.AppState.activeUser);
   const history = useHistory();
 
@@ -22,18 +23,14 @@ const GuideMenu = ({ type }) => {
     getGroupList();
   }, []);
 
-  // const handleShow = () => {
-  //   if (activeUser === null) {
-  //     // 로그인 안돼있으면 홈으로 보내버림
-  //     history.push("/");
-  //   } else {
-  //     <CreateGroupModal
-  //         setGroupList={setGroupList}
-  //         showCreateGroupModal={true}
-  //         setShowCreateGroupModal={true}
-  //       />
-  //   }
-  // };
+  const handleShow = () => {
+    if (activeUser === null) {
+      // 로그인 안돼있으면 홈으로 보내버림
+      history.push("/");
+    } else {
+      setShowCreateGroupModal(true);
+    }
+  };
 
   const renderContent = () => {
     switch (type) {
@@ -63,9 +60,10 @@ const GuideMenu = ({ type }) => {
             </div>
             <div className="Guide__button__container">
               <button className={`Guide__button Guide__button`}>태그로 그룹 찾기</button>
-              <button className={`Guide__button Guide__button--secondary`}>그룹 생성하기</button>
+              <button className={`Guide__button Guide__button--secondary`} onClick={handleShow}>그룹 생성하기</button>
             </div>
           </div>
+          
         );
       case "study":
         return (
@@ -89,7 +87,7 @@ const GuideMenu = ({ type }) => {
             </div>
             <div className="Guide__button__container">
               <button className={`Guide__button Guide__button`}>태그로 그룹 찾기</button>
-              <button className={`Guide__button Guide__button--secondary`}>그룹 생성하기</button>
+              <button className={`Guide__button Guide__button--secondary`} onClick={handleShow}>그룹 생성하기</button>
             </div>
           </div>
         );
@@ -115,7 +113,7 @@ const GuideMenu = ({ type }) => {
             </div>
             <div className="Guide__button__container">
               <button className={`Guide__button Guide__button`}>태그로 그룹 찾기</button>
-              <button className={`Guide__button Guide__button--secondary`}>그룹 생성하기</button>
+              <button className={`Guide__button Guide__button--secondary`} onClick={handleShow}>그룹 생성하기</button>
             </div>
             <div></div>
           </div>
@@ -124,6 +122,7 @@ const GuideMenu = ({ type }) => {
       default:
         return;
     }
+
   };
   return (
     <div className="GuideMenu__container">
@@ -152,6 +151,11 @@ const GuideMenu = ({ type }) => {
               })}
         </div>
       </div>
+      <CreateGroupModal
+            setGroupList={setGroupList}
+            showCreateGroupModal={showCreateGroupModal}
+            setShowCreateGroupModal={setShowCreateGroupModal}
+          />
     </div>
   );
 };

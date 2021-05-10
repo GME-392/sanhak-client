@@ -142,14 +142,12 @@ const Container = styled(motion.div)`
   @media (max-width: 900px) {
     padding: 1rem 1rem;
   }
-
   h2 {
     padding: 1rem 0rem;
   }
 `;
 const Menu = styled(motion.div)`
   padding-bottom: 1rem;
-
   .line {
     height: 0.5rem;
     background: #40368a;
