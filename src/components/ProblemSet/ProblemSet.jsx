@@ -15,7 +15,10 @@ const ProblemSet = () => {
             <a
               className="problem__item"
               key={idx}
-              style={{ borderColor: "#33a158" }}
+              style={{
+                borderColor: "#33a158",
+                boxShadow: "2px 1px 3px 3px rgba(137,199,133,0.61)",
+              }}
               href={`https://www.acmicpc.net/problem/${prob.numb}`}
             >
               <div>

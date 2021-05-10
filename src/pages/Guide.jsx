@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { lineAnim, pageAnimation } from "../animation";
 import styled from "styled-components";
@@ -10,6 +10,18 @@ import { useHistory } from "react-router-dom";
 
 const Guide = () => {
   const [type, setType] = useState(null);
+  const [animationLoading, setAnimationLoading] = useState(false);
+
+  useEffect(() => {
+    if (type === null) {
+      setAnimationLoading(true);
+      setTimeout(() => {
+        setAnimationLoading(false);
+      }, 2000);
+    }
+  }, [type]);
+
+  console.log(animationLoading);
 
   const isSetType = (typeName) => {
     if (type === null) {
@@ -18,14 +30,8 @@ const Guide = () => {
       setType(null);
     }
   };
-
   return (
-    <motion.div
-      exit="exit"
-      variants={pageAnimation}
-      initial="hidden"
-      animate="show"
-    >
+    <motion.div exit="exit" variants={pageAnimation} initial="hidden" animate="show">
       <Container className="Guide__container">
         <h2>학습 유형을 선택하세요</h2>
         <Menu>
@@ -33,7 +39,7 @@ const Guide = () => {
           <div className="Guide__item__container">
             <div
               className="Guide__item Guide__contest__btn"
-              onClick={() => isSetType(() => "contest")}
+              onClick={() => isSetType("contest")}
               style={
                 type !== null
                   ? type === "contest"
@@ -45,17 +51,23 @@ const Guide = () => {
                   : {}
               }
             >
-              <div className="Guide__title__container">
+              <div
+                className="Guide__title__container"
+                style={animationLoading ? { opacity: 0 } : { opacity: 1 }}
+              >
                 <img src={prize} className="Guide__item__icon"></img>
                 <div className="Guide__item__title">대회</div>
               </div>
-              <div className="Guide__item__description">
+              <div
+                className="Guide__item__description"
+                style={animationLoading ? { opacity: 0 } : { opacity: 1 }}
+              >
                 국내 & 해외 알고리즘 대회에 도전하기 위한 과정입니다.
               </div>
             </div>
             <div
               className="Guide__item Guide__basics__btn"
-              onClick={() => isSetType(() => "study")}
+              onClick={() => isSetType("study")}
               style={
                 type !== null
                   ? type === "study"
@@ -67,18 +79,23 @@ const Guide = () => {
                   : {}
               }
             >
-              <div className="Guide__title__container">
+              <div
+                className="Guide__title__container"
+                style={animationLoading ? { opacity: 0 } : { opacity: 1 }}
+              >
                 <img src={study} className="Guide__item__icon"></img>
                 <div className="Guide__item__title">기초 학습</div>
               </div>
-              <div className="Guide__item__description">
-                파이썬, C++ 등 기초 프로그래밍 언어의 문법을 숙달하기 위한
-                과정입니다.
+              <div
+                className="Guide__item__description"
+                style={animationLoading ? { opacity: 0 } : { opacity: 1 }}
+              >
+                파이썬, C++ 등 기초 프로그래밍 언어의 문법을 숙달하기 위한 과정입니다.
               </div>
             </div>
             <div
               className="Guide__item Guide__job__btn"
-              onClick={() => isSetType(() => "job")}
+              onClick={() => isSetType("job")}
               style={
                 type !== null
                   ? type === "job"
@@ -90,11 +107,17 @@ const Guide = () => {
                   : {}
               }
             >
-              <div className="Guide__title__container">
+              <div
+                className="Guide__title__container"
+                style={animationLoading ? { opacity: 0 } : { opacity: 1 }}
+              >
                 <img src={company} className="Guide__item__icon"></img>
                 <div className="Guide__item__title">코딩 테스트</div>
               </div>
-              <div className="Guide__item__description">
+              <div
+                className="Guide__item__description"
+                style={animationLoading ? { opacity: 0 } : { opacity: 1 }}
+              >
                 IT기업, 소프트웨어 분야의 취업 준비를 위한 과정입니다.
               </div>
             </div>

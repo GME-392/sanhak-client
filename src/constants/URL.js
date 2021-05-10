@@ -11,3 +11,7 @@ export const GROUP_SOLVED_ENDPOINT =
   "https://hhya7n2t06.execute-api.us-east-2.amazonaws.com/backend_api/return-solved-attend-probs";
 export const GROUP_RANK_ENDPOINT =
   "https://ycwvl0727g.execute-api.us-east-2.amazonaws.com/backend_api/return-rank";
+export const JOB_NOTICE_ENDPOINT =
+  "https://tdwcyrlp8g.execute-api.ap-northeast-2.amazonaws.com/noticeDB";
+export const CONTEST_NOTICE_ENDPOINT =
+  "https://qojk0ukeu2.execute-api.ap-northeast-2.amazonaws.com/infoDB";
