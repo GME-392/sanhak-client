@@ -14,8 +14,24 @@ const GroupRank = () => {
   useEffect(() => {
     // fetchRank();
   }, []);
+
+  const compareFunction = (memberA, memberB) => {
+    return memberB.score - memberA.score;
+  };
+
+  console.log(Array.from(groupData?.rank_member));
+
+  // const sortedRankMember = groupData.rank_member.sort(compareFunction);
+
   const rankId = Object.keys(groupData.rank_member);
   const rankContent = Object.values(groupData.rank_member);
+
+  console.log(rankId, rankContent);
+
+  const rankData = rankContent.map((content, idx) => ({ ...content, name: rankId[idx] }));
+  console.log(rankData);
+
+  rankData.sort(compareFunction);
 
   const renderMedal = (idx) => {
     switch (idx) {
@@ -34,8 +50,8 @@ const GroupRank = () => {
     <div className="group-attendance__container">
       <div className="group-attendance__text">{`${groupData.name} 멤버 랭킹`}</div>
       <div className="group__rank__container">
-        {rankContent.length > 0 ? (
-          rankContent.map((rank, idx) => (
+        {rankData.length > 0 ? (
+          rankData.map((rank, idx) => (
             <div key={idx} className="group__rank__item">
               <div>
                 {idx < 3 ? (
@@ -48,7 +64,7 @@ const GroupRank = () => {
                   </span>
                 )}
                 <span className="rank__content">
-                  {rankId[rankContent.length - idx - 1]}{" "}
+                  {rank.name}{" "}
                   <span style={{ color: "#999", fontSize: "0.88rem" }}>({rank.boj_id})</span>{" "}
                   {rank.id} - {rank.score}점
                 </span>
