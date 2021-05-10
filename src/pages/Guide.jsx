@@ -6,9 +6,18 @@ import study from "../img/study.png";
 import prize from "../img/prize.png";
 import company from "../img/company.png";
 import GuideMenu from "../components/GuideMenu/GuideMenu";
+import { useHistory } from "react-router-dom";
 
 const Guide = () => {
   const [type, setType] = useState(null);
+
+  const isSetType = (typeName) => {
+    if (type === null) {
+      setType(typeName);
+    } else {
+      setType(null);
+    }
+  };
 
   return (
     <motion.div
@@ -24,7 +33,7 @@ const Guide = () => {
           <div className="Guide__item__container">
             <div
               className="Guide__item Guide__contest__btn"
-              onClick={() => setType(() => "contest")}
+              onClick={() => isSetType(() => "contest")}
               style={
                 type !== null
                   ? type === "contest"
@@ -46,7 +55,7 @@ const Guide = () => {
             </div>
             <div
               className="Guide__item Guide__basics__btn"
-              onClick={() => setType(() => "study")}
+              onClick={() => isSetType(() => "study")}
               style={
                 type !== null
                   ? type === "study"
@@ -69,7 +78,7 @@ const Guide = () => {
             </div>
             <div
               className="Guide__item Guide__job__btn"
-              onClick={() => setType(() => "job")}
+              onClick={() => isSetType(() => "job")}
               style={
                 type !== null
                   ? type === "job"
@@ -104,7 +113,6 @@ const Container = styled(motion.div)`
   @media (max-width: 900px) {
     padding: 1rem 1rem;
   }
-
   h2 {
     padding: 1rem 0rem;
   }
@@ -113,7 +121,6 @@ const Container = styled(motion.div)`
 const Menu = styled(motion.div)`
   padding-bottom: 1rem;
   height: 100%;
-
   .line {
     height: 0.5rem;
     background: #40368a;
