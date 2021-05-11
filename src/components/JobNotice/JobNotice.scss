@@ -2,7 +2,7 @@
   transition: 0.2s ease-in-out;
   display: flex;
   flex: 1;
-  justify-content: space-around;
+  justify-content: space-between;
   border: 2px solid #cdcdcd;
   border-radius: 8px;
   padding: 8px 12px;
@@ -21,10 +21,14 @@
 
 .job__info__label__container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   font-size: 1.6rem;
   border-bottom: 3px solid #2d3f94;
   padding-bottom: 10px;
+}
+
+.job__info__label {
+  margin: 0 20px;
 }
 
 .job__date {
@@ -33,6 +37,7 @@
 
 .job__name {
   margin: 0 20px;
+  width: 300px;
 }
 
 .job__link {
