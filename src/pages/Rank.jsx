@@ -91,8 +91,6 @@ const Rank = () => {
           style={{
             display: "flex",
             marginBottom: "2rem",
-            paddingBottom: "2rem",
-            borderBottom: "2px solid rgba(92, 92, 92, 0.24)",
           }}
         >
           <motion.h3
@@ -125,7 +123,7 @@ const Rank = () => {
           <span>그룹명</span>
           <span>그룹 인원</span>
           <span>그룹 포인트</span>
-          <span style={{ opacity: 0 }}>버튼</span>
+          <span>가입 신청하기</span>
         </div>
         <div className="rank__container">
           {groupRankList.map((group, idx) => {
@@ -140,7 +138,7 @@ const Rank = () => {
                   [{group.member.length} / {group.max_member}]
                 </span>
                 <span>{group.score}점</span>
-                <button>가입 신청하기</button>
+                <button style={{ justifySelf: "flex-end" }}>가입 신청하기</button>
                 {/* <div>{Object.values(group.rank_member)}</div> */}
               </div>
             );
