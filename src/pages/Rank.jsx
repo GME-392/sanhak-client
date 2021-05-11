@@ -7,6 +7,7 @@ import { GROUP_ENDPOINT } from "../constants/URL";
 
 const Rank = () => {
   const [groupList, setGroupList] = useState([]);
+  const [groupRankList, setGroupRankList] = useState([]);
   const [rankType, setRankType] = useState(null);
 
   useEffect(() => {
@@ -18,6 +19,21 @@ const Rank = () => {
 
     fetchGroupList();
   }, []);
+
+  useEffect(() => {
+    switch (rankType) {
+      case "test":
+        setGroupRankList(groupList.filter((group) => group.group_type === "test"));
+        break;
+      case "contest":
+        setGroupRankList(groupList.filter((group) => group.group_type === "contest"));
+        break;
+      case "study":
+        setGroupRankList(groupList.filter((group) => group.group_type === "study"));
+      default:
+        setGroupRankList(groupList);
+    }
+  }, [rankType]);
 
   useEffect(() => {
     const setGroupScore = () => {
@@ -39,8 +55,6 @@ const Rank = () => {
 
     setGroupScore();
   }, [groupList]);
-
-  console.log(groupList);
 
   return (
     <Container
@@ -89,10 +103,19 @@ const Rank = () => {
           </motion.h3>
         </div>
         <div className="rank__container">
-          {groupList.map((group) => {
+          {groupRankList.map((group, idx) => {
+            if (idx > 10) {
+              return;
+            }
             return (
-              <div className="rank__item">
-                <div>{group.name}</div>
+              <div key={idx} className="rank__item">
+                <span>{idx + 1}</span>
+                <span>{group.name}</span>
+                <span>
+                  [{group.member.length} / {group.max_member}]
+                </span>
+                <span>{group.score}점</span>
+                <button>가입 신청하기</button>
                 {/* <div>{Object.values(group.rank_member)}</div> */}
               </div>
             );
