@@ -85,24 +85,57 @@ const Group = () => {
               <h3>알고리즘의 요정이 정보를 불러오고 있습니다!</h3>
             </div>
           ) : (
-            <div className="Group__container">
-              <motion.div className="Group__groupList">
-                {groupList.map((group) => (
-                  <GroupList
-                    key={group.id}
-                    data={group}
-                    id={group.id}
-                    setShowGroupInfoModal={setShowGroupInfoModal}
-                    showGroupInfoModal={showGroupInfoModal}
-                    setSelected={setSelected}
-                    setSelectedGroupInfo={setSelectedGroupInfo}
-                  ></GroupList>
-                ))}
-              </motion.div>
-              <motion.div className="Group__ad-container">
-                <motion.div className="Group__ad1" />
-                <motion.div className="Group__ad2" />
-              </motion.div>
+            <div>
+              <div style={{ marginTop: "15px" }}>
+                <span
+                  style={{
+                    display: "inline-block",
+                    backgroundColor: "rgba(145, 46, 29, 0.295)",
+                    width: "12px",
+                    height: "12px",
+                  }}
+                />{" "}
+                : 경시대회 & 올림피아드
+                <span
+                  style={{
+                    marginLeft: "10px",
+                    display: "inline-block",
+                    backgroundColor: "rgba(29, 145, 45, 0.295)",
+                    width: "12px",
+                    height: "12px",
+                  }}
+                />{" "}
+                : 학습 & 스터디
+                <span
+                  style={{
+                    marginLeft: "10px",
+                    display: "inline-block",
+                    backgroundColor: "#4b8eaf",
+                    width: "12px",
+                    height: "12px",
+                  }}
+                />{" "}
+                : 채용 & 코딩 테스트
+              </div>
+              <div className="Group__container">
+                <motion.div className="Group__groupList">
+                  {groupList.map((group) => (
+                    <GroupList
+                      key={group.id}
+                      data={group}
+                      id={group.id}
+                      setShowGroupInfoModal={setShowGroupInfoModal}
+                      showGroupInfoModal={showGroupInfoModal}
+                      setSelected={setSelected}
+                      setSelectedGroupInfo={setSelectedGroupInfo}
+                    ></GroupList>
+                  ))}
+                </motion.div>
+                <motion.div className="Group__ad-container">
+                  <motion.div className="Group__ad1" />
+                  <motion.div className="Group__ad2" />
+                </motion.div>
+              </div>
             </div>
           )}
 
