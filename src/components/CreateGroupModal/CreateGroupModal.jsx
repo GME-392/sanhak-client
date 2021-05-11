@@ -192,7 +192,7 @@ const CreateGroupModal = ({ showCreateGroupModal, setShowCreateGroupModal, setGr
         status: "open",
         member: [activeUser],
         boj_id: [userData.boj_name],
-        group_type: groupType, //그룹 유형 ex. "대회", "코딩 테스트"
+        group_type: matchTestType[groupType], //그룹 유형 ex. "대회", "코딩 테스트"
         // test_type: testType, // 테스트 유형 (그룹이 대회, 테스트인 경우 한정) ex. "카카오"
         // prob_level: probLevel, // 난이도 (그룹이 학습인 경우 한정) ex. "상","하"
         // probTypeset: selectedType, // 선택된 문제 유형들 (그룹이 학습인 경우 한정, 배열 형태)
@@ -275,30 +275,30 @@ const CreateGroupModal = ({ showCreateGroupModal, setShowCreateGroupModal, setGr
               <Form.Label>그룹 유형</Form.Label>
               <div className="groupType__btn-container">
                 <button
-                  className={groupType === "study" ? "groupType__btn--pressed" : ""}
+                  className={groupType === "학습" ? "groupType__btn--pressed" : ""}
                   onClick={(e) => {
                     e.preventDefault();
-                    setGroupType("study");
+                    setGroupType("학습");
                     setFormType("학습");
                   }}
                 >
                   학습
                 </button>
                 <button
-                  className={groupType === "test" ? "groupType__btn--pressed" : ""}
+                  className={groupType === "코딩 테스트" ? "groupType__btn--pressed" : ""}
                   onClick={(e) => {
                     e.preventDefault();
-                    setGroupType("test");
+                    setGroupType("코딩 테스트");
                     setFormType("코딩 테스트");
                   }}
                 >
                   코딩 테스트
                 </button>
                 <button
-                  className={groupType === "contest" ? "groupType__btn--pressed" : ""}
+                  className={groupType === "대회" ? "groupType__btn--pressed" : ""}
                   onClick={(e) => {
                     e.preventDefault();
-                    setGroupType("contest");
+                    setGroupType("대회");
                     setFormType("대회");
                   }}
                 >
