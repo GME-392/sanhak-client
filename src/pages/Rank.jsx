@@ -3,6 +3,9 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { pageAnimation, fade, lineAnim } from "../animation";
 import axios from "axios";
+import first from "../img/first.png";
+import second from "../img/second.png";
+import third from "../img/third.png";
 import { GROUP_ENDPOINT } from "../constants/URL";
 
 const Rank = () => {
@@ -30,6 +33,7 @@ const Rank = () => {
         break;
       case "study":
         setGroupRankList(groupList.filter((group) => group.group_type === "study"));
+        break;
       default:
         setGroupRankList(groupList);
     }
@@ -55,6 +59,19 @@ const Rank = () => {
 
     setGroupScore();
   }, [groupList]);
+
+  const renderMedal = (idx) => {
+    switch (idx) {
+      case 0:
+        return <img src={first} className="rank__medal" />;
+      case 1:
+        return <img src={second} className="rank__medal" />;
+      case 2:
+        return <img src={third} className="rank__medal" />;
+      default:
+        return <span className="rank__badge">{idx}</span>;
+    }
+  };
 
   return (
     <Container
@@ -102,15 +119,22 @@ const Rank = () => {
             코딩 테스트 그룹 랭킹 Top 10
           </motion.h3>
         </div>
+        <div className="rank__legends">
+          <span className="rank__order">순위</span>
+          <span>그룹명</span>
+          <span>그룹 인원</span>
+          <span>그룹 포인트</span>
+          <span style={{ opacity: 0 }}>버튼</span>
+        </div>
         <div className="rank__container">
           {groupRankList.map((group, idx) => {
             if (idx > 10) {
               return;
             }
             return (
-              <div key={idx} className="rank__item">
-                <span>{idx + 1}</span>
-                <span>{group.name}</span>
+              <div key={idx} className={`rank__item rank__item__${idx}`}>
+                {renderMedal(idx)}
+                <span className="rank__title">{group.name}</span>
                 <span>
                   [{group.member.length} / {group.max_member}]
                 </span>

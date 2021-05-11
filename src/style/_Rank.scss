@@ -73,19 +73,94 @@
   background-color: #1f2b96a8;
 }
 
+.rank__legends {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 0 20px;
+  margin: 0 5rem;
+
+  span {
+    flex: 1;
+    display: inline-block;
+    color: #333;
+    font-size: 1.4rem;
+  }
+}
+
+.rank__order {
+  flex: unset !important;
+  margin-right: 100px;
+  width: 32px !important;
+}
+
 .rank__item {
   flex: 1;
   margin: 1rem 5rem;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
   border: 2px solid #3e75b45e;
+  background-color: rgba(27, 56, 100, 0.041);
   padding: 20px;
   border-radius: 12px;
   font-size: 1.4rem;
   span {
+    flex: 1;
     display: inline-block;
     color: #333;
     font-weight: 400;
+  }
+  img {
+    margin-right: 50px;
+  }
+}
+
+.rank__item__0 {
+  background: linear-gradient(-45deg, #e9ec342f, #e7eb102f, #d7eb6a38, #70e73923);
+  background-size: 400% 400%;
+  animation: gradient 5s ease infinite;
+  border-color: rgba(255, 255, 0, 0.473);
+}
+
+.rank__item__1 {
+  background: linear-gradient(-45deg, #787f8373, #cecec82f, #76a2a338, #8f92ac23);
+  background-size: 400% 400%;
+  animation: gradient 5s ease infinite;
+  border-color: rgba(88, 88, 88, 0.473);
+}
+.rank__item__2 {
+  background: linear-gradient(-45deg, #8b3e3e73, #633c262f, #79555038, #a6a7ac23);
+  background-size: 400% 400%;
+  animation: gradient 5s ease infinite;
+  border-color: rgba(83, 43, 43, 0.473);
+}
+
+.rank__title {
+  font-weight: bold;
+  font-size: 1.6rem;
+}
+
+.rank__badge {
+  border: 2px solid #17285f42;
+  flex: unset !important;
+  background-color: #224a6b13;
+  margin-right: 50px;
+  width: 32px;
+  height: 32px;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
