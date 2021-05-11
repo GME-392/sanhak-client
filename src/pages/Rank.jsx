@@ -135,7 +135,7 @@ const Rank = () => {
                 {renderMedal(idx)}
                 <span className="rank__title">{group.name}</span>
                 <span>
-                  [{group.member.length} / {group.max_member}]
+                  [{group.member.length}명 / {group.max_member}명]
                 </span>
                 <span>{group.score}점</span>
                 <button style={{ justifySelf: "flex-end" }}>가입 신청하기</button>
