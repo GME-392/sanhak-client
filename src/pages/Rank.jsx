@@ -17,6 +17,7 @@ const Rank = () => {
     const fetchGroupList = async () => {
       await axios.get(`${GROUP_ENDPOINT}?func=getAllGroup`).then((res) => {
         setGroupList(res.data);
+        setGroupRankList(res.data);
       });
     };
 

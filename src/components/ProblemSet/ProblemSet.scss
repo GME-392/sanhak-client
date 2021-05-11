@@ -10,6 +10,7 @@
 
 .problem__set__container {
   display: flex;
+  min-height: 700px;
   max-height: 10000px;
   flex-wrap: wrap;
   flex-direction: column;
