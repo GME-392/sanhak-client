@@ -24,12 +24,30 @@
 
 .Diamond:hover {
   border-color: #4b8eaf;
+  box-shadow: 0px 0px 5px 5px #12747462;
 }
 
 .GroupList__container:hover {
   transition: 0.18s ease-in-out;
   transform: scale(1.01);
-  box-shadow: 2px 2px 5px #999999;
+}
+
+.GroupList__container__study {
+  border-color: rgba(29, 145, 45, 0.295);
+}
+
+.GroupList__container__study:hover {
+  border-color: rgba(29, 145, 44, 0.527);
+  box-shadow: 0px 0px 5px 5px #33922a62;
+}
+
+.GroupList__container__contest {
+  border-color: rgba(145, 46, 29, 0.295);
+}
+
+.GroupList__container__contest:hover {
+  border-color: rgba(145, 29, 29, 0.527);
+  box-shadow: 0px 0px 5px 5px #92312a62;
 }
 
 .GroupList__name {

@@ -69,7 +69,7 @@ const Rank = () => {
       case 2:
         return <img src={third} className="rank__medal" />;
       default:
-        return <span className="rank__badge">{idx}</span>;
+        return <span className="rank__badge">{idx + 1}</span>;
     }
   };
 
