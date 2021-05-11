@@ -6,7 +6,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Spoqa Han Sans', NanumSquare, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Noto Sans KR', NanumSquare, sans-serif;
 }
 
 html{
