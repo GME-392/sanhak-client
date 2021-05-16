@@ -14,6 +14,11 @@ import group from "../img/group.png";
 import JoinedGroupItem from "../components/JoinedGroupItem/JoinedGroupItem";
 import Modal from "react-modal";
 import { Auth } from "aws-amplify";
+import AWS from "aws-sdk";
+
+var albumBucketName = "sanhak-image-server";
+var bucketRegion = "ap-northeast-2";
+var IdentityPoolId = "ap-northeast-2:b9a8eb87-4f12-4721-95e5-a306c8067337";
 
 const User = (props) => {
   const { username } = props.match.params;
@@ -28,6 +33,14 @@ const User = (props) => {
   const [solvedSkill, setSolvedSkill] = useState([]);
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [password, setPassword] = useState("");
+  const [profileImage, setProfileImage] = useState(null);
+
+  AWS.config.update({
+    region: bucketRegion,
+    credentials: new AWS.CognitoIdentityCredentials({
+      IdentityPoolId: "ap-northeast-2:b9a8eb87-4f12-4721-95e5-a306c8067337",
+    }),
+  });
   function openModal() {
     setIsOpen(true);
   }
@@ -39,7 +52,15 @@ const User = (props) => {
   function closeModal() {
     setIsOpen(false);
   }
-
+  useEffect(() => {
+    const getProfileImage = async () => {
+      await axios
+        .get(`https://sanhak-image-server.s3.ap-northeast-2.amazonaws.com/${username}.jpg`)
+        .then((res) => setProfileImage(res.data));
+      console.log(profileImage);
+    };
+    getProfileImage();
+  }, []);
   useEffect(() => {
     getUserData();
     // getSolvedSkillsList();
@@ -145,6 +166,35 @@ const User = (props) => {
     await Auth.DeleteUser();
   };
 
+  const handleFileInput = (e) => {
+    const formData = new FormData();
+    formData.append("file", e.target.files[0]);
+    console.log(formData);
+    var file = e.target.files[0];
+    var fileName = username + ".jpg";
+
+    // Use S3 ManagedUpload class as it supports multipart uploads
+    var upload = new AWS.S3.ManagedUpload({
+      params: {
+        Bucket: "sanhak-image-server",
+        Key: fileName,
+        Body: file,
+      },
+    });
+
+    var promise = upload.promise();
+
+    promise.then(
+      function (data) {
+        alert("Successfully uploaded photo.");
+        //viewAlbum(albumName);
+      },
+      function (err) {
+        return alert("There was an error uploading your photo: ", err.message);
+      }
+    );
+  };
+
   return (
     <Container>
       <motion.div exit="exit" variants={pageAnimation} initial="hidden" animate="show">
@@ -157,16 +207,34 @@ const User = (props) => {
             <div className="user__container__horizontal">
               <ul className="user__item">
                 <li>
-                  <div className="user__item__label">백준 온라인 저지 아이디</div>
-
-                  <div className="user__item__content">
-                    <a
-                      href={userData?.boj_name}
-                      target="_blank"
-                      style={{ fontSize: "1.4rem", color: "#0c1e52" }}
-                    >
-                      {userData?.boj_name}
-                    </a>
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <div className="image-upload-container">
+                      <input
+                        type="file"
+                        id="upload"
+                        style={{ color: "transparent", width: "70px" }}
+                        className="image-upload"
+                        onChange={handleFileInput}
+                      />
+                      <label htmlFor="upload" className="image-upload-wrapper">
+                        <img
+                          className="profile-img"
+                          src={`https://sanhak-image-server.s3.ap-northeast-2.amazonaws.com/${username}.jpg`}
+                        />
+                      </label>
+                    </div>
+                    <div className="user__item__label">
+                      <span>백준 온라인 저지 아이디</span>
+                      <div className="user__item__content">
+                        <a
+                          href={userData?.boj_name}
+                          target="_blank"
+                          style={{ fontSize: "1.4rem", color: "#0c1e52" }}
+                        >
+                          {userData?.boj_name}
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 </li>
                 <li>
@@ -185,7 +253,7 @@ const User = (props) => {
                     )}
                   </div>
                 </li>
-                <div style={{ display: "flex", alignItems: "center" }}>
+                <div style={{ display: "flex", alignItems: "center", paddingBottom: "10px" }}>
                   <h3>추가 정보</h3>
                   {username === activeUser && (
                     <h6
