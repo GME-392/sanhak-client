@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useEffect, useState } from "react";
+import React, { useLayoutEffect, useEffect, useState, useRef } from "react";
 import { pageAnimation, fade, lineAnim } from "../animation";
 import { motion } from "framer-motion";
 import styled from "styled-components";
@@ -34,6 +34,7 @@ const User = (props) => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [password, setPassword] = useState("");
   const [profileImage, setProfileImage] = useState(null);
+  const imgRef = useRef(null);
 
   AWS.config.update({
     region: bucketRegion,
@@ -186,7 +187,7 @@ const User = (props) => {
 
     promise.then(
       function (data) {
-        alert("Successfully uploaded photo.");
+        alert("이미지 업로드에 성공했습니다.");
         //viewAlbum(albumName);
       },
       function (err) {
@@ -219,7 +220,12 @@ const User = (props) => {
                       <label htmlFor="upload" className="image-upload-wrapper">
                         <img
                           className="profile-img"
+                          ref={imgRef}
                           src={`https://sanhak-image-server.s3.ap-northeast-2.amazonaws.com/${username}.jpg`}
+                          onError={() => {
+                            return (imgRef.current.src =
+                              "https://sanhak-image-server.s3.ap-northeast-2.amazonaws.com/profile.jpeg");
+                          }}
                         />
                       </label>
                     </div>
