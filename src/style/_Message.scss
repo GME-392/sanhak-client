@@ -1,0 +1,33 @@
+.message-type {
+  display: flex;
+  list-style: none;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 1.3rem;
+  border-bottom: 1px solid #cdcdcd;
+  width: 100%;
+  height: 50px;
+  li {
+    cursor: pointer;
+  }
+}
+
+.message-type--send {
+  font-weight: bolder;
+}
+
+.message-type--receive {
+  font-weight: bolder;
+}
+
+.message-send {
+  width: 100%;
+  display: flex;
+  justify-self: flex-end;
+  input {
+    flex: 1;
+    padding: 5px;
+    font-size: 1.2rem;
+    margin-right: 15px;
+  }
+}

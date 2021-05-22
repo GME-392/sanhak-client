@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -12,6 +12,7 @@ import { Toast } from "react-bootstrap";
 
 const Nav = () => {
   const { pathname } = useLocation();
+  const activeUser = useSelector((state) => state.AppState.activeUser);
   const [toastShow, setToastShow] = useState(false);
   const isSignedIn = useSelector((state) => state.AppState.isSignedIn);
 
@@ -75,27 +76,9 @@ const Nav = () => {
           <>
             <UserWelcome />
             <div>
-              <img src={message} className="message-icon" onClick={toggleShowMessage} />
-              <div className="toast-container">
-                <Toast show={toastShow} onClose={toggleShowMessage}>
-                  <Toast.Header>
-                    <strong className="mr-auto">
-                      <span style={{ display: "inline-block", marginRight: "8px" }}>✉️</span>쪽지
-                      알림
-                    </strong>
-                  </Toast.Header>
-                  <Toast.Body>suhwanc 님으로부터 새로운 쪽지가 있습니다.</Toast.Body>
-                </Toast>
-                <Toast show={toastShow} onClose={toggleShowMessage}>
-                  <Toast.Header>
-                    <strong className="mr-auto">
-                      <span style={{ display: "inline-block", marginRight: "8px" }}>🏫</span>그룹
-                      알림
-                    </strong>
-                  </Toast.Header>
-                  <Toast.Body>그룹 공지사항이 변경되었습니다.</Toast.Body>
-                </Toast>
-              </div>
+              <Link to={`/message/${activeUser}`}>
+                <img src={message} className="message-icon" onClick={toggleShowMessage} />
+              </Link>
             </div>
           </>
         ) : (
