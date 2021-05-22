@@ -7,6 +7,7 @@ import MessageLog from "../components/MessageLog/MessageLog";
 
 const Message = () => {
   const [type, setType] = useState("send");
+  const [selctedMessage, setSelectedMessage] = useState(null);
 
   return (
     <Work
@@ -25,6 +26,7 @@ const Message = () => {
               <li
                 onClick={() => {
                   setType("send");
+                  setSelectedMessage(null);
                 }}
                 className={type === "send" ? "message-type--send" : ""}
               >
@@ -33,16 +35,17 @@ const Message = () => {
               <li
                 onClick={() => {
                   setType("receive");
+                  setSelectedMessage(null);
                 }}
                 className={type === "receive" ? "message-type--receive" : ""}
               >
                 받은 쪽지함
               </li>
             </ul>
-            <MessageList messageType={type} />
+            <MessageList messageType={type} setSelectedMessage={setSelectedMessage} />
           </LeftContainer>
           <RightContainer>
-            <MessageLog />
+            <MessageLog messageType={type} selctedMessage={selctedMessage} />
             <div className="message-send">
               <input></input>
               <SubmitButton>전송</SubmitButton>
@@ -63,6 +66,7 @@ const Container = styled.div`
 const RightContainer = styled.div`
   display: flex;
   border: 1px solid #cdcdcd;
+  border-left: none;
   flex-direction: column;
   flex: 5;
   padding: 15px;

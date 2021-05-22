@@ -3,16 +3,26 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import axios from "axios";
 import { USER_ENDPOINT } from "../../constants/URL";
+import "./MessageList.scss";
 
-const MessageList = () => {
+const MessageList = ({ messageType, setSelectedMessage }) => {
   const [sentMessageList, setSentMessageList] = useState([]);
   const [receivedMessageList, setReceivedMessageList] = useState([]);
-  const [seelctedUser, setSelectedUser] = useState("");
+  const [selected, setSelected] = useState(null);
+  const [messageList, setMessageList] = useState(sentMessageList);
   const activeUser = useSelector((state) => state.AppState.activeUser);
 
   useEffect(() => {
     fetchMessageList();
   }, [activeUser]);
+
+  useEffect(() => {
+    if (messageType === "send") {
+      setMessageList(sentMessageList);
+    } else {
+      setMessageList(receivedMessageList);
+    }
+  }, [messageType]);
 
   const fetchMessageList = async () => {
     await axios
@@ -20,13 +30,22 @@ const MessageList = () => {
       .then((res) => {
         setSentMessageList(res.data.sended_messages);
         setReceivedMessageList(res.data.received_messages);
+        // 초기값
+        setMessageList(res.data.sended_messages);
       });
   };
 
   return (
     <Container>
-      {sentMessageList.map((message) => (
-        <MessageItem>
+      {messageList.map((message, idx) => (
+        <MessageItem
+          onClick={() => {
+            setSelectedMessage(message);
+            setSelected(idx);
+          }}
+          key={message.id}
+          className={idx === selected ? "message-item-selected" : null}
+        >
           <MessageItemTop>
             <span>{message.from}</span>
             <span>{message.created_at}</span>
@@ -47,10 +66,6 @@ const MessageItem = styled.div`
   border-bottom: 1px solid #cdcdcd;
   padding: 10px;
   cursor: pointer;
-
-  &:nth-child(1) {
-    padding-top: 0;
-  }
 
   span {
     font-weight: normal;
