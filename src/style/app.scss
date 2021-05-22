@@ -5,10 +5,15 @@
 @import "./User";
 @import "./GroupDetail";
 @import "./Guide";
+@import "./Message";
 
 // a {
 //   color: #333333 !important;
 // }
+
+* {
+  box-sizing: border-box;
+}
 
 a:hover {
   text-decoration: none !important;

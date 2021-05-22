@@ -85,7 +85,7 @@ function App() {
             <Forgot />
           </Route>
 
-          <Route path={`/message/:username`} exact>
+          <Route path={`/message`}>
             <Message />
           </Route>
 

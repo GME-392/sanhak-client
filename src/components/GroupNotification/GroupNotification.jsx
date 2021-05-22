@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./GroupNotification.scss";
 import { DataContext } from "../../pages/GroupDetail";
 import gear from "../../img/settings.png";
