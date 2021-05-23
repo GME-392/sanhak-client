@@ -6,6 +6,14 @@ import { USER_ENDPOINT } from "../../constants/URL";
 
 const MessageLog = ({ setSendTo, messageType, selctedMessage }) => {
   const activeUser = useSelector((state) => state.AppState.activeUser);
+  const deleteMessage = async () => {
+    await axios.patch(`${USER_ENDPOINT}`, {
+      funcname: "deleteDirectMessage",
+      userid: activeUser,
+      msgid: selctedMessage.id,
+    });
+    window.location.reload();
+  };
 
   return (
     <Container>
@@ -16,10 +24,25 @@ const MessageLog = ({ setSendTo, messageType, selctedMessage }) => {
       {selctedMessage && (
         <MessageContainer>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <h3>{messageType === "send" ? "보낸 쪽지" : "받은 쪽지"}</h3>
+            <h3>
+              {messageType === "send"
+                ? `${selctedMessage.to} 님에게 보낸 쪽지`
+                : `${selctedMessage.from} 님에게서 받은 쪽지`}
+            </h3>
             <h6>{new Date(selctedMessage.created_at).toLocaleString()}</h6>
           </div>
           <div>{selctedMessage?.content}</div>
+          <div
+            style={{ position: "absolute", bottom: "10%", right: 20, cursor: "pointer" }}
+            onClick={() => {
+              const ans = window.confirm("쪽지를 삭제하시겠습니까?");
+              if (ans === true) {
+                deleteMessage();
+              }
+            }}
+          >
+            쪽지 삭제
+          </div>
         </MessageContainer>
       )}
     </Container>
@@ -30,6 +53,7 @@ const Container = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
+  position: relative;
 `;
 
 const SenderInput = styled.div`

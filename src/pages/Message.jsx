@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import MessageList from "../components/MessageList/MessageList";
 import MessageLog from "../components/MessageLog/MessageLog";
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 import { USER_ENDPOINT } from "../constants/URL";
 import { useSelector } from "react-redux";
 
@@ -17,10 +18,11 @@ const Message = () => {
 
   const sendMessage = async () => {
     const created_at = new Date().getTime();
+    const id = uuidv4();
     await axios.patch(`${USER_ENDPOINT}`, {
       funcname: "createDirectMessage",
       userid: activeUser,
-      msgid: 123,
+      msgid: id,
       msgfrom: activeUser,
       msgto: sendTo,
       msgcontent: messageBody,
@@ -29,12 +31,13 @@ const Message = () => {
     await axios.patch(`${USER_ENDPOINT}`, {
       funcname: "createDirectMessage",
       userId: sendTo,
-      msgId: 123,
+      msgId: id,
       msgfrom: activeUser,
       msgto: sendTo,
       msgcontent: messageBody,
       msgcreatedat: created_at,
     });
+    window.location.reload();
   };
 
   return (
@@ -78,7 +81,6 @@ const Message = () => {
               <input onChange={(e) => setMessageBody(e.target.value)}></input>
               <SubmitButton
                 onClick={() => {
-                  console.log(messageBody, sendTo);
                   sendMessage();
                 }}
               >
