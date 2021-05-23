@@ -30,8 +30,8 @@ const Message = () => {
     });
     await axios.patch(`${USER_ENDPOINT}`, {
       funcname: "createDirectMessage",
-      userId: sendTo,
-      msgId: id,
+      userid: sendTo,
+      msgid: id,
       msgfrom: activeUser,
       msgto: sendTo,
       msgcontent: messageBody,
