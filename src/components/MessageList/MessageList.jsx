@@ -48,7 +48,7 @@ const MessageList = ({ messageType, setSelectedMessage }) => {
         >
           <MessageItemTop>
             <span>{message.from}</span>
-            <span>{message.created_at}</span>
+            <span>{new Date(message.created_at).toLocaleString()}</span>
           </MessageItemTop>
           <span>{message.content}</span>
         </MessageItem>

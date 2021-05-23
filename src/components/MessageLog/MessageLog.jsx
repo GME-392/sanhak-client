@@ -4,20 +4,20 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { USER_ENDPOINT } from "../../constants/URL";
 
-const MessageLog = ({ messageType, selctedMessage }) => {
+const MessageLog = ({ setSendTo, messageType, selctedMessage }) => {
   const activeUser = useSelector((state) => state.AppState.activeUser);
 
   return (
     <Container>
       <SenderInput>
-        <input />
+        <input onChange={(e) => setSendTo(e.target.value)} />
         <div>님에게 새로운 메시지 작성하기</div>
       </SenderInput>
       {selctedMessage && (
         <MessageContainer>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <h3>{messageType === "send" ? "보낸 쪽지" : "받은 쪽지"}</h3>
-            <h6>{selctedMessage.created_at}</h6>
+            <h6>{new Date(selctedMessage.created_at).toLocaleString()}</h6>
           </div>
           <div>{selctedMessage?.content}</div>
         </MessageContainer>
