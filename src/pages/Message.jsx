@@ -4,10 +4,41 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import MessageList from "../components/MessageList/MessageList";
 import MessageLog from "../components/MessageLog/MessageLog";
+import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
+import { USER_ENDPOINT } from "../constants/URL";
+import { useSelector } from "react-redux";
 
 const Message = () => {
   const [type, setType] = useState("send");
   const [selctedMessage, setSelectedMessage] = useState(null);
+  const [sendTo, setSendTo] = useState(null);
+  const activeUser = useSelector((state) => state.AppState.activeUser);
+  const [messageBody, setMessageBody] = useState(null);
+
+  const sendMessage = async () => {
+    const created_at = new Date().getTime();
+    const id = uuidv4();
+    await axios.patch(`${USER_ENDPOINT}`, {
+      funcname: "createDirectMessage",
+      userid: activeUser,
+      msgid: id,
+      msgfrom: activeUser,
+      msgto: sendTo,
+      msgcontent: messageBody,
+      msgcreatedat: created_at,
+    });
+    await axios.patch(`${USER_ENDPOINT}`, {
+      funcname: "createDirectMessage",
+      userId: sendTo,
+      msgId: id,
+      msgfrom: activeUser,
+      msgto: sendTo,
+      msgcontent: messageBody,
+      msgcreatedat: created_at,
+    });
+    window.location.reload();
+  };
 
   return (
     <Work
@@ -45,10 +76,16 @@ const Message = () => {
             <MessageList messageType={type} setSelectedMessage={setSelectedMessage} />
           </LeftContainer>
           <RightContainer>
-            <MessageLog messageType={type} selctedMessage={selctedMessage} />
+            <MessageLog setSendTo={setSendTo} messageType={type} selctedMessage={selctedMessage} />
             <div className="message-send">
-              <input></input>
-              <SubmitButton>전송</SubmitButton>
+              <input onChange={(e) => setMessageBody(e.target.value)}></input>
+              <SubmitButton
+                onClick={() => {
+                  sendMessage();
+                }}
+              >
+                전송
+              </SubmitButton>
             </div>
           </RightContainer>
         </Container>

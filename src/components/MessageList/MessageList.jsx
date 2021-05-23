@@ -47,8 +47,8 @@ const MessageList = ({ messageType, setSelectedMessage }) => {
           className={idx === selected ? "message-item-selected" : null}
         >
           <MessageItemTop>
-            <span>{message.from}</span>
-            <span>{message.created_at}</span>
+            <span>{messageType === "send" ? message.to : message.from}</span>
+            <span>{new Date(message.created_at).toLocaleString()}</span>
           </MessageItemTop>
           <span>{message.content}</span>
         </MessageItem>
@@ -60,6 +60,8 @@ const MessageList = ({ messageType, setSelectedMessage }) => {
 const Container = styled.div`
   flex: 1;
   width: 100%;
+  height: 1000vh;
+  overflow-y: scroll;
 `;
 
 const MessageItem = styled.div`
