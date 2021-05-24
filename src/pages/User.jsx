@@ -169,6 +169,9 @@ const User = (props) => {
   };
 
   const handleFileInput = (e) => {
+    const formData = new FormData();
+    formData.append("file", e.target.files[0]);
+    console.log(formData);
     var file = e.target.files[0];
     var fileName = username + ".jpg";
 
@@ -194,38 +197,11 @@ const User = (props) => {
     );
   };
 
-  const deleteProfileImage = async() => {
-    var fileName = username + ".jpg";
-    
-    var upload = new AWS.S3.ManagedUpload({
-      params: {
-        Bucket: "sanhak-image-server",
-        Key: fileName,
-        Body: "https://sanhak-image-server.s3.ap-northeast-2.amazonaws.com/profile.jpeg",
-      },
-    });
-
-    var promise = upload.promise();
-
-    promise.then(
-      function (data) {
-        alert("프로필 사진을 삭제하였습니다.");
-      }
-    );
-  } 
-
   return (
     <Container>
       <motion.div exit="exit" variants={pageAnimation} initial="hidden" animate="show">
         <Menu>
-          <motion.h2 variants={fade}>
-            {username} 유저 정보
-            {username !== activeUser && (
-              <span style={{ fontSize: "1.2rem", display: "inline-block", marginLeft: "1rem" }}>
-                <Link to={`/message`}>쪽지 전송하기</Link>
-              </span>
-            )}
-          </motion.h2>
+          <motion.h2 variants={fade}>{username} 유저 정보</motion.h2>
           <motion.div variants={lineAnim} className="line"></motion.div>
         </Menu>
         <motion.div variants={fade} className="user__container">
@@ -235,15 +211,13 @@ const User = (props) => {
                 <li>
                   <div style={{ display: "flex", alignItems: "center" }}>
                     <div className="image-upload-container">
-                      {(username === activeUser) &&
-                        (<input
-                            type="file"
-                            id="upload"
-                            style={{ color: "transparent", width: "70px" }}
-                            className="image-upload"
-                            onChange= {handleFileInput}
-                        />)                        
-                      }                      
+                      <input
+                        type="file"
+                        id="upload"
+                        style={{ color: "transparent", width: "70px" }}
+                        className="image-upload"
+                        onChange={handleFileInput}
+                      />
                       <label htmlFor="upload" className="image-upload-wrapper">
                         <img
                           className="profile-img"
@@ -255,12 +229,6 @@ const User = (props) => {
                           }}
                         />
                       </label>
-                      <div htmlFor="upload" className="user__image__change">
-                        <button 
-                        onClick={deleteProfileImage} className="profile_button_delete" style={{fontSize: "1rem"}}>
-                          프로필 삭제                                                                          
-                        </button>                                              
-                      </div>
                     </div> 
                     <div className="user__item__label">
                       <span>백준 온라인 저지 아이디</span>
