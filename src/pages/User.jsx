@@ -194,7 +194,7 @@ const User = (props) => {
     );
   };
 
-  const deleteProfileImage = async() => {
+  const deleteProfileImage = () => {
     var fileName = username + ".jpg";
     
     var upload = new AWS.S3.ManagedUpload({
