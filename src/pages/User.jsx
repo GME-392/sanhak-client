@@ -167,11 +167,8 @@ const User = (props) => {
     await Auth.signOut();
     await Auth.DeleteUser();
   };
-
+ 
   const handleFileInput = (e) => {
-    const formData = new FormData();
-    formData.append("file", e.target.files[0]);
-    console.log(formData);
     var file = e.target.files[0];
     var fileName = username + ".jpg";
 
@@ -197,6 +194,26 @@ const User = (props) => {
     );
   };
 
+  const deleteProfileImage = () => {
+    var fileName = username + ".jpg";
+    
+    var upload = new AWS.S3.ManagedUpload({
+      params: {
+        Bucket: "sanhak-image-server",
+        Key: fileName,
+        Body: "https://sanhak-image-server.s3.ap-northeast-2.amazonaws.com/profile.jpeg",
+      },
+    });
+
+    var promise = upload.promise();
+
+    promise.then(
+      function (data) {
+        alert("프로필 사진을 삭제하였습니다.");
+      }
+    );
+  } 
+
   return (
     <Container>
       <motion.div exit="exit" variants={pageAnimation} initial="hidden" animate="show">
@@ -211,13 +228,15 @@ const User = (props) => {
                 <li>
                   <div style={{ display: "flex", alignItems: "center" }}>
                     <div className="image-upload-container">
-                      <input
-                        type="file"
-                        id="upload"
-                        style={{ color: "transparent", width: "70px" }}
-                        className="image-upload"
-                        onChange={handleFileInput}
-                      />
+                      {(username === activeUser) &&
+                        (<input
+                            type="file"
+                            id="upload"
+                            style={{ color: "transparent", width: "70px" }}
+                            className="image-upload"
+                            onChange= {handleFileInput}
+                        />)                        
+                      }                      
                       <label htmlFor="upload" className="image-upload-wrapper">
                         <img
                           className="profile-img"
@@ -229,7 +248,13 @@ const User = (props) => {
                           }}
                         />
                       </label>
-                    </div>
+                      <div htmlFor="upload" className="user__image__change">
+                        <button 
+                        onClick={deleteProfileImage} className="profile_button_delete" style={{fontSize:"1rem"}}>
+                          프로필 삭제                                                                          
+                        </button>                                              
+                      </div>
+                    </div> 
                     <div className="user__item__label">
                       <span>백준 온라인 저지 아이디</span>
                       <div className="user__item__content">
