@@ -201,14 +201,7 @@ const User = (props) => {
     <Container>
       <motion.div exit="exit" variants={pageAnimation} initial="hidden" animate="show">
         <Menu>
-          <motion.h2 variants={fade}>
-            {username} 유저 정보
-            {username !== activeUser && (
-              <span style={{ fontSize: "1.2rem", display: "inline-block", marginLeft: "1rem" }}>
-                <Link to={`/message`}>쪽지 전송하기</Link>
-              </span>
-            )}
-          </motion.h2>
+          <motion.h2 variants={fade}>{username} 유저 정보</motion.h2>
           <motion.div variants={lineAnim} className="line"></motion.div>
         </Menu>
         <motion.div variants={fade} className="user__container">
