@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
 import Amplify, { Auth, Hub } from "aws-amplify";
 import awsconfig from "../aws-exports";
-
+import RegisterSuccess from "../components/RegisterSuccess/RegisterSuccess";
 //Animations
 import { motion } from "framer-motion";
 import { pageAnimation, fade, lineAnim } from "../animation";
@@ -21,6 +21,7 @@ const initialFormState = {
 
 const Forgot = () => {
   const [formState, updateFormState] = useState(initialFormState);
+  const [alertType, setAlertType] = useState(null);
   const history = useHistory();
   const isSignedIn = useSelector((state) => state.AppState.isSignedIn);
   const dispatch = useDispatch();
@@ -76,24 +77,24 @@ const Forgot = () => {
 
   async function changePassword() {
     const { authCode, username, password } = formState;
-    try {
-      await Auth.forgotPasswordSubmit(username, authCode, password);
-    } catch (error) {
-      return;
-    }
     updateFormState(() => ({ ...formState, formType: "signIn" }));
-  }
 
+    Auth.forgotPasswordSubmit(username, authCode, password)
+    .then(() => {})
+    .catch(err => {
+      setAlertType("notCorrespond");
+      updateFormState(() => ({ ...formState, formType: "changepw" }));
+    })
+  }
   return (
-    <>
-      {formType === "findpw" && (
-        <Work
+    <Work
           style={{ background: "#fff" }}
           exit="exit"
           variants={pageAnimation}
           initial="hidden"
           animate="show"
         >
+      {formType === "findpw" && (
           <Menu>
             <motion.h2 variants={fade}>아이디 / 비밀번호 찾기</motion.h2>
             <motion.div variants={lineAnim} className="line"></motion.div>
@@ -111,16 +112,8 @@ const Forgot = () => {
               </div>
             </div>
           </Menu>
-        </Work>
       )}
       {formType === "changepw" && (
-        <Work
-          style={{ background: "#fff" }}
-          exit="exit"
-          variants={pageAnimation}
-          initial="hidden"
-          animate="show"
-        >
           <Menu>
             <motion.h2 variants={fade}>비밀번호 변경</motion.h2>
             <motion.div variants={lineAnim} className="line"></motion.div>
@@ -133,6 +126,7 @@ const Forgot = () => {
                   value={formState.authCode}
                   placeholder="인증 코드 6자리를 입력해 주세요"
                 ></Input>
+                
                 <label htmlFor="login__pw">비밀번호</label>
                 <Input
                   name="password"
@@ -142,16 +136,40 @@ const Forgot = () => {
                   placeholder="변경할 비밀번호를 입력하세요"
                 ></Input>
               </div>
+              <div className="text-muted register-form__comment">
+              {alertType === "notCorrespond" ? (
+                <div style={{ color: "red" }}>
+                {"인증 코드가 일치하지 않습니다."}
+              </div>
+              ) : (
+                <div></div>
+              )}
+            </div>
               <div className="login__button">
                 <button onClick={changePassword}>확인</button>
               </div>
             </div>
           </Menu>
-        </Work>
       )}
 
-      {formType === "signIn" && <Link to="/">코맷 소개</Link>}
-    </>
+      {formType === "signIn" && (
+        <Menu>
+        <motion.h2 variants={fade}>비밀번호 변경</motion.h2>
+        <motion.div variants={lineAnim} className="line"></motion.div>
+        <div className="RegisterSuccess__container">
+        <div>비밀번호 변경이 완료되었습니다!</div>
+          <div className="RegisterSuccess__btn__container">
+          <button className="RegisterSuccess__btn RegisterSuccess__btn--home">
+          <Link to="/">홈으로</Link>
+        </button>
+          <button className="RegisterSuccess__btn RegisterSuccess__btn--login">
+          <Link to="/login">로그인</Link>
+        </button>
+          </div>
+        </div>
+      </Menu>
+      )}
+      </Work>
   );
 };
 
@@ -190,5 +208,6 @@ const Input = styled.input`
   padding: 1rem;
   width: 100%;
 `;
+
 
 export default Forgot;

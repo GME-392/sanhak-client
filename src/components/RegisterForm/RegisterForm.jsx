@@ -28,6 +28,7 @@ const RegisterForm = ({ setRegisterSuccess }) => {
   const [passwordConfirmed, setPasswordConfirmed] = useState(null);
   const [userListOnDB, setUserListOnDB] = useState([]);
   const [formCheckComplete, setFormCheckComplete] = useState(false);
+  const [alertType, setAlertType] = useState(null);
 
   // 전역 상태로 로그인 상태 관리
   const { formType } = formState;
@@ -114,16 +115,29 @@ const RegisterForm = ({ setRegisterSuccess }) => {
 
   async function confirmSignUp() {
     const { username, authCode } = formState;
-    await Auth.confirmSignUp(username, authCode);
     updateFormState(() => ({ ...formState, formType: "signIn" }));
-    await axios.post(`${USER_ENDPOINT}`, {
-      userid: formState.username,
-      bojname: formState.bojname,
-      userpw: formState.password,
-      useremail: formState.email,
-      organization: formState.organization,
-    });
-    setRegisterSuccess(true);
+    Auth.confirmSignUp(username, authCode)
+    .then(() => {
+      axios.post(`${USER_ENDPOINT}`, {
+        userid: formState.username,
+        bojname: formState.bojname,
+        userpw: formState.password,
+        useremail: formState.email,
+        organization: formState.organization,
+      });
+    })
+    .catch(err => {
+      //alert("인증 코드가 일치하지 않습니다!"); 
+      setAlertType("notCorrespond");
+      updateFormState(() => ({ ...formState, formType: "confirmSignUp" }));
+    })
+    
+  }
+
+  async function resendSignUp() {
+    const { username } = formState;
+    await Auth.resendSignUp(username);
+    setAlertType("resend");
   }
 
   return (
@@ -267,7 +281,19 @@ const RegisterForm = ({ setRegisterSuccess }) => {
                 style={{ display: "inline-block" }}
               />
               <Button onClick={confirmSignUp}>확인</Button>
+              <Button onClick={resendSignUp}>인증번호 재전송</Button>
             </div>
+            <Form.Text className="text-muted register-form__comment">
+              {alertType === "notCorrespond" ? (
+                <div style={{ color: "red" }}>
+                {"인증 코드가 일치하지 않습니다."}
+              </div>
+              ) : alertType === "resend" ? (
+                <div style={{ color: "green" }}>{"인증 코드를 다시 전송했습니다."}</div>
+              ) : (
+                <div></div>
+              )}
+            </Form.Text>
           </Form.Group>
         </Form>
       )}
