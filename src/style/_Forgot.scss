@@ -42,3 +42,30 @@
     margin-top: 1.5rem;
   }
   
+  .register-form__container {
+    display: flex;
+    input {
+      flex: 9;
+    }
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 0 !important;
+      background-color: #40368a;
+      height: calc(1.5em + 0.75rem + 2px);
+      margin-left: 1.5rem;
+      padding: 1.5rem 0;
+      flex: 1;
+    }
+  }
+  
+  .register-form__comment {
+    display: inline-block;
+    font-size: 1rem;
+    div {
+      margin-top: 0.5rem;
+      font-weight: 600;
+    }
+  }
+  

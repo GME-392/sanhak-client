@@ -127,7 +127,6 @@ const RegisterForm = ({ setRegisterSuccess }) => {
       });
     })
     .catch(err => {
-      //alert("인증 코드가 일치하지 않습니다!"); 
       setAlertType("notCorrespond");
       updateFormState(() => ({ ...formState, formType: "confirmSignUp" }));
     })
@@ -136,8 +135,11 @@ const RegisterForm = ({ setRegisterSuccess }) => {
 
   async function resendSignUp() {
     const { username } = formState;
-    await Auth.resendSignUp(username);
     setAlertType("resend");
+    Auth.resendSignUp(username)
+    .catch(err => {
+      alert("수상한 행동이 감지되어 일정 시간 동안 재전송이 불가능합니다.")
+    })
   }
 
   return (
