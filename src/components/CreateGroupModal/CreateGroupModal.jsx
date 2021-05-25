@@ -38,8 +38,8 @@ const CreateGroupModal = ({ showCreateGroupModal, setShowCreateGroupModal, setGr
   const contests = ["ACM-ICPC", "USACO", "정보올림피아드"];
   const levels = ["상", "중", "하"];
   const easyProbTypeList = [
-    "기초 구현",
-    "완전 탐색",
+    "기초구현",
+    "완전탐색",
     "그리디",
     "BFS/DFS",
     "자료구조(스택, 큐, 덱)",
