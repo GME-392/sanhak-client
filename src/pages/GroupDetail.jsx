@@ -21,6 +21,7 @@ import ProblemSet from "../components/ProblemSet/ProblemSet";
 import fairy from "../img/fairy.png";
 import JobNotice from "../components/JobNotice/JobNotice";
 import ContestNotice from "../components/ContestNotice/ContestNotice";
+import ManageGroup from "../components/ManageGroup/ManageGroup";
 
 export const DataContext = createContext();
 
@@ -81,6 +82,8 @@ const GroupDetail = ({ match }) => {
         return <JobNotice />;
       case "noti-contest":
         return <ContestNotice />;
+      case "manage":
+        return <ManageGroup />;
       default:
         break;
     }
