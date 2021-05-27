@@ -26,7 +26,7 @@ const UserWelcome = () => {
             src={`https://sanhak-image-server.s3.ap-northeast-2.amazonaws.com/${activeUser}.jpg`}
             onError={() => {
               return (imgRef.current.src =
-                "https://sanhak-image-server.s3.ap-northeast-2.amazonaws.com/profile.jpeg");
+                "https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg");
             }}
             width={32}
             style={{ borderRadius: "12px" }}
