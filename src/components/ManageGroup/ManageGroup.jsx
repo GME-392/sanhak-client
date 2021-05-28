@@ -1,6 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
+import ChangeGroupModal from "../ChangeGroupModal/ChangeGroupModal";
 
-const ManageGroup = () => {
+const ManageGroup = ({ groupId }) => {
+  const [showCreateGroupModal, setShowCreateGroupModal] = useState(false);
+  const [groupList, setGroupList] = useState([]);
+
+  const handleShow = () => {
+    console.log(groupId);
+    setShowCreateGroupModal(true);
+  };
+
+  
+
   return (
     <div className="group-attendance__container" style={{ display: "block", padding: "2rem" }}>
       <div className="group-goal__text" style={{ top: "-4rem" }}>
@@ -40,7 +51,16 @@ const ManageGroup = () => {
       <div>
         <input type="number" min={1} max={10} placeholder="1"></input>
       </div>
+      <button onClick={handleShow}>그룹 변경</button>
       <button>그룹 해체</button>
+
+      <ChangeGroupModal
+        setGroupList={setGroupList}
+        showCreateGroupModal={showCreateGroupModal}
+        setShowCreateGroupModal={setShowCreateGroupModal}
+        setGroupId={groupId}
+        />
+
     </div>
   );
 };

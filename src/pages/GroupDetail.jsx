@@ -83,7 +83,8 @@ const GroupDetail = ({ match }) => {
       case "noti-contest":
         return <ContestNotice />;
       case "manage":
-        return <ManageGroup />;
+        console.log(groupid);
+        return <ManageGroup groupId={groupid} />;
       default:
         break;
     }
