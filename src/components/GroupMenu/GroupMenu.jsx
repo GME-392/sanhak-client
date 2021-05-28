@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Form, Nav, Navbar, NavDropdown, Button, FormControl } from "react-bootstrap";
+import { DataContext } from "../../pages/GroupDetail";
 
 import "./GroupMenu.scss";
 
 const GroupMenu = ({ groupId, setGroupMenu }) => {
+  const { isMaster } = useContext(DataContext);
+  console.log(isMaster);
   return (
     <Navbar className="group-detail-navbar" bg="light" expand="lg">
       <Navbar.Brand style={{ cursor: "pointer" }} onClick={() => setGroupMenu(() => "main")}>
@@ -33,6 +36,15 @@ const GroupMenu = ({ groupId, setGroupMenu }) => {
           >
             멤버 랭킹
           </Nav.Link>
+          {isMaster && (
+            <Nav.Link
+              to={`/group/${groupId}/manage`}
+              className="group-detail-menu"
+              onClick={() => setGroupMenu(() => "manage")}
+            >
+              그룹 관리
+            </Nav.Link>
+          )}
           <NavDropdown title="이벤트" id="basic-nav-dropdown" className="group-detail-menu">
             <NavDropdown.Item onClick={() => setGroupMenu(() => "noti-contest")}>
               코딩 테스트 & 대회 정보
