@@ -167,7 +167,7 @@ const User = (props) => {
     await Auth.signOut();
     await Auth.DeleteUser();
   };
- 
+
   const handleFileInput = (e) => {
     var file = e.target.files[0];
     var fileName = username + ".jpg";
@@ -196,7 +196,7 @@ const User = (props) => {
 
   const deleteProfileImage = () => {
     var fileName = username + ".jpg";
-    
+
     var upload = new AWS.S3.ManagedUpload({
       params: {
         Bucket: "sanhak-image-server",
@@ -207,12 +207,10 @@ const User = (props) => {
 
     var promise = upload.promise();
 
-    promise.then(
-      function (data) {
-        alert("프로필 사진을 삭제하였습니다.");
-      }
-    );
-  } 
+    promise.then(function (data) {
+      alert("프로필 사진을 삭제하였습니다.");
+    });
+  };
 
   return (
     <Container>
@@ -228,15 +226,15 @@ const User = (props) => {
                 <li>
                   <div style={{ display: "flex", alignItems: "center" }}>
                     <div className="image-upload-container">
-                      {(username === activeUser) &&
-                        (<input
-                            type="file"
-                            id="upload"
-                            style={{ color: "transparent", width: "70px" }}
-                            className="image-upload"
-                            onChange= {handleFileInput}
-                        />)                        
-                      }                      
+                      {username === activeUser && (
+                        <input
+                          type="file"
+                          id="upload"
+                          style={{ color: "transparent", width: "70px" }}
+                          className="image-upload"
+                          onChange={handleFileInput}
+                        />
+                      )}
                       <label htmlFor="upload" className="image-upload-wrapper">
                         <img
                           className="profile-img"
@@ -244,17 +242,20 @@ const User = (props) => {
                           src={`https://sanhak-image-server.s3.ap-northeast-2.amazonaws.com/${username}.jpg`}
                           onError={() => {
                             return (imgRef.current.src =
-                              "https://sanhak-image-server.s3.ap-northeast-2.amazonaws.com/profile.jpeg");
+                              "https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg");
                           }}
                         />
                       </label>
                       <div htmlFor="upload" className="user__image__change">
-                        <button 
-                        onClick={deleteProfileImage} className="profile_button_delete" style={{fontSize:"1rem"}}>
-                          프로필 삭제                                                                          
-                        </button>                                              
+                        <button
+                          onClick={deleteProfileImage}
+                          className="profile_button_delete"
+                          style={{ fontSize: "1rem" }}
+                        >
+                          프로필 삭제
+                        </button>
                       </div>
-                    </div> 
+                    </div>
                     <div className="user__item__label">
                       <span>백준 온라인 저지 아이디</span>
                       <div className="user__item__content">
