@@ -115,7 +115,6 @@ const RegisterForm = ({ setRegisterSuccess }) => {
 
   async function confirmSignUp() {
     const { username, authCode } = formState;
-    updateFormState(() => ({ ...formState, formType: "signIn" }));
     Auth.confirmSignUp(username, authCode)
     .then(() => {
       axios.post(`${USER_ENDPOINT}`, {
@@ -125,6 +124,7 @@ const RegisterForm = ({ setRegisterSuccess }) => {
         useremail: formState.email,
         organization: formState.organization,
       });
+      updateFormState(() => ({ ...formState, formType: "signIn" }));
     })
     .catch(err => {
       setAlertType("notCorrespond");
