@@ -11,14 +11,17 @@ import members from "../../img/members.png";
 import limit from "../../img/limit.png";
 import title from "../../img/title.png";
 import { DataContext } from "../../pages/Group";
+import fairy from "../../img/fairy.png";
 
 const GroupInfoModal = ({ showGroupInfoModal, setShowGroupInfoModal, data }) => {
   const [isJoined, setIsJoined] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const activeUser = useSelector((state) => state.AppState.activeUser);
 
   const { userData } = useContext(DataContext);
   // 모달 닫는 함수
   const handleClose = () => setShowGroupInfoModal(false);
+
   const history = useHistory();
 
   useEffect(() => {
@@ -44,7 +47,7 @@ const GroupInfoModal = ({ showGroupInfoModal, setShowGroupInfoModal, data }) => 
       }
       return;
     }
-
+    setIsLoading(true);
     if (isJoined === false) {
       await axios.patch(`${USER_ENDPOINT}userid=${activeUser}`, {
         funcname: "addGroup",
@@ -69,6 +72,7 @@ const GroupInfoModal = ({ showGroupInfoModal, setShowGroupInfoModal, data }) => 
       await axios.post(`${GROUP_RANK_ENDPOINT}`, {
         id: id,
       });
+      setIsLoading(false);
 
       setShowGroupInfoModal(false);
       window.location.reload(false);
@@ -82,57 +86,73 @@ const GroupInfoModal = ({ showGroupInfoModal, setShowGroupInfoModal, data }) => 
         <Modal.Title>그룹 정보</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form>
-          <Form.Group controlId="groupName">
-            <Form.Label>
-              <img src={title} width={20} style={{ marginRight: "0.5rem" }} />
-              그룹명
-            </Form.Label>
-            <Form.Text>{data?.name}</Form.Text>
-          </Form.Group>
+        {isLoading === true ? (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "column",
+            }}
+          >
+            <img src={fairy} className="rank__fairy" />
+            <h3>알고리즘의 요정이 그룹 문을 두들기고 있습니다!</h3>
+            <h3 style={{ marginTop: "1rem" }}>조금만 기다려 주세요!</h3>
+          </div>
+        ) : (
+          <Form>
+            <Form.Group controlId="groupName">
+              <Form.Label>
+                <img src={title} width={20} style={{ marginRight: "0.5rem" }} />
+                그룹명
+              </Form.Label>
+              <Form.Text>{data?.name}</Form.Text>
+            </Form.Group>
 
-          <Form.Group controlId="groupMemberLimit">
-            <Form.Label>
-              <img src={limit} width={18} style={{ marginRight: "0.6rem" }} />
-              최대 그룹원 수
-            </Form.Label>
-            <Form.Text>{data?.max_member}명</Form.Text>
-          </Form.Group>
+            <Form.Group controlId="groupMemberLimit">
+              <Form.Label>
+                <img src={limit} width={18} style={{ marginRight: "0.6rem" }} />
+                최대 그룹원 수
+              </Form.Label>
+              <Form.Text>{data?.max_member}명</Form.Text>
+            </Form.Group>
 
-          <Form.Group controlId="groupMembers">
-            <Form.Label>
-              <img src={members} width={20} style={{ marginRight: "0.5rem" }} />
-              그룹원 목록
-            </Form.Label>
-            <Form.Text>
-              <GroupInfoMember master={true} name={data?.leader} />
-              {data?.member?.map((member, idx) => {
-                if (data?.leader !== member) {
-                  return <GroupInfoMember master={false} name={member} key={idx} />;
-                }
-              })}
-            </Form.Text>
-          </Form.Group>
+            <Form.Group controlId="groupMembers">
+              <Form.Label>
+                <img src={members} width={20} style={{ marginRight: "0.5rem" }} />
+                그룹원 목록
+              </Form.Label>
+              <Form.Text>
+                <GroupInfoMember master={true} name={data?.leader} />
+                {data?.member?.map((member, idx) => {
+                  if (data?.leader !== member) {
+                    return <GroupInfoMember master={false} name={member} key={idx} />;
+                  }
+                })}
+              </Form.Text>
+            </Form.Group>
 
-          <Form.Group controlId="groupMembers">
-            <Form.Label>그룹 태그</Form.Label>
-            <Form.Text style={{ marginTop: "-0.5rem" }}>
-              {data?.tag?.map((tag, idx) => (
-                <Tag key={idx} name={tag}></Tag>
-              ))}
-            </Form.Text>
-          </Form.Group>
-        </Form>
+            <Form.Group controlId="groupMembers">
+              <Form.Label>그룹 태그</Form.Label>
+              <Form.Text style={{ marginTop: "-0.5rem" }}>
+                {data?.tag?.map((tag, idx) => (
+                  <Tag key={idx} name={tag}></Tag>
+                ))}
+              </Form.Text>
+            </Form.Group>
+          </Form>
+        )}
       </Modal.Body>
-
-      <Modal.Footer>
-        <Button className="Modal__Button" variant="secondary" onClick={handleClose}>
-          취소
-        </Button>
-        <Button className="Modal__Button" onClick={joinGroup}>
-          {isJoined ? "이미 참여중인 그룹입니다" : "그룹 참가"}
-        </Button>
-      </Modal.Footer>
+      {isLoading == false ? (
+        <Modal.Footer>
+          <Button className="Modal__Button" variant="secondary" onClick={handleClose}>
+            취소
+          </Button>
+          <Button className="Modal__Button" onClick={joinGroup}>
+            {isJoined ? "이미 참여중인 그룹입니다" : "그룹 참가"}
+          </Button>
+        </Modal.Footer>
+      ) : null}
     </Modal>
   );
 };
