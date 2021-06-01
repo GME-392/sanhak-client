@@ -38,6 +38,10 @@ const CreateGroupModal = ({ showCreateGroupModal, setShowCreateGroupModal, setGr
   const contests = ["ACM-ICPC", "USACO", "정보올림피아드"];
   const levels = ["상", "중", "하"];
   const easyProbTypeList = [
+    "입출력",
+    "조건문",
+    "반복문",
+    "별찍기",
     "기초구현",
     "완전탐색",
     "그리디",
@@ -66,6 +70,10 @@ const CreateGroupModal = ({ showCreateGroupModal, setShowCreateGroupModal, setGr
     "문자열",
   ];
   const matchProbTag = {
+    입출력: "io",
+    조건문: "ifs",
+    반복문: "fors",
+    별찍기: "star",
     기초구현: "basicimplement",
     완전탐색: "bruteforce",
     백트래킹: "backtracking",
