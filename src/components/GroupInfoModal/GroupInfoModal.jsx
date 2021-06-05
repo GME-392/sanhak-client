@@ -62,6 +62,10 @@ const GroupInfoModal = ({ showGroupInfoModal, setShowGroupInfoModal, data }) => 
         new_member: [activeUser],
       });
 
+      setIsLoading(false);
+      setShowGroupInfoModal(false);
+      // window.location.reload(false);
+
       await axios.patch(`${GROUP_ENDPOINT}`, {
         func: "addRankMember",
         id: id,
@@ -72,10 +76,6 @@ const GroupInfoModal = ({ showGroupInfoModal, setShowGroupInfoModal, data }) => 
       await axios.post(`${GROUP_RANK_ENDPOINT}`, {
         id: id,
       });
-      setIsLoading(false);
-
-      setShowGroupInfoModal(false);
-      window.location.reload(false);
     } else {
     }
   };
