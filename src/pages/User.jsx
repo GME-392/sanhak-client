@@ -59,7 +59,6 @@ const User = (props) => {
       await axios
         .get(`https://sanhak-image-server.s3.ap-northeast-2.amazonaws.com/${username}.jpg`)
         .then((res) => setProfileImage(res.data));
-      console.log(profileImage);
     };
     getProfileImage();
   }, []);
@@ -157,7 +156,6 @@ const User = (props) => {
   };
 
   const leaveUser = async () => {
-    console.log(username, password);
     await axios.delete(`${USER_ENDPOINT}`, {
       data: {
         userid: username,

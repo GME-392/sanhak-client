@@ -6,7 +6,6 @@ import "./GroupMenu.scss";
 
 const GroupMenu = ({ groupId, setGroupMenu }) => {
   const { isMaster } = useContext(DataContext);
-  console.log(isMaster);
   return (
     <Navbar className="group-detail-navbar" bg="light" expand="lg">
       <Navbar.Brand style={{ cursor: "pointer" }} onClick={() => setGroupMenu(() => "main")}>

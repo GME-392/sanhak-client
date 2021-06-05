@@ -21,8 +21,6 @@ const Guide = () => {
     }
   }, [type]);
 
-  console.log(animationLoading);
-
   const isSetType = (typeName) => {
     if (type === null) {
       setType(typeName);

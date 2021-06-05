@@ -38,8 +38,6 @@ const GroupAttendance = ({ data, attendanceState }) => {
     [attendanceState]
   );
 
-  console.log(tableData);
-
   const columns = React.useMemo(
     () => [
       { Header: "유저 아이디", accessor: "ID" },
