@@ -1,0 +1,22 @@
+.create {
+    background-color: #2680d3 !important;
+    border: none !important;
+}
+
+.cancel {
+    background-color: #ec544c !important;
+    border: none !important;
+}
+
+.Modal__Button:hover {
+    transform: none;
+}
+
+.register-form__comment {
+    display: inline-block;
+    font-size: 1rem;
+    div {
+        margin-top: 0.5rem;
+        font-weight: 600;
+    }
+}

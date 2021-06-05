@@ -1,14 +1,13 @@
 import { Button, Form, Modal } from "react-bootstrap";
 import React, { useState, useEffect } from "react";
-import Tag from "../Tag/Tag";
 import { GROUP_ENDPOINT, USER_ENDPOINT } from "../../constants/URL";
 import "./ChangeGroupModal.scss";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import fairy from "../../img/fairy.png";
 
-const ChangeGroupModal = ({ showCreateGroupModal, setShowCreateGroupModal, setGroupList, setGroupId }) => {
-  const handleClose = () => setShowCreateGroupModal(false);
+const ChangeGroupModal = ({ showChangeGroupModal, setShowChangeroupModal, setGroupList, setGroupId }) => {
+  const handleClose = () => setShowChangeroupModal(null);
   const [groupType, setGroupType] = useState(null);
   const [formType, setFormType] = useState(null);
   const [testType, setTestType] = useState(null);
@@ -194,7 +193,7 @@ const ChangeGroupModal = ({ showCreateGroupModal, setShowCreateGroupModal, setGr
   };
 
   return (
-    <Modal show={showCreateGroupModal} onHide={handleClose}>
+    <Modal show={showChangeGroupModal} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>그룹 유형 변경하기</Modal.Title>
       </Modal.Header>
