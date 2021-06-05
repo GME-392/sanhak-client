@@ -1,6 +1,6 @@
 import { Button, Form, Modal } from "react-bootstrap";
 import React, { useContext, useState, useEffect } from "react";
-import { GROUP_ENDPOINT, USER_ENDPOINT } from "../../constants/URL";
+import { USER_ENDPOINT } from "../../constants/URL";
 import "./ManageGroupModal.scss";
 import axios from "axios";
 import { useSelector } from "react-redux";
@@ -9,15 +9,8 @@ import { DataContext } from "../../pages/GroupDetail";
 
 const ManageGroupModal = ({ showManageGroupModal, setShowManageGroupModal, setGroupId, data }) => {
   const handleClose = () => setShowManageGroupModal(null);
-  const [description, setDescription] = useState(null);
-  const [falseInput, setFalseInput] = useState(false);
-  const [groupType, setGroupType] = useState(null);
-  const [formType, setFormType] = useState(null);
-  const [testType, setTestType] = useState(null);
-  const [probLevel, setProbLevel] = useState(null);
-  const [selectedType, setSelectedType] = useState([]);
+  const [seletedMemberList, setSelectedMemberList] = useState([]);
   const [userData, setUserData] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
   const activeUser = useSelector((state) => state.AppState.activeUser);
   const { groupData } = useContext(DataContext);
 
@@ -31,10 +24,41 @@ const ManageGroupModal = ({ showManageGroupModal, setShowManageGroupModal, setGr
     });
   };
 
+  let showMemberList = (memberList) =>
+    memberList.map((name) => {
+      return name !== activeUser ? (
+        <div
+          key={name}
+          className={seletedMemberList.includes(name) ? "username__item_pressed" : "username__item"}
+          onClick={(e) => {
+            e.preventDefault();
+            seletedMemberList.includes(name)
+              ? setSelectedMemberList(seletedMemberList.filter((userName) => userName !== name))
+              : setSelectedMemberList([...seletedMemberList, name]);
+          }}
+        >
+          {name}
+        </div>
+      ) : (
+        <div></div>
+      );
+    });
+
+
   const rankId = Object.keys(groupData.rank_member);
-  console.log(rankId);
+  
   const onSubmit = async () => {
-    
+    await axios.post(
+      `https://ydtsc6in8g.execute-api.us-east-2.amazonaws.com/backend_api/deletegroupmember`,
+      {
+        name: data?.name,
+        groupID: setGroupId,
+        members: seletedMemberList,
+      }
+    );
+
+    handleClose();
+    window.location.reload();
   };
 
   return (
@@ -43,16 +67,11 @@ const ManageGroupModal = ({ showManageGroupModal, setShowManageGroupModal, setGr
         <Modal.Title>그룹원 관리</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        <div className="modal-body">
           <Form>
-          {rankId.length > 0 ? (
-          rankId.map((name) => (
-            <div key={name} className="group__rank__item">
-              <div>
-                {name}
-              </div>
-            </div>
-          ))
-        ) : (
+            <Form.Label>탈퇴시키려는 유저의 아이디를 선택 후, 확인 버튼을 눌러주세요</Form.Label>
+          {rankId.length > 0 ? showMemberList(rankId)
+        : (
           <div
             style={{
               display: "flex",
@@ -66,7 +85,7 @@ const ManageGroupModal = ({ showManageGroupModal, setShowManageGroupModal, setGr
         )}
 
           </Form>
-        
+        </div>
       </Modal.Body>
 
         <Modal.Footer>

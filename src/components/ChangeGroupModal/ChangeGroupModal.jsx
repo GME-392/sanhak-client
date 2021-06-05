@@ -1,6 +1,5 @@
 import { Button, Form, Modal } from "react-bootstrap";
 import React, { useState, useEffect } from "react";
-import Tag from "../Tag/Tag";
 import { GROUP_ENDPOINT, USER_ENDPOINT } from "../../constants/URL";
 import "./ChangeGroupModal.scss";
 import axios from "axios";
