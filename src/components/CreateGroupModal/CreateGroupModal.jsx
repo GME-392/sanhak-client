@@ -109,8 +109,6 @@ const CreateGroupModal = ({ showCreateGroupModal, setShowCreateGroupModal, setGr
     getUserData();
   }, [activeUser]);
 
-  console.log(groupType);
-
   // 코딩테스트, 대회, 난이도 목록들은 여기서 버튼으로 만들어줍니다. (단일 선택)
   let showProbList = (probList) =>
     probList.map((test, idx) => (

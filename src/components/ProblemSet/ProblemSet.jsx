@@ -5,7 +5,6 @@ import "./ProblemSet.scss";
 const ProblemSet = () => {
   const { groupData, userData } = useContext(DataContext);
   const { problems } = groupData;
-  console.log(userData?.solved_problems);
   return (
     <div className="group-attendance__container">
       <div className="group-goal__text">그룹 문제집 - {problems.length}문제</div>
