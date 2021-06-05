@@ -67,7 +67,6 @@ const ManageGroupModal = ({ showManageGroupModal, setShowManageGroupModal, setGr
         <Modal.Title>그룹원 관리</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <div className="modal-body">
           <Form>
             <Form.Label>탈퇴시키려는 유저의 아이디를 선택 후, 확인 버튼을 눌러주세요</Form.Label>
           {rankId.length > 0 ? showMemberList(rankId)
@@ -85,7 +84,6 @@ const ManageGroupModal = ({ showManageGroupModal, setShowManageGroupModal, setGr
         )}
 
           </Form>
-        </div>
       </Modal.Body>
 
         <Modal.Footer>
