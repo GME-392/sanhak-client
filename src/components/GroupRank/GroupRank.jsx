@@ -19,17 +19,12 @@ const GroupRank = () => {
     return memberB.score - memberA.score;
   };
 
-  console.log(Array.from(groupData?.rank_member));
-
   // const sortedRankMember = groupData.rank_member.sort(compareFunction);
 
   const rankId = Object.keys(groupData.rank_member);
   const rankContent = Object.values(groupData.rank_member);
 
-  console.log(rankId, rankContent);
-
   const rankData = rankContent.map((content, idx) => ({ ...content, name: rankId[idx] }));
-  console.log(rankData);
 
   rankData.sort(compareFunction);
 

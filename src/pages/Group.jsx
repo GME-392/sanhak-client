@@ -44,7 +44,6 @@ const Group = () => {
 
   const getUserData = async () => {
     await axios.get(`${USER_ENDPOINT}userid=${activeUser}&funcname=getUser`).then((res) => {
-      console.log(res.data);
       setUserData(() => res.data);
     });
     setLoadingUser(false);

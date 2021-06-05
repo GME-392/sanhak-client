@@ -4,7 +4,6 @@ import crown from "../../img/crown.png";
 import "./GroupInfoMember.scss";
 
 const GroupInfoMember = ({ master, name }) => {
-  console.log(name);
   return (
     <Link to={`/user/${name}`} className="GroupInfoMember__link">
       <div className="GroupInfoMember__container">
