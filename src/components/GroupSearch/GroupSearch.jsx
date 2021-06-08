@@ -4,7 +4,7 @@ import "./GroupSearch.scss";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const GroupSearch = ({ setGroupList, setShow }) => {
+const GroupSearch = ({ setGroupList, setShow, offset }) => {
   const activeUser = useSelector((state) => state.AppState.activeUser);
   const history = useHistory();
 
@@ -19,16 +19,17 @@ const GroupSearch = ({ setGroupList, setShow }) => {
 
   const handleOnChange = (e) => {
     e.persist();
-    axios.get("http://localhost:4000/groups").then((res) =>
-      setGroupList(
-        res.data.filter((el) => {
-          return (
-            el.name.includes(e.target.value) ||
-            el.leader.includes(e.target.value)
-          );
-        })
-      )
-    );
+    axios
+      .get("https://bb80o1csdl.execute-api.ap-northeast-2.amazonaws.com/groupDB?func=getAllGroup")
+      .then((res) =>
+        setGroupList(
+          res.data
+            .filter((el) => {
+              return el.name.includes(e.target.value) || el.leader.includes(e.target.value);
+            })
+            .slice(offset, offset + 6)
+        )
+      );
   };
 
   return (
