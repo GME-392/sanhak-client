@@ -68,6 +68,7 @@ const Group = () => {
           groupList={groupList}
           setGroupList={setGroupList}
           setShow={setShowCreateGroupModal}
+          offset={offset}
         />
         <div className="divideLine" />
 
