@@ -21,7 +21,6 @@ const Group = () => {
   const [selected, setSelected] = useState(null);
   const [selectedGroupInfo, setSelectedGroupInfo] = useState(null);
   const [groupList, setGroupList] = useState([]);
-  const [userData, setUserData] = useState(null);
   const [offset, setOffset] = useState(0);
   const activeUser = useSelector((state) => state.AppState.activeUser);
   const [loadGroup, setLoadingGroup] = useState(true);
@@ -31,22 +30,11 @@ const Group = () => {
     getGroupData();
   }, [offset]);
 
-  useEffect(() => {
-    getUserData();
-  }, [activeUser]);
-
   const getGroupData = async () => {
     await axios.get(`${GROUP_ENDPOINT}?func=getAllGroup`).then((res) => {
       setGroupList(res.data.slice(offset, offset + 6));
     });
     setLoadingGroup(false);
-  };
-
-  const getUserData = async () => {
-    await axios.get(`${USER_ENDPOINT}userid=${activeUser}&funcname=getUser`).then((res) => {
-      setUserData(() => res.data);
-    });
-    setLoadingUser(false);
   };
 
   const handlePageClick = (data) => {
@@ -72,97 +60,95 @@ const Group = () => {
         />
         <div className="divideLine" />
 
-        <DataContext.Provider value={{ userData: userData }}>
-          {loadGroup === true && loadUser === true ? (
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <img src={fairy} className="rank__fairy" />
-              <h3>알고리즘의 요정이 정보를 불러오고 있습니다!</h3>
+        {loadGroup === true && loadUser === true ? (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <img src={fairy} className="rank__fairy" />
+            <h3>알고리즘의 요정이 정보를 불러오고 있습니다!</h3>
+          </div>
+        ) : (
+          <div>
+            <div style={{ marginTop: "15px" }}>
+              <span
+                style={{
+                  display: "inline-block",
+                  backgroundColor: "rgba(145, 46, 29, 0.295)",
+                  width: "12px",
+                  height: "12px",
+                }}
+              />{" "}
+              : 경시대회 & 올림피아드
+              <span
+                style={{
+                  marginLeft: "10px",
+                  display: "inline-block",
+                  backgroundColor: "rgba(29, 145, 45, 0.295)",
+                  width: "12px",
+                  height: "12px",
+                }}
+              />{" "}
+              : 학습 & 스터디
+              <span
+                style={{
+                  marginLeft: "10px",
+                  display: "inline-block",
+                  backgroundColor: "#4b8eaf",
+                  width: "12px",
+                  height: "12px",
+                }}
+              />{" "}
+              : 채용 & 코딩 테스트
             </div>
-          ) : (
-            <div>
-              <div style={{ marginTop: "15px" }}>
-                <span
-                  style={{
-                    display: "inline-block",
-                    backgroundColor: "rgba(145, 46, 29, 0.295)",
-                    width: "12px",
-                    height: "12px",
-                  }}
-                />{" "}
-                : 경시대회 & 올림피아드
-                <span
-                  style={{
-                    marginLeft: "10px",
-                    display: "inline-block",
-                    backgroundColor: "rgba(29, 145, 45, 0.295)",
-                    width: "12px",
-                    height: "12px",
-                  }}
-                />{" "}
-                : 학습 & 스터디
-                <span
-                  style={{
-                    marginLeft: "10px",
-                    display: "inline-block",
-                    backgroundColor: "#4b8eaf",
-                    width: "12px",
-                    height: "12px",
-                  }}
-                />{" "}
-                : 채용 & 코딩 테스트
-              </div>
-              <div className="Group__container">
-                <motion.div className="Group__groupList">
-                  {groupList.map((group) => (
-                    <GroupList
-                      key={group.id}
-                      data={group}
-                      id={group.id}
-                      setShowGroupInfoModal={setShowGroupInfoModal}
-                      showGroupInfoModal={showGroupInfoModal}
-                      setSelected={setSelected}
-                      setSelectedGroupInfo={setSelectedGroupInfo}
-                    ></GroupList>
-                  ))}
-                </motion.div>
-                <motion.div className="Group__ad-container">
-                  <motion.div className="Group__ad1" />
-                  <motion.div className="Group__ad2" />
-                </motion.div>
-              </div>
+            <div className="Group__container">
+              <motion.div className="Group__groupList">
+                {groupList.map((group) => (
+                  <GroupList
+                    key={group.id}
+                    data={group}
+                    id={group.id}
+                    setShowGroupInfoModal={setShowGroupInfoModal}
+                    showGroupInfoModal={showGroupInfoModal}
+                    setSelected={setSelected}
+                    setSelectedGroupInfo={setSelectedGroupInfo}
+                  ></GroupList>
+                ))}
+              </motion.div>
+              <motion.div className="Group__ad-container">
+                <motion.div className="Group__ad1" />
+                <motion.div className="Group__ad2" />
+              </motion.div>
             </div>
-          )}
+          </div>
+        )}
 
-          {/* <PaginationComponent /> */}
-          <ReactPaginate
-            previousLabel={"이전"}
-            nextLabel={"다음"}
-            breakLabel={"..."}
-            breakClassName={"break-me"}
-            pageCount={10}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={5}
-            onPageChange={handlePageClick}
-            containerClassName={"pagination"}
-            activeClassName={"active"}
-          />
-          <GroupInfoModal
-            setShowGroupInfoModal={setShowGroupInfoModal}
-            showGroupInfoModal={showGroupInfoModal}
-            data={selectedGroupInfo}
-          />
-          <CreateGroupModal
-            setGroupList={setGroupList}
-            showCreateGroupModal={showCreateGroupModal}
-            setShowCreateGroupModal={setShowCreateGroupModal}
-          />
-        </DataContext.Provider>
+        {/* <PaginationComponent /> */}
+        <ReactPaginate
+          previousLabel={"이전"}
+          nextLabel={"다음"}
+          breakLabel={"..."}
+          breakClassName={"break-me"}
+          pageCount={10}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={5}
+          onPageChange={handlePageClick}
+          containerClassName={"pagination"}
+          activeClassName={"active"}
+        />
+        <GroupInfoModal
+          setShowGroupInfoModal={setShowGroupInfoModal}
+          showGroupInfoModal={showGroupInfoModal}
+          data={selectedGroupInfo}
+        />
+        <CreateGroupModal
+          setGroupList={setGroupList}
+          showCreateGroupModal={showCreateGroupModal}
+          setShowCreateGroupModal={setShowCreateGroupModal}
+        />
       </Menu>
     </Container>
   );

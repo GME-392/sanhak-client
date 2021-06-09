@@ -7,10 +7,13 @@ import first from "../img/first.png";
 import second from "../img/second.png";
 import third from "../img/third.png";
 import { GROUP_ENDPOINT } from "../constants/URL";
+import GroupInfoModal from "../components/GroupInfoModal/GroupInfoModal";
 
 const Rank = () => {
   const [groupList, setGroupList] = useState([]);
   const [groupRankList, setGroupRankList] = useState([]);
+  const [isGroupModalOpen, setIsGroupModalOpen] = useState(false);
+  const [selectedGroup, setSelectedGroup] = useState(null);
   const [rankType, setRankType] = useState(null);
 
   useEffect(() => {
@@ -138,13 +141,26 @@ const Rank = () => {
                   [{group.member.length}명 / {group.max_member}명]
                 </span>
                 <span>{group.score}점</span>
-                <button style={{ justifySelf: "flex-end" }}>가입 신청하기</button>
+                <button
+                  style={{ justifySelf: "flex-end" }}
+                  onClick={() => {
+                    setSelectedGroup(group);
+                    setIsGroupModalOpen(true);
+                  }}
+                >
+                  가입 신청하기
+                </button>
                 {/* <div>{Object.values(group.rank_member)}</div> */}
               </div>
             );
           })}
         </div>
       </motion.div>
+      <GroupInfoModal
+        showGroupInfoModal={isGroupModalOpen}
+        setShowGroupInfoModal={setIsGroupModalOpen}
+        data={selectedGroup}
+      />
     </Container>
   );
 };
