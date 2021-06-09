@@ -7,9 +7,12 @@ import CreateGroupModal from "../CreateGroupModal/CreateGroupModal";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
+import GroupInfoModal from "../GroupInfoModal/GroupInfoModal";
 
 const GuideMenu = ({ type }) => {
   const [groupList, setGroupList] = useState([]);
+  const [isGroupModalOpen, setIsGroupModalOpen] = useState(false);
+  const [selectedGroupData, setSelectedGroupData] = useState(null);
   const [tagList, setTagList] = useState([]);
   const [showCreateGroupModal, setShowCreateGroupModal] = useState(false);
   const activeUser = useSelector((state) => state.AppState.activeUser);
@@ -60,10 +63,11 @@ const GuideMenu = ({ type }) => {
             </div>
             <div className="Guide__button__container">
               <button className={`Guide__button Guide__button`}>태그로 그룹 찾기</button>
-              <button className={`Guide__button Guide__button--secondary`} onClick={handleShow}>그룹 생성하기</button>
+              <button className={`Guide__button Guide__button--secondary`} onClick={handleShow}>
+                그룹 생성하기
+              </button>
             </div>
           </div>
-          
         );
       case "study":
         return (
@@ -87,7 +91,9 @@ const GuideMenu = ({ type }) => {
             </div>
             <div className="Guide__button__container">
               <button className={`Guide__button Guide__button`}>태그로 그룹 찾기</button>
-              <button className={`Guide__button Guide__button--secondary`} onClick={handleShow}>그룹 생성하기</button>
+              <button className={`Guide__button Guide__button--secondary`} onClick={handleShow}>
+                그룹 생성하기
+              </button>
             </div>
           </div>
         );
@@ -113,7 +119,9 @@ const GuideMenu = ({ type }) => {
             </div>
             <div className="Guide__button__container">
               <button className={`Guide__button Guide__button`}>태그로 그룹 찾기</button>
-              <button className={`Guide__button Guide__button--secondary`} onClick={handleShow}>그룹 생성하기</button>
+              <button className={`Guide__button Guide__button--secondary`} onClick={handleShow}>
+                그룹 생성하기
+              </button>
             </div>
             <div></div>
           </div>
@@ -122,7 +130,6 @@ const GuideMenu = ({ type }) => {
       default:
         return;
     }
-
   };
   return (
     <div className="GuideMenu__container">
@@ -143,19 +150,42 @@ const GuideMenu = ({ type }) => {
                 })
                 .map((group, idx) => {
                   if (idx > 3) return;
-                  return <RecommendedGroup key={idx} data={group} />;
+                  return (
+                    <RecommendedGroup
+                      key={idx}
+                      data={group}
+                      onClick={() => {
+                        setSelectedGroupData(group);
+                        setIsGroupModalOpen(true);
+                      }}
+                    />
+                  );
                 })
             : groupList?.map((group, idx) => {
                 if (idx > 3) return;
-                return <RecommendedGroup key={idx} data={group} />;
+                return (
+                  <RecommendedGroup
+                    key={idx}
+                    data={group}
+                    onClick={() => {
+                      setSelectedGroupData(group);
+                      setIsGroupModalOpen(true);
+                    }}
+                  />
+                );
               })}
         </div>
       </div>
       <CreateGroupModal
-            setGroupList={setGroupList}
-            showCreateGroupModal={showCreateGroupModal}
-            setShowCreateGroupModal={setShowCreateGroupModal}
-          />
+        setGroupList={setGroupList}
+        showCreateGroupModal={showCreateGroupModal}
+        setShowCreateGroupModal={setShowCreateGroupModal}
+      />
+      <GroupInfoModal
+        showGroupInfoModal={isGroupModalOpen}
+        setShowGroupInfoModal={setIsGroupModalOpen}
+        data={selectedGroupData}
+      />
     </div>
   );
 };

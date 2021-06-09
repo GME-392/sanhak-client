@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { createContext, useEffect, useState } from "react";
 //Global Style
 import GlobalStyle from "./components/GlobalStyle";
 //Import Pages
@@ -27,15 +27,23 @@ import GroupStatistics from "./components/GroupStatistics/GroupStatistics";
 import Guide from "./pages/Guide";
 import Message from "./pages/Message";
 
+export const DataContext = createContext();
+
 function App() {
   const location = useLocation();
   const isSignedIn = useSelector((state) => state.AppState.isSignedIn);
   const activeUser = useSelector((state) => state.AppState.activeUser);
   const dispatch = useDispatch();
 
+  const [userData, setUserData] = useState(null);
+
   useEffect(() => {
     checkUser();
   }, [isSignedIn]);
+
+  useEffect(() => {
+    getUserData();
+  }, [activeUser]);
 
   const checkUser = async () => {
     try {
@@ -55,57 +63,65 @@ function App() {
     } catch (err) {}
   };
 
+  const getUserData = async () => {
+    await axios.get(`${USER_ENDPOINT}userid=${activeUser}&funcname=getUser`).then((res) => {
+      setUserData(() => res.data);
+    });
+  };
+
   return (
     <div className="App">
       <GlobalStyle />
 
       <Nav />
-      <AnimatePresence exitBeforeEnter>
-        <Switch location={location} key={location.pathname}>
-          <Route path="/" exact>
-            <About />
-          </Route>
-          <Route path="/group" exact>
-            <Group />
-          </Route>
-          <Route path="/guide" exact>
-            <Guide />
-          </Route>
-          <Route path="/rank" exact>
-            <Rank />
-          </Route>
-          <Route path="/login" exact>
-            <Login />
-          </Route>
-          <Route path="/register" exact>
-            <Register />
-          </Route>
+      <DataContext.Provider value={{ userData: userData }}>
+        <AnimatePresence exitBeforeEnter>
+          <Switch location={location} key={location.pathname}>
+            <Route path="/" exact>
+              <About />
+            </Route>
+            <Route path="/group" exact>
+              <Group />
+            </Route>
+            <Route path="/guide" exact>
+              <Guide />
+            </Route>
+            <Route path="/rank" exact>
+              <Rank />
+            </Route>
+            <Route path="/login" exact>
+              <Login />
+            </Route>
+            <Route path="/register" exact>
+              <Register />
+            </Route>
 
-          <Route path="/forgot" exact>
-            <Forgot />
-          </Route>
+            <Route path="/forgot" exact>
+              <Forgot />
+            </Route>
 
-          <Route path={`/message`}>
-            <Message />
-          </Route>
+            <Route path={`/message`}>
+              <Message />
+            </Route>
 
-          <Route
-            path={`/user/:username`}
-            render={(props) => <User name={"chanmin"} {...props} />}
-          />
-          <Route path={`/group/:groupid`} exact render={(props) => <GroupDetail {...props} />} />
-          {/* 
+            <Route
+              path={`/user/:username`}
+              render={(props) => <User name={"chanmin"} {...props} />}
+            />
+            <Route path={`/group/:groupid`} exact render={(props) => <GroupDetail {...props} />} />
+            {/* 
           <Route
             path={`/group/:groupid/info`}
             exact
             render={(props) => <GroupStatistics {...props} />}
           /> */}
 
-          <Route path={`/user/:username`}>
-            <User />
-          </Route>
-        </Switch>
-      </AnimatePresence>
+            <Route path={`/user/:username`}>
+              <User />
+            </Route>
+          </Switch>
+        </AnimatePresence>
+      </DataContext.Provider>
       <Footer />
     </div>
   );

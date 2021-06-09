@@ -10,8 +10,8 @@ import GroupInfoMember from "../GroupInfoMember/GroupInfoMember";
 import members from "../../img/members.png";
 import limit from "../../img/limit.png";
 import title from "../../img/title.png";
-import { DataContext } from "../../pages/Group";
 import fairy from "../../img/fairy.png";
+import { DataContext } from "../../App";
 
 const GroupInfoModal = ({ showGroupInfoModal, setShowGroupInfoModal, data }) => {
   const [isJoined, setIsJoined] = useState(false);

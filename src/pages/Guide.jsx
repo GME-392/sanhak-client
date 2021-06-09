@@ -6,7 +6,6 @@ import study from "../img/study.png";
 import prize from "../img/prize.png";
 import company from "../img/company.png";
 import GuideMenu from "../components/GuideMenu/GuideMenu";
-import { useHistory } from "react-router-dom";
 
 const Guide = () => {
   const [type, setType] = useState(null);
